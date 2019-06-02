@@ -6,6 +6,7 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@attribute name="styles" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
+<%@attribute name="title" fragment="true" %>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <jsp:invoke fragment="title" />
     <link href="${context}/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
     <link href="${context}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${context}/lib/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">

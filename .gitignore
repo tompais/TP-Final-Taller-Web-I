@@ -5,3 +5,5 @@
 /Codigo Fuente/CineApp/.settings
 /Codigo Fuente/CineApp/.idea
 /Codigo Fuente/CineApp/src/main/resources/hibernateContext.xml
+
+*.DS_Store

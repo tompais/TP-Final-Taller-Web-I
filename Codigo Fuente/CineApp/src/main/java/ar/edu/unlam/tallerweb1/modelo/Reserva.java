@@ -1,24 +1,23 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Entrada {
+public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private Integer numeroTicket;
-	private Date fechaCompra;
+	private String fechaCompra;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -40,11 +39,11 @@ public class Entrada {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public Date getFechaCompra() {
+	public String getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(String fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 

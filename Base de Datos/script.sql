@@ -6114,13 +6114,11 @@ CREATE TABLE Usuario(
     FechaNacimiento date NOT NULL,
     Username varchar(30) UNIQUE NOT NULL,
     UPassword varchar(100) NOT NULL,
-    DireccionId integer NOT NULL, 
     RolId integer NOT NULL,
     GeneroId integer NOT NULL,
     Email varchar(30) UNIQUE NOT NULL,
     FechaBaja date,
     constraint PK_Usuario primary key (Id),
-    constraint FK_Usuario_Direccion foreign key (DireccionId) references Direccion (Id),
     constraint FK_Usuario_Rol foreign key (RolId) references Rol (Id),
     constraint FK_Usuario_Genero FOREIGN KEY (GeneroId) REFERENCES Genero (Id)
 );
@@ -6287,13 +6285,75 @@ CREATE TABLE Funcion(
     constraint FK_Funcion_Cartelera foreign key (CarteleraId) references Cartelera (Id)
 );
 
-CREATE TABLE Entrada(
+CREATE TABLE Reserva(
     Id integer NOT NULL AUTO_INCREMENT,
     NumeroTicket integer NOT NULL UNIQUE,
     FechaCompra datetime,
     UsuarioId integer NOT NULL,
     FuncionId integer NOT NULL,
-    constraint PK_Entrada primary key (Id),
-    constraint FK_Entrada_Usuario foreign key (UsuarioId) references Usuario (Id),
-    constraint FK_Entrada_Funcion foreign key (FuncionId) references Funcion (Id)
+    constraint PK_Reserva primary key (Id),
+    constraint FK_Reserva_Usuario foreign key (UsuarioId) references Usuario (Id),
+    constraint FK_Reserva_Funcion foreign key (FuncionId) references Funcion (Id)
 );
+
+CREATE TABLE ReservaAsiento(
+    Id integer NOT NULL AUTO_INCREMENT,
+    ReservaId integer NOT NULL,
+    AsientoId integer NOT NULL,
+    constraint PK_ReservaAsiento primary key (Id),
+    constraint FK_ReservaAsiento_Reserva foreign key (ReservaId) references Reserva (Id),
+    constraint FK_ReservaAsiento_Asiento foreign key (AsientoId) references Asiento (Id)
+);
+
+INSERT INTO Rol (Nombre) VALUES ("Usuario");
+
+INSERT INTO Permiso (Nombre) VALUE ("Reservar");
+
+INSERT INTO PermisoRol (PermisoId, RolId) VALUES (1, 1);
+
+INSERT INTO Genero (Nombre) VALUE ("Masculino"),
+                                ("Femenino"),
+                                ("Otro");
+
+INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) 
+VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
+
+INSERT INTO Direccion (Calle, Altura, ProvinciaId, PartIdoId, LocalIdadId) VALUES ("Aquiles", 509, 1, 3, 764);
+
+INSERT INTO Pais (Nombre) VALUES ("Estados Unidos");
+
+INSERT INTO Clasificacion (Nombre) VALUES ("+13");
+
+INSERT INTO Pelicula (FechaEstreno, Nombre, Sinopsis, Duracion, PaisId, ClasificacionId)
+VALUES ("2019-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
+
+INSERT INTO Actor (Nombre, Apellido) VALUES ("Robert", "Downey JR.");
+
+INSERT INTO GeneroPelicula (Nombre) VALUES ("Superheroes");
+
+INSERT INTO PeliculaActor (PeliculaId, ActorId) VALUES (1, 1);
+
+INSERT INTO PeliculaGenero (PeliculaId, GeneroId) VALUES (1, 1);
+
+INSERT INTO Tarjeta (Numero, CodigoSeguridad, UsuarioId, DNITitular, FechaVencimiento)
+VALUES (12345678, 123, 1, 39670211, "2020-04-17");
+
+INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
+
+INSERT INTO Cartelera (FechaDesde, FechaHasta) VALUES ("2019-06-12", "2019-06-19");
+
+INSERT INTO EstadoAsiento (Estado) VALUES ("Libre"),
+                                        ("Ocupado");
+
+INSERT INTO Cine (Nombre, DireccionId) VALUES ("Abasto", 1);
+
+INSERT INTO Sala (Numero, CineId) VALUES (1, 1);
+
+INSERT INTO TipoAsiento (Tipo) VALUES ("Standard");
+
+INSERT INTO Asiento (Fila, Columna, TipoAsientoId, EstadoAsientoId, SalaId)
+VALUES (1, 1, 1, 1, 1),
+        (1, 2, 1, 1, 1);
+
+INSERT INTO Funcion (DiaYHora, Precio, TipoFuncionId, CarteleraId, SalaId, PeliculaId)
+VALUES ("2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);

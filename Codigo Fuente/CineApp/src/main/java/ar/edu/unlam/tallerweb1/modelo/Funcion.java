@@ -25,10 +25,18 @@ public class Funcion {
 	private TipoFuncion tipoFuncion;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Cartelera cartelera;
+	private Sala sala;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Sala sala;
+	private Cine cine;
+
+	public Cine getCine() {
+		return cine;
+	}
+
+	public void setCine(Cine cine) {
+		this.cine = cine;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,14 +76,6 @@ public class Funcion {
 
 	public void setTipoFuncion(TipoFuncion tipoFuncion) {
 		this.tipoFuncion = tipoFuncion;
-	}
-
-	public Cartelera getCartelera() {
-		return cartelera;
-	}
-
-	public void setCartelera(Cartelera cartelera) {
-		this.cartelera = cartelera;
 	}
 
 	public Sala getSala() {

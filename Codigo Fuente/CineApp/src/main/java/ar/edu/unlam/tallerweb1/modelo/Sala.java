@@ -1,11 +1,14 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sala {
@@ -17,6 +20,18 @@ public class Sala {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
+	
+	@Id
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Asiento> asientos;
+
+	public List<Asiento> getAsientos() {
+		return asientos;
+	}
+
+	public void setAsientos(List<Asiento> asientos) {
+		this.asientos = asientos;
+	}
 
 	public Cine getCine() {
 		return cine;

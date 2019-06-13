@@ -1,10 +1,13 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,6 +20,18 @@ public class Cine {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Direccion direccion;
+	
+	@Id
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Sala> salas;
+
+	public List<Sala> getSalas() {
+		return salas;
+	}
+
+	public void setSalas(List<Sala> salas) {
+		this.salas = salas;
+	}
 
 	public Long getId() {
 		return id;

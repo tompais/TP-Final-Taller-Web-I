@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class RolPermiso {
+public class UsuarioTarjeta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Rol rol;
+	private Usuario usuario;
 	
 	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Permiso permiso;
+	private Tarjeta tarjeta;
 
 	public Long getId() {
 		return id;
@@ -29,19 +29,19 @@ public class RolPermiso {
 		this.id = id;
 	}
 
-	public Rol getRol() {
-		return rol;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setRol(Rol rol) {
-		this.rol = rol;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Permiso getPermiso() {
-		return permiso;
+	public Tarjeta getTarjeta() {
+		return tarjeta;
 	}
 
-	public void setPermiso(Permiso permiso) {
-		this.permiso = permiso;
+	public void setTarjeta(Tarjeta tarjeta) {
+		this.tarjeta = tarjeta;
 	}
 }

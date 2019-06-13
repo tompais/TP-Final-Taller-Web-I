@@ -6113,16 +6113,16 @@ CREATE TABLE Usuario(
     RolId integer NOT NULL,
     GeneroId integer NOT NULL,
     Email varchar(30) UNIQUE NOT NULL,
-    FechaBaja date,
+    FechaBaja datetime,
     constraint PK_Usuario primary key (Id),
     constraint FK_Usuario_Rol foreign key (RolId) references Rol (Id),
     constraint FK_Usuario_Genero FOREIGN KEY (GeneroId) REFERENCES Genero (Id)
 );
 
 CREATE TABLE LinkReferido(
-    Id integer NOT NULL,
-    Link varchar(50) NOT NULL,
-    FechaBaja date,
+    Id integer auto_increment NOT NULL,
+    Link varchar(50) UNIQUE NOT NULL,
+    FechaBaja datetime,
     UsuarioId integer NOT NULL,
     constraint PK_LinkReferido primary key (Id),
     constraint FK_LinkReferido_Usuario foreign key (UsuarioId) references Usuario (Id)
@@ -6132,11 +6132,18 @@ CREATE TABLE Tarjeta(
     Id integer NOT NULL AUTO_INCREMENT,
     Numero integer NOT NULL UNIQUE,
     CodigoSeguridad integer NOT NULL,
-    UsuarioId integer NOT NULL,
     DNITitular integer NOT NULL UNIQUE,
     FechaVencimiento date NOT NULL,
-    constraint PK_Tarjeta primary key (Id),
-    constraint FK_Tarjeta_Usuario foreign key (UsuarioId) references Usuario (Id)
+    constraint PK_Tarjeta primary key (Id)
+);
+
+CREATE TABLE UsuarioTarjeta(
+	Id integer NOT NULL auto_increment,
+    TarjetaId integer NOT NULL,
+    UsuarioId integer NOT NULL,
+    constraint PK_UsuarioTarjeta primary key (Id),
+    constraint FK_UsuarioTarjeta_Tarjeta foreign key (TarjetaId) references Tarjeta (Id),
+    constraint FK_UsuarioTarjeta_Usuario foreign key (UsuarioId) references Usuario (Id)
 );
 
 CREATE TABLE Cine(
@@ -6182,7 +6189,7 @@ CREATE TABLE Asiento(
 
 CREATE TABLE TipoCalificacion(
     Id integer NOT NULL AUTO_INCREMENT,
-    Tipo bit NOT NULL,
+    Tipo varchar(15) NOT NULL,
     constraint PK_TipoCalificacion primary key (Id)
 );
 
@@ -6271,7 +6278,7 @@ CREATE TABLE TipoFuncion(
 CREATE TABLE Funcion(
     Id integer NOT NULL AUTO_INCREMENT,
     DiaYHora datetime NOT NULL,
-    Precio float NOT NULL,
+    Precio decimal(5,2) NOT NULL,
     PeliculaId integer NOT NULL,
     TipoFuncionId integer NOT NULL,
     SalaId integer NOT NULL,
@@ -6314,7 +6321,8 @@ INSERT INTO Genero (Nombre) VALUE ("Masculino"),
                                 ("Otro");
 
 INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) 
-VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
+VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1),
+		("Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
 
 INSERT INTO Direccion (Calle, Altura, LocalIdadId) VALUES ("Aquiles", 509, 764);
 
@@ -6333,8 +6341,10 @@ INSERT INTO PeliculaActor (PeliculaId, ActorId) VALUES (1, 1);
 
 INSERT INTO PeliculaGenero (PeliculaId, GeneroId) VALUES (1, 1);
 
-INSERT INTO Tarjeta (Numero, CodigoSeguridad, UsuarioId, DNITitular, FechaVencimiento)
-VALUES (12345678, 123, 1, 39670211, "2020-04-17");
+INSERT INTO Tarjeta (Numero, CodigoSeguridad, DNITitular, FechaVencimiento)
+VALUES (12345678, 123, 39670211, "2020-04-17");
+
+INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,1), (1,2);
 
 INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
 

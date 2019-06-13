@@ -6071,12 +6071,8 @@ CREATE TABLE Direccion (
 	Id integer NOT NULL auto_increment,
     Calle varchar(50) NOT NULL,
     Altura integer NOT NULL,
-    ProvinciaId integer NOT NULL,
-    PartidoId integer NOT NULL,
     LocalidadId integer NOT NULL,
     constraint PK_Direccion primary key (Id),
-    constraint FK_Direccion_Provincia foreign key (ProvinciaId) references Provincia (ID),
-    constraint FK_Direccion_Partido foreign key (PartidoId) references Partido (ID),
     constraint FK_Direccion_Localidad foreign key (LocalidadId) references Localidad (ID)
 );
 
@@ -6228,6 +6224,15 @@ CREATE TABLE Pelicula(
     constraint FK_Pelicula_Clasificacion foreign key (ClasificacionId) references Clasificacion (Id)
 );
 
+CREATE TABLE PeliculaCine(
+    Id integer NOT NULL AUTO_INCREMENT,
+    PeliculaId integer NOT NULL,
+    CineId integer NOT NULL,
+    constraint PK_PeliculaCine primary key (Id, PeliculaId, CineId),
+    constraint FK_PeliculaCine_Pelicula foreign key (PeliculaId) references Pelicula (Id),
+    constraint FK_PeliculaCine_Cine foreign key (CineId) references Cine (Id)
+);
+
 CREATE TABLE Calificacion(
     Id integer NOT NULL AUTO_INCREMENT,
     UsuarioId integer NOT NULL,
@@ -6263,13 +6268,6 @@ CREATE TABLE TipoFuncion(
     constraint PK_TipoFuncion primary key (Id)
 );
 
-CREATE TABLE Cartelera(
-    Id integer NOT NULL AUTO_INCREMENT,
-    FechaDesde date,
-    FechaHasta date,
-    constraint PK_Cartelera primary key (Id)
-);
-
 CREATE TABLE Funcion(
     Id integer NOT NULL AUTO_INCREMENT,
     DiaYHora datetime NOT NULL,
@@ -6277,12 +6275,12 @@ CREATE TABLE Funcion(
     PeliculaId integer NOT NULL,
     TipoFuncionId integer NOT NULL,
     SalaId integer NOT NULL,
-    CarteleraId integer NOT NULL,
+    CineId integer NOT NULL,
     constraint PK_Funcion primary key (Id),
     constraint FK_Funcion_Pelicula foreign key (PeliculaId) references Pelicula (Id),
     constraint FK_Funcion_TipoFuncion foreign key (TipoFuncionId) references TipoFuncion (Id),
-    constraint FK_Funcion_Sala foreign key (SalaId) references Sala (Id),
-    constraint FK_Funcion_Cartelera foreign key (CarteleraId) references Cartelera (Id)
+    constraint FK_Funcion_Cine foreign key (CineId) references Cine (Id),
+    constraint FK_Funcion_Sala foreign key (SalaId) references Sala (Id)
 );
 
 CREATE TABLE Reserva(
@@ -6300,7 +6298,7 @@ CREATE TABLE ReservaAsiento(
     Id integer NOT NULL AUTO_INCREMENT,
     ReservaId integer NOT NULL,
     AsientoId integer NOT NULL,
-    constraint PK_ReservaAsiento primary key (Id),
+    constraint PK_ReservaAsiento primary key (Id, ReservaId, AsientoId),
     constraint FK_ReservaAsiento_Reserva foreign key (ReservaId) references Reserva (Id),
     constraint FK_ReservaAsiento_Asiento foreign key (AsientoId) references Asiento (Id)
 );
@@ -6318,7 +6316,7 @@ INSERT INTO Genero (Nombre) VALUE ("Masculino"),
 INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) 
 VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
 
-INSERT INTO Direccion (Calle, Altura, ProvinciaId, PartIdoId, LocalIdadId) VALUES ("Aquiles", 509, 1, 3, 764);
+INSERT INTO Direccion (Calle, Altura, LocalIdadId) VALUES ("Aquiles", 509, 764);
 
 INSERT INTO Pais (Nombre) VALUES ("Estados Unidos");
 
@@ -6340,12 +6338,12 @@ VALUES (12345678, 123, 1, 39670211, "2020-04-17");
 
 INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
 
-INSERT INTO Cartelera (FechaDesde, FechaHasta) VALUES ("2019-06-12", "2019-06-19");
-
 INSERT INTO EstadoAsiento (Estado) VALUES ("Libre"),
                                         ("Ocupado");
 
 INSERT INTO Cine (Nombre, DireccionId) VALUES ("Abasto", 1);
+
+INSERT INTO PeliculaCine (PeliculaId, CineId) VALUES (1, 1);
 
 INSERT INTO Sala (Numero, CineId) VALUES (1, 1);
 
@@ -6355,5 +6353,5 @@ INSERT INTO Asiento (Fila, Columna, TipoAsientoId, EstadoAsientoId, SalaId)
 VALUES (1, 1, 1, 1, 1),
         (1, 2, 1, 1, 1);
 
-INSERT INTO Funcion (DiaYHora, Precio, TipoFuncionId, CarteleraId, SalaId, PeliculaId)
+INSERT INTO Funcion (DiaYHora, Precio, TipoFuncionId, SalaId, PeliculaId, CineId)
 VALUES ("2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);

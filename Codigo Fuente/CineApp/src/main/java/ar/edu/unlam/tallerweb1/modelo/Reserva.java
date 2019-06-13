@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ public class Reserva {
 	private Long id;
 	
 	private Integer numeroTicket;
-	private String fechaCompra;
+	private Date fechaCompra;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
@@ -39,11 +41,11 @@ public class Reserva {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public String getFechaCompra() {
+	public Date getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(String fechaCompra) {
+	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 

@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.dao;
 
 import ar.edu.unlam.tallerweb1.modelo.TipoFuncion;
+import org.springframework.stereotype.Repository;
 
+@Repository("TipoFuncionDao")
 public class TipoFuncionDaoImpl implements TipoFuncionDao{
 
 	@Override

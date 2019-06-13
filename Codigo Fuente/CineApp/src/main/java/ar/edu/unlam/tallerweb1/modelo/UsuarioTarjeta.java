@@ -13,11 +13,9 @@ public class UsuarioTarjeta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Tarjeta tarjeta;
 

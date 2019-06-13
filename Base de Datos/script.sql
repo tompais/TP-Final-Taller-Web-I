@@ -6339,7 +6339,7 @@ INSERT INTO GeneroPelicula (Nombre) VALUES ("Superheroes");
 
 INSERT INTO PeliculaActor (PeliculaId, ActorId) VALUES (1, 1);
 
-INSERT INTO PeliculaGenero (PeliculaId, GeneroId) VALUES (1, 1);
+INSERT INTO PeliculaGeneroPelicula (PeliculaId, GeneroId) VALUES (1, 1);
 
 INSERT INTO Tarjeta (Numero, CodigoSeguridad, DNITitular, FechaVencimiento)
 VALUES (12345678, 123, 39670211, "2020-04-17");

@@ -21,7 +21,6 @@ public class Sala {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
 	
-	@Id
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Asiento> asientos;
 

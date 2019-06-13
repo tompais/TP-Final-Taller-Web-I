@@ -13,11 +13,9 @@ public class PeliculaActor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Pelicula pelicula;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Actor actor;
 

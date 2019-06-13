@@ -8,16 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Direccion {
+public class PeliculaCine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String calle;
-	private Integer altura;
-	
+	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Localidad localidad;
+	private Pelicula pelicula;
+	
+	@Id
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Cine cine;
 
 	public Long getId() {
 		return id;
@@ -27,27 +29,19 @@ public class Direccion {
 		this.id = id;
 	}
 
-	public String getCalle() {
-		return calle;
+	public Pelicula getPelicula() {
+		return pelicula;
 	}
 
-	public void setCalle(String calle) {
-		this.calle = calle;
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 
-	public Integer getAltura() {
-		return altura;
+	public Cine getCine() {
+		return cine;
 	}
 
-	public void setAltura(Integer altura) {
-		this.altura = altura;
-	}
-
-	public Localidad getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
+	public void setCine(Cine cine) {
+		this.cine = cine;
 	}
 }

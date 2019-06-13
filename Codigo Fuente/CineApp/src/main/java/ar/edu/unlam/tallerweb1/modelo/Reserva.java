@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Reserva {
 	@Id
@@ -17,7 +20,9 @@ public class Reserva {
 	private Long id;
 	
 	private Integer numeroTicket;
-	private Date fechaCompra;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime fechaCompra;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
@@ -41,11 +46,11 @@ public class Reserva {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public Date getFechaCompra() {
+	public LocalDateTime getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(LocalDateTime fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 

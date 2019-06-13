@@ -2,21 +2,33 @@ package ar.edu.unlam.tallerweb1.dao;
 
 import ar.edu.unlam.tallerweb1.modelo.Asiento;
 import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
+
+import javax.inject.Inject;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository("AsientoDao")
 public class AsientoDaoImpl implements AsientoDao{
-
+	@Inject
+	private SessionFactory sessionFactory;
+	
 	@Override
 	public Asiento consultarAsiento(Asiento asiento) {
-		// TODO Auto-generated method stub
-		return null;
+		final Session session = sessionFactory.getCurrentSession();
+		
+		return (Asiento) session.createCriteria(Asiento.class)
+				.add(Restrictions.eq("id", asiento.getId()))
+				.uniqueResult();
 	}
 
 	@Override
-	public void cambiarEstado(EstadoAsiento estadoAsiento) {
-		// TODO Auto-generated method stub
+	public void cambiarEstado(Asiento asiento) {
+		final Session session = sessionFactory.getCurrentSession();
 		
+		session.update(asiento);
 	}
 
 }

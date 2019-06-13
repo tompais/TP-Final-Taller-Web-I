@@ -13,11 +13,9 @@ public class ReservaAsiento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Reserva reserva;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Asiento asiento;
 

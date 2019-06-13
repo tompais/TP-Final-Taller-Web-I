@@ -11,7 +11,7 @@ public class TipoCalificacion {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Boolean tipo;
+	private String tipo;
 
 	public Long getId() {
 		return id;
@@ -21,11 +21,11 @@ public class TipoCalificacion {
 		this.id = id;
 	}
 
-	public Boolean getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Boolean tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 }

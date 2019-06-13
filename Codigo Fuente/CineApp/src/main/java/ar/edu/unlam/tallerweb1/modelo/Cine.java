@@ -21,7 +21,6 @@ public class Cine {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Direccion direccion;
 	
-	@Id
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Sala> salas;
 

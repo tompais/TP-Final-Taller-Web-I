@@ -2,7 +2,9 @@ package ar.edu.unlam.tallerweb1.dao;
 
 import ar.edu.unlam.tallerweb1.modelo.Asiento;
 import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
+import org.springframework.stereotype.Repository;
 
+@Repository("AsientoDao")
 public class AsientoDaoImpl implements AsientoDao{
 
 	@Override

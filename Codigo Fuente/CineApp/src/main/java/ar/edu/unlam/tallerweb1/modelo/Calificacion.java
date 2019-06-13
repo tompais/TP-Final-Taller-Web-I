@@ -13,14 +13,13 @@ public class Calificacion {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Id
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
-	@Id
 	@OneToOne(cascade = CascadeType.ALL)
 	private Pelicula pelicula;
 
+	@OneToOne(cascade = CascadeType.ALL)
 	private TipoCalificacion tipoCalificacion;
 
 	public Long getId() {

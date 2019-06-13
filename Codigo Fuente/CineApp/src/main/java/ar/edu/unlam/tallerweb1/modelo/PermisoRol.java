@@ -13,11 +13,9 @@ public class PermisoRol {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Rol rol;
 	
-	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Permiso permiso;
 

@@ -6068,7 +6068,7 @@ INSERT INTO Localidad (ID,PartidoId,Nombre) VALUES(5439,571,'YERBA BUENA');
 /*Fin de Tablas de Provincias y Localidad*/
 
 CREATE TABLE Direccion (
-	Id integer NOT NULL auto_increment,
+	Id bigint unsigned NOT NULL auto_increment,
     Calle varchar(50) NOT NULL,
     Altura integer NOT NULL,
     LocalidadId integer NOT NULL,
@@ -6077,103 +6077,110 @@ CREATE TABLE Direccion (
 );
 
 CREATE TABLE Rol(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) UNIQUE NOT NULL,
     constraint PK_Rol primary key (Id)
 );
 
 CREATE TABLE Permiso(
-	Id integer NOT NULL auto_increment,
+	Id bigint unsigned NOT NULL auto_increment,
     Nombre varchar(30) UNIQUE NOT NULL,
     constraint PK_Permiso primary key (Id)
 );
 
 CREATE TABLE PermisoRol(
-	Id integer auto_increment not null unique,
-    PermisoId integer NOT NULL,
-    RolId integer NOT NULL,
+	Id bigint unsigned auto_increment not null unique,
+    PermisoId bigint unsigned NOT NULL,
+    RolId bigint unsigned NOT NULL,
     constraint PK_PermisoRol primary key (Id, PermisoId, RolId),
     constraint FK_PermisoRol_Permiso foreign key (PermisoId) references Permiso (Id),
     constraint FK_PermisoRol_Rol foreign key (RolId) references Rol (Id)
 );
 
 CREATE TABLE Genero (
-	Id integer NOT NULL AUTO_INCREMENT,
+	Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) UNIQUE NOT NULL,
     constraint PK_Genero primary key (Id)
 );
 
 CREATE TABLE Usuario(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
     Apellido varchar(30) NOT NULL,
     FechaNacimiento date NOT NULL,
     Username varchar(30) UNIQUE NOT NULL,
     UPassword varchar(100) NOT NULL,
-    RolId integer NOT NULL,
-    GeneroId integer NOT NULL,
+    RolId bigint unsigned NOT NULL,
+    GeneroId bigint unsigned NOT NULL,
     Email varchar(30) UNIQUE NOT NULL,
-    FechaBaja date,
+    FechaBaja datetime,
     constraint PK_Usuario primary key (Id),
     constraint FK_Usuario_Rol foreign key (RolId) references Rol (Id),
     constraint FK_Usuario_Genero FOREIGN KEY (GeneroId) REFERENCES Genero (Id)
 );
 
 CREATE TABLE LinkReferido(
-    Id integer NOT NULL,
-    Link varchar(50) NOT NULL,
-    FechaBaja date,
-    UsuarioId integer NOT NULL,
+    Id bigint unsigned auto_increment NOT NULL,
+    Link varchar(50) UNIQUE NOT NULL,
+    FechaBaja datetime,
+    UsuarioId bigint unsigned NOT NULL,
     constraint PK_LinkReferido primary key (Id),
     constraint FK_LinkReferido_Usuario foreign key (UsuarioId) references Usuario (Id)
 );
 
 CREATE TABLE Tarjeta(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Numero integer NOT NULL UNIQUE,
     CodigoSeguridad integer NOT NULL,
-    UsuarioId integer NOT NULL,
     DNITitular integer NOT NULL UNIQUE,
     FechaVencimiento date NOT NULL,
-    constraint PK_Tarjeta primary key (Id),
-    constraint FK_Tarjeta_Usuario foreign key (UsuarioId) references Usuario (Id)
+    constraint PK_Tarjeta primary key (Id)
+);
+
+CREATE TABLE UsuarioTarjeta(
+	Id bigint unsigned NOT NULL auto_increment,
+    TarjetaId bigint unsigned NOT NULL,
+    UsuarioId bigint unsigned NOT NULL,
+    constraint PK_UsuarioTarjeta primary key (Id),
+    constraint FK_UsuarioTarjeta_Tarjeta foreign key (TarjetaId) references Tarjeta (Id),
+    constraint FK_UsuarioTarjeta_Usuario foreign key (UsuarioId) references Usuario (Id)
 );
 
 CREATE TABLE Cine(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
-    DireccionId integer NOT NULL,
+    DireccionId bigint unsigned NOT NULL,
     constraint PK_Cine primary key (Id),
     constraint FK_Cine_Direccion foreign key (DireccionId) references Direccion (Id)
 );
 
 CREATE TABLE Sala(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Numero integer NOT NULL,
-    CineId integer NOT NULL,
+    CineId bigint unsigned NOT NULL,
     constraint PK_Sala primary key (Id),
     constraint FK_Sala_Cine foreign key (CineId) references Cine (Id)
 );
 
 CREATE TABLE TipoAsiento(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Tipo varchar(30) NOT NULL,
     constraint PK_TipoAsiento primary key (Id)
 );
 
 CREATE TABLE EstadoAsiento(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Estado varchar(30) NOT NULL,
     constraint PK_EstadoAsiento primary key (Id)
 );
 
 CREATE TABLE Asiento(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Fila integer NOT NULL,
     Columna integer NOT NULL,
-    SalaId integer NOT NULL,
-    TipoAsientoId integer NOT NULL,
-    EstadoAsientoId integer NOT NULL,
+    SalaId bigint unsigned NOT NULL,
+    TipoAsientoId bigint unsigned NOT NULL,
+    EstadoAsientoId bigint unsigned NOT NULL,
     constraint PK_Asiento primary key (Id),
     constraint FK_Asiento_Sala foreign key (SalaId) references Sala (Id),
     constraint FK_Asiento_TipoAsiento foreign key (TipoAsientoId) references TipoAsiento (Id),
@@ -6181,63 +6188,63 @@ CREATE TABLE Asiento(
 );
 
 CREATE TABLE TipoCalificacion(
-    Id integer NOT NULL AUTO_INCREMENT,
-    Tipo bit NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    Tipo varchar(15) NOT NULL,
     constraint PK_TipoCalificacion primary key (Id)
 );
 
 CREATE TABLE Pais(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
     constraint PK_Pais primary key (Id)
 );
 
 CREATE TABLE GeneroPelicula(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
     constraint PK_GeneroPelicula primary key (Id)
 );
 
 CREATE TABLE Actor(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
     Apellido varchar(30) NOT NULL,
     constraint PK_Actor primary key (Id)
 );
 
 CREATE TABLE Clasificacion(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Nombre varchar(30) NOT NULL,
     constraint PK_Clasificacion primary key (Id)
 );
 
 CREATE TABLE Pelicula(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     FechaEstreno date,
     Nombre varchar(30) NOT NULL,
     Sinopsis varchar(200) NOT NULL,
     Duracion integer NOT NULL,
-    PaisId integer NOT NULL,
-    ClasificacionId integer NOT NULL,
+    PaisId bigint unsigned NOT NULL,
+    ClasificacionId bigint unsigned NOT NULL,
     constraint PK_Pelicula primary key (Id),
     constraint FK_Pelicula_Pais foreign key (PaisId) references Pais (Id),
     constraint FK_Pelicula_Clasificacion foreign key (ClasificacionId) references Clasificacion (Id)
 );
 
 CREATE TABLE PeliculaCine(
-    Id integer NOT NULL AUTO_INCREMENT,
-    PeliculaId integer NOT NULL,
-    CineId integer NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    PeliculaId bigint unsigned NOT NULL,
+    CineId bigint unsigned NOT NULL,
     constraint PK_PeliculaCine primary key (Id, PeliculaId, CineId),
     constraint FK_PeliculaCine_Pelicula foreign key (PeliculaId) references Pelicula (Id),
     constraint FK_PeliculaCine_Cine foreign key (CineId) references Cine (Id)
 );
 
 CREATE TABLE Calificacion(
-    Id integer NOT NULL AUTO_INCREMENT,
-    UsuarioId integer NOT NULL,
-    PeliculaId integer NOT NULL,
-    TipoCalificacionId integer NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    UsuarioId bigint unsigned NOT NULL,
+    PeliculaId bigint unsigned NOT NULL,
+    TipoCalificacionId bigint unsigned NOT NULL,
     constraint PK_Calificacion primary key (Id, UsuarioId, PeliculaId),
     constraint FK_Calificacion_Usuario foreign key (UsuarioId) references Usuario (Id),
     constraint FK_Calificacion_Pelicula foreign key (PeliculaId) references Pelicula (Id),
@@ -6245,37 +6252,37 @@ CREATE TABLE Calificacion(
 );
 
 CREATE TABLE PeliculaGenero(
-    Id integer NOT NULL AUTO_INCREMENT,
-    PeliculaId integer NOT NULL,
-    GeneroId integer NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    PeliculaId bigint unsigned NOT NULL,
+    GeneroId bigint unsigned NOT NULL,
     constraint PK_PeliculaGenero primary key (Id, PeliculaId, GeneroId),
     constraint FK_PeliculaGenero_Pelicula foreign key (PeliculaId) references Pelicula (Id),
     constraint FK_PeliculaGenero_Genero foreign key (GeneroId) references Genero (Id)
 );
 
 CREATE TABLE PeliculaActor(
-    Id integer NOT NULL AUTO_INCREMENT,
-    PeliculaId integer NOT NULL,
-    ActorId integer NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    PeliculaId bigint unsigned NOT NULL,
+    ActorId bigint unsigned NOT NULL,
     constraint PK_PeliculaActor primary key (Id, PeliculaId, ActorId),
     constraint FK_PeliculaActor_Pelicula foreign key (PeliculaId) references Pelicula (Id),
     constraint FK_PeliculaActor_Ator foreign key (ActorId) references Actor (Id)
 );
 
 CREATE TABLE TipoFuncion(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     Tipo varchar(30) NOT NULL,
     constraint PK_TipoFuncion primary key (Id)
 );
 
 CREATE TABLE Funcion(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     DiaYHora datetime NOT NULL,
-    Precio float NOT NULL,
-    PeliculaId integer NOT NULL,
-    TipoFuncionId integer NOT NULL,
-    SalaId integer NOT NULL,
-    CineId integer NOT NULL,
+    Precio decimal(5,2) NOT NULL,
+    PeliculaId bigint unsigned NOT NULL,
+    TipoFuncionId bigint unsigned NOT NULL,
+    SalaId bigint unsigned NOT NULL,
+    CineId bigint unsigned NOT NULL,
     constraint PK_Funcion primary key (Id),
     constraint FK_Funcion_Pelicula foreign key (PeliculaId) references Pelicula (Id),
     constraint FK_Funcion_TipoFuncion foreign key (TipoFuncionId) references TipoFuncion (Id),
@@ -6284,20 +6291,20 @@ CREATE TABLE Funcion(
 );
 
 CREATE TABLE Reserva(
-    Id integer NOT NULL AUTO_INCREMENT,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
     NumeroTicket integer NOT NULL UNIQUE,
     FechaCompra datetime,
-    UsuarioId integer NOT NULL,
-    FuncionId integer NOT NULL,
+    UsuarioId bigint unsigned NOT NULL,
+    FuncionId bigint unsigned NOT NULL,
     constraint PK_Reserva primary key (Id),
     constraint FK_Reserva_Usuario foreign key (UsuarioId) references Usuario (Id),
     constraint FK_Reserva_Funcion foreign key (FuncionId) references Funcion (Id)
 );
 
 CREATE TABLE ReservaAsiento(
-    Id integer NOT NULL AUTO_INCREMENT,
-    ReservaId integer NOT NULL,
-    AsientoId integer NOT NULL,
+    Id bigint unsigned NOT NULL AUTO_INCREMENT,
+    ReservaId bigint unsigned NOT NULL,
+    AsientoId bigint unsigned NOT NULL,
     constraint PK_ReservaAsiento primary key (Id, ReservaId, AsientoId),
     constraint FK_ReservaAsiento_Reserva foreign key (ReservaId) references Reserva (Id),
     constraint FK_ReservaAsiento_Asiento foreign key (AsientoId) references Asiento (Id)
@@ -6314,7 +6321,8 @@ INSERT INTO Genero (Nombre) VALUE ("Masculino"),
                                 ("Otro");
 
 INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) 
-VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
+VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1),
+		("Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
 
 INSERT INTO Direccion (Calle, Altura, LocalIdadId) VALUES ("Aquiles", 509, 764);
 
@@ -6333,10 +6341,14 @@ INSERT INTO PeliculaActor (PeliculaId, ActorId) VALUES (1, 1);
 
 INSERT INTO PeliculaGenero (PeliculaId, GeneroId) VALUES (1, 1);
 
-INSERT INTO Tarjeta (Numero, CodigoSeguridad, UsuarioId, DNITitular, FechaVencimiento)
-VALUES (12345678, 123, 1, 39670211, "2020-04-17");
+INSERT INTO Tarjeta (Numero, CodigoSeguridad, DNITitular, FechaVencimiento)
+VALUES (12345678, 123, 39670211, "2020-04-17");
+
+INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,1), (1,2);
 
 INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
+
+INSERT INTO TipoCalificacion (Tipo) VALUES ("Me Gusta"), ("No Me Gusta");
 
 INSERT INTO EstadoAsiento (Estado) VALUES ("Libre"),
                                         ("Ocupado");

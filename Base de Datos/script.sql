@@ -6348,6 +6348,8 @@ INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,1), (1,2);
 
 INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
 
+INSERT INTO TipoCalificacion (Tipo) VALUES ("Me Gusta", "No Me Gusta");
+
 INSERT INTO EstadoAsiento (Estado) VALUES ("Libre"),
                                         ("Ocupado");
 

@@ -713,6 +713,8 @@ ul {
 }
 .home__carousel .card {
   margin-bottom: 0;
+  background-color: transparent;
+  border: none;
 }
 .home__nav {
   font-size: 38px;
@@ -814,6 +816,12 @@ ul {
 .content__tabs {
   display: none;
 }
+
+.nav-link.active, .nav-tabs, .nav-link:hover, .nav-link.active:hover {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
 .content__mobile-tabs {
   position: relative;
 }
@@ -1237,6 +1245,8 @@ ul {
 ==============================*/
 .card {
   margin-bottom: 30px;
+  background-color: transparent;
+  border: none;
 }
 .card__cover {
   position: relative;

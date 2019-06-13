@@ -10,6 +10,7 @@
 	</jsp:attribute>
 
     <jsp:attribute name="styles">
+        <link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.theme.default.min.css">
 		<link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.carousel.min.css">
 		<link rel="stylesheet" href="${context}/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
         <link rel="stylesheet" href="${context}/lib/noUiSlider/distribute/nouislider.min.css">

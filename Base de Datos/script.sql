@@ -6251,13 +6251,13 @@ CREATE TABLE Calificacion(
     constraint FK_Calificacion_TipoCalificacion foreign key (TipoCalificacionId) references TipoCalificacion (Id)
 );
 
-CREATE TABLE PeliculaGenero(
+CREATE TABLE PeliculaGeneroPelicula(
     Id bigint unsigned NOT NULL AUTO_INCREMENT,
     PeliculaId bigint unsigned NOT NULL,
     GeneroId bigint unsigned NOT NULL,
-    constraint PK_PeliculaGenero primary key (Id, PeliculaId, GeneroId),
-    constraint FK_PeliculaGenero_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_PeliculaGenero_Genero foreign key (GeneroId) references Genero (Id)
+    constraint PK_PeliculaGeneroPelicula primary key (Id, PeliculaId, GeneroId),
+    constraint FK_PeliculaGeneroPelicula_Pelicula foreign key (PeliculaId) references Pelicula (Id),
+    constraint FK_PeliculaGeneroPelicula_Genero foreign key (GeneroId) references Genero (Id)
 );
 
 CREATE TABLE PeliculaActor(

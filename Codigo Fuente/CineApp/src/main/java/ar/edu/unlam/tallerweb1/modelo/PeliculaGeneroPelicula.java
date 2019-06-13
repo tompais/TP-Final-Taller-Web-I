@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PeliculaGeneroPeli {
+public class PeliculaGeneroPelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

@@ -23,8 +23,24 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLoginImpl;
 import ar.edu.unlam.tallerweb1.SpringTest;
 
-
 public class ReservaTest extends SpringTest{
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void traerUsuario()
+	{
+		ServicioLogin servicioLogin = new ServicioLoginImpl();
+		
+		Usuario modelo = new Usuario();
+		modelo.setEmail("ezequiel.allio@gmail.com");
+		modelo.setuPassword("ezeallio");
+		
+		Usuario usuario = servicioLogin.consultarUsuario(modelo);
+		System.out.println("VALOR RECIBIDO DE LA TABLA: " + usuario.getEmail());
+		
+		assertThat(modelo.getEmail()).isEqualTo(usuario.getEmail());
+	}
 	
 	@Test
 	@Transactional
@@ -37,7 +53,7 @@ public class ReservaTest extends SpringTest{
 		
 		Usuario modelo = new Usuario();
 		modelo.setEmail("ezequiel.allio@gmail.com");
-		modelo.setPassword("ezeallio");
+		modelo.setuPassword("ezeallio");
 		
 		Usuario usuario = servicioLogin.consultarUsuario(modelo);
 		

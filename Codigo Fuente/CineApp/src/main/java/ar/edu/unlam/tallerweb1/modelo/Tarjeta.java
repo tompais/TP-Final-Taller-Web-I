@@ -17,13 +17,9 @@ public class Tarjeta {
 	
 	private Integer numero;
 	private Integer codigoSeguridad;
-	private String titular;
 	private Integer DNITitular;
 	private Date fechaVencimiento;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Usuario usuario;
-
 	public Long getId() {
 		return id;
 	}
@@ -48,14 +44,6 @@ public class Tarjeta {
 		this.codigoSeguridad = codigoSeguridad;
 	}
 
-	public String getTitular() {
-		return titular;
-	}
-
-	public void setTitular(String titular) {
-		this.titular = titular;
-	}
-
 	public Integer getDNITitular() {
 		return DNITitular;
 	}
@@ -70,14 +58,6 @@ public class Tarjeta {
 
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 	
 }

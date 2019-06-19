@@ -1,33 +1,3 @@
-DROP SCHEMA IF EXISTS cineapp;
-
-CREATE SCHEMA cineapp;
-
-USE cineapp;
-
-ALTER SCHEMA cineapp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-/*Tabla de Provincias y Localidades*/
-
-CREATE TABLE Provincia (
-	Id INT( 2 ) NOT NULL ,
-	Nombre VARCHAR( 50 ) NOT NULL ,
-	PRIMARY KEY (ID)
-);
-
-CREATE TABLE Partido (
-	Id INT( 3 ) NOT NULL ,
-	ProvinciaId INT ( 2 ) NOT NULL ,
-	Nombre VARCHAR( 100 ) NOT NULL ,
-	PRIMARY KEY (ID)
-);
-
-CREATE TABLE Localidad (
-	Id INT( 4 ) NOT NULL ,
-	PartidoId INT ( 3 ) NOT NULL ,
-	Nombre VARCHAR( 100 ) NOT NULL ,
-	PRIMARY KEY (ID)
-);
-
 INSERT INTO Provincia (ID,Nombre) VALUES(1,'BUENOS AIRES');
 INSERT INTO Provincia (ID,Nombre) VALUES(2,'CATAMARCA');
 INSERT INTO Provincia (ID,Nombre) VALUES(3,'CHACO');
@@ -6065,273 +6035,27 @@ INSERT INTO Localidad (ID,PartidoId,Nombre) VALUES(5436,565,'VIPOS');
 INSERT INTO Localidad (ID,PartidoId,Nombre) VALUES(5437,566,'YACUCHINA');
 INSERT INTO Localidad (ID,PartidoId,Nombre) VALUES(5438,572,'YANIMAS');
 INSERT INTO Localidad (ID,PartidoId,Nombre) VALUES(5439,571,'YERBA BUENA');
-/*Fin de Tablas de Provincias y Localidad*/
-
-CREATE TABLE Direccion (
-	Id bigint unsigned NOT NULL auto_increment,
-    Calle varchar(50) NOT NULL,
-    Altura integer NOT NULL,
-    LocalidadId integer NOT NULL,
-    constraint PK_Direccion primary key (Id),
-    constraint FK_Direccion_Localidad foreign key (LocalidadId) references Localidad (ID)
-);
-
-CREATE TABLE Rol(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) UNIQUE NOT NULL,
-    constraint PK_Rol primary key (Id)
-);
-
-CREATE TABLE Permiso(
-	Id bigint unsigned NOT NULL auto_increment,
-    Nombre varchar(30) UNIQUE NOT NULL,
-    constraint PK_Permiso primary key (Id)
-);
-
-CREATE TABLE PermisoRol(
-	Id bigint unsigned auto_increment not null unique,
-    PermisoId bigint unsigned NOT NULL,
-    RolId bigint unsigned NOT NULL,
-    constraint PK_PermisoRol primary key (Id, PermisoId, RolId),
-    constraint FK_PermisoRol_Permiso foreign key (PermisoId) references Permiso (Id),
-    constraint FK_PermisoRol_Rol foreign key (RolId) references Rol (Id)
-);
-
-CREATE TABLE Genero (
-	Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) UNIQUE NOT NULL,
-    constraint PK_Genero primary key (Id)
-);
-
-CREATE TABLE Usuario(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    Apellido varchar(30) NOT NULL,
-    FechaNacimiento date NOT NULL,
-    Username varchar(30) UNIQUE NOT NULL,
-    UPassword varchar(100) NOT NULL,
-    RolId bigint unsigned NOT NULL,
-    GeneroId bigint unsigned NOT NULL,
-    Email varchar(30) UNIQUE NOT NULL,
-    FechaBaja datetime,
-    constraint PK_Usuario primary key (Id),
-    constraint FK_Usuario_Rol foreign key (RolId) references Rol (Id),
-    constraint FK_Usuario_Genero FOREIGN KEY (GeneroId) REFERENCES Genero (Id)
-);
-
-CREATE TABLE LinkReferido(
-    Id bigint unsigned auto_increment NOT NULL,
-    Link varchar(50) UNIQUE NOT NULL,
-    FechaBaja datetime,
-    UsuarioId bigint unsigned NOT NULL,
-    constraint PK_LinkReferido primary key (Id),
-    constraint FK_LinkReferido_Usuario foreign key (UsuarioId) references Usuario (Id)
-);
-
-CREATE TABLE Tarjeta(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Numero integer NOT NULL UNIQUE,
-    CodigoSeguridad integer NOT NULL,
-    DNITitular integer NOT NULL UNIQUE,
-    FechaVencimiento date NOT NULL,
-    constraint PK_Tarjeta primary key (Id)
-);
-
-CREATE TABLE UsuarioTarjeta(
-	Id bigint unsigned NOT NULL auto_increment,
-    TarjetaId bigint unsigned NOT NULL,
-    UsuarioId bigint unsigned NOT NULL,
-    constraint PK_UsuarioTarjeta primary key (Id),
-    constraint FK_UsuarioTarjeta_Tarjeta foreign key (TarjetaId) references Tarjeta (Id),
-    constraint FK_UsuarioTarjeta_Usuario foreign key (UsuarioId) references Usuario (Id)
-);
-
-CREATE TABLE Cine(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    DireccionId bigint unsigned NOT NULL,
-    constraint PK_Cine primary key (Id),
-    constraint FK_Cine_Direccion foreign key (DireccionId) references Direccion (Id)
-);
-
-CREATE TABLE Sala(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Numero integer NOT NULL,
-    CineId bigint unsigned NOT NULL,
-    constraint PK_Sala primary key (Id),
-    constraint FK_Sala_Cine foreign key (CineId) references Cine (Id)
-);
-
-CREATE TABLE TipoAsiento(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Tipo varchar(30) NOT NULL,
-    constraint PK_TipoAsiento primary key (Id)
-);
-
-CREATE TABLE EstadoAsiento(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Estado varchar(30) NOT NULL,
-    constraint PK_EstadoAsiento primary key (Id)
-);
-
-CREATE TABLE Asiento(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Fila integer NOT NULL,
-    Columna integer NOT NULL,
-    SalaId bigint unsigned NOT NULL,
-    TipoAsientoId bigint unsigned NOT NULL,
-    EstadoAsientoId bigint unsigned NOT NULL,
-    constraint PK_Asiento primary key (Id),
-    constraint FK_Asiento_Sala foreign key (SalaId) references Sala (Id),
-    constraint FK_Asiento_TipoAsiento foreign key (TipoAsientoId) references TipoAsiento (Id),
-    constraint FK_Asiento_EstadoAsiento foreign key (EstadoAsientoId) references EstadoAsiento (Id)
-);
-
-CREATE TABLE TipoCalificacion(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Tipo varchar(15) NOT NULL,
-    constraint PK_TipoCalificacion primary key (Id)
-);
-
-CREATE TABLE Pais(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    constraint PK_Pais primary key (Id)
-);
-
-CREATE TABLE GeneroPelicula(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    constraint PK_GeneroPelicula primary key (Id)
-);
-
-CREATE TABLE Actor(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    Apellido varchar(30) NOT NULL,
-    constraint PK_Actor primary key (Id)
-);
-
-CREATE TABLE Clasificacion(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Nombre varchar(30) NOT NULL,
-    constraint PK_Clasificacion primary key (Id)
-);
-
-CREATE TABLE Pelicula(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    FechaEstreno date,
-    Nombre varchar(30) NOT NULL,
-    Sinopsis varchar(200) NOT NULL,
-    Duracion integer NOT NULL,
-    PaisId bigint unsigned NOT NULL,
-    ClasificacionId bigint unsigned NOT NULL,
-    constraint PK_Pelicula primary key (Id),
-    constraint FK_Pelicula_Pais foreign key (PaisId) references Pais (Id),
-    constraint FK_Pelicula_Clasificacion foreign key (ClasificacionId) references Clasificacion (Id)
-);
-
-CREATE TABLE PeliculaCine(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    PeliculaId bigint unsigned NOT NULL,
-    CineId bigint unsigned NOT NULL,
-    constraint PK_PeliculaCine primary key (Id, PeliculaId, CineId),
-    constraint FK_PeliculaCine_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_PeliculaCine_Cine foreign key (CineId) references Cine (Id)
-);
-
-CREATE TABLE Calificacion(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    UsuarioId bigint unsigned NOT NULL,
-    PeliculaId bigint unsigned NOT NULL,
-    TipoCalificacionId bigint unsigned NOT NULL,
-    constraint PK_Calificacion primary key (Id, UsuarioId, PeliculaId),
-    constraint FK_Calificacion_Usuario foreign key (UsuarioId) references Usuario (Id),
-    constraint FK_Calificacion_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_Calificacion_TipoCalificacion foreign key (TipoCalificacionId) references TipoCalificacion (Id)
-);
-
-CREATE TABLE PeliculaGeneroPelicula(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    PeliculaId bigint unsigned NOT NULL,
-    GeneroId bigint unsigned NOT NULL,
-    constraint PK_PeliculaGeneroPelicula primary key (Id, PeliculaId, GeneroId),
-    constraint FK_PeliculaGeneroPelicula_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_PeliculaGeneroPelicula_Genero foreign key (GeneroId) references Genero (Id)
-);
-
-CREATE TABLE PeliculaActor(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    PeliculaId bigint unsigned NOT NULL,
-    ActorId bigint unsigned NOT NULL,
-    constraint PK_PeliculaActor primary key (Id, PeliculaId, ActorId),
-    constraint FK_PeliculaActor_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_PeliculaActor_Ator foreign key (ActorId) references Actor (Id)
-);
-
-CREATE TABLE TipoFuncion(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    Tipo varchar(30) NOT NULL,
-    constraint PK_TipoFuncion primary key (Id)
-);
-
-CREATE TABLE Funcion(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    DiaYHora datetime NOT NULL,
-    Precio decimal(5,2) NOT NULL,
-    PeliculaId bigint unsigned NOT NULL,
-    TipoFuncionId bigint unsigned NOT NULL,
-    SalaId bigint unsigned NOT NULL,
-    CineId bigint unsigned NOT NULL,
-    constraint PK_Funcion primary key (Id),
-    constraint FK_Funcion_Pelicula foreign key (PeliculaId) references Pelicula (Id),
-    constraint FK_Funcion_TipoFuncion foreign key (TipoFuncionId) references TipoFuncion (Id),
-    constraint FK_Funcion_Cine foreign key (CineId) references Cine (Id),
-    constraint FK_Funcion_Sala foreign key (SalaId) references Sala (Id)
-);
-
-CREATE TABLE Reserva(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    NumeroTicket integer NOT NULL UNIQUE,
-    FechaCompra datetime,
-    UsuarioId bigint unsigned NOT NULL,
-    FuncionId bigint unsigned NOT NULL,
-    constraint PK_Reserva primary key (Id),
-    constraint FK_Reserva_Usuario foreign key (UsuarioId) references Usuario (Id),
-    constraint FK_Reserva_Funcion foreign key (FuncionId) references Funcion (Id)
-);
-
-CREATE TABLE ReservaAsiento(
-    Id bigint unsigned NOT NULL AUTO_INCREMENT,
-    ReservaId bigint unsigned NOT NULL,
-    AsientoId bigint unsigned NOT NULL,
-    constraint PK_ReservaAsiento primary key (Id, ReservaId, AsientoId),
-    constraint FK_ReservaAsiento_Reserva foreign key (ReservaId) references Reserva (Id),
-    constraint FK_ReservaAsiento_Asiento foreign key (AsientoId) references Asiento (Id)
-);
 
 INSERT INTO Rol (Nombre) VALUES ("Usuario");
 
-INSERT INTO Permiso (Nombre) VALUE ("Reservar");
+INSERT INTO Permiso (Nombre) VALUES ("Reservar");
 
 INSERT INTO PermisoRol (PermisoId, RolId) VALUES (1, 1);
 
-INSERT INTO Genero (Nombre) VALUE ("Masculino"),
-                                ("Femenino"),
-                                ("Otro");
+INSERT INTO Genero (Nombre) VALUES ("Masculino");
+INSERT INTO Genero (Nombre) VALUES ("Femenino");
+INSERT INTO Genero (Nombre) VALUES ("Otro");
 
-INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) 
-VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1),
-		("Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
+INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
+INSERT INTO Usuario (Nombre, Apellido, FechaNacimiento, Email, Username, UPassword, RolId, GeneroId) VALUES ("Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
 
-INSERT INTO Direccion (Calle, Altura, LocalIdadId) VALUES ("Aquiles", 509, 764);
+INSERT INTO Direccion (Calle, Altura, LocalidadId) VALUES ("Aquiles", 509, 764);
 
 INSERT INTO Pais (Nombre) VALUES ("Estados Unidos");
 
 INSERT INTO Clasificacion (Nombre) VALUES ("+13");
 
-INSERT INTO Pelicula (FechaEstreno, Nombre, Sinopsis, Duracion, PaisId, ClasificacionId)
-VALUES ("2019-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
+INSERT INTO Pelicula (FechaEstreno, Nombre, Sinopsis, Duracion, PaisId, ClasificacionId) VALUES ("2019-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
 
 INSERT INTO Actor (Nombre, Apellido) VALUES ("Robert", "Downey JR.");
 
@@ -6341,17 +6065,18 @@ INSERT INTO PeliculaActor (PeliculaId, ActorId) VALUES (1, 1);
 
 INSERT INTO PeliculaGeneroPelicula (PeliculaId, GeneroId) VALUES (1, 1);
 
-INSERT INTO Tarjeta (Numero, CodigoSeguridad, DNITitular, FechaVencimiento)
-VALUES (12345678, 123, 39670211, "2020-04-17");
+INSERT INTO Tarjeta (Numero, CodigoSeguridad, DNITitular, FechaVencimiento) VALUES (12345678, 123, 39670211, "2020-04-17");
 
-INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,1), (1,2);
+INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,1);
+INSERT INTO UsuarioTarjeta (TarjetaId, UsuarioId) VALUES (1,2);
 
 INSERT INTO TipoFuncion (Tipo) VALUES ("2D");
 
-INSERT INTO TipoCalificacion (Tipo) VALUES ("Me Gusta"), ("No Me Gusta");
+INSERT INTO TipoCalificacion (Tipo) VALUES ("Me Gusta");
+INSERT INTO TipoCalificacion (Tipo) VALUES ("No Me Gusta");
 
-INSERT INTO EstadoAsiento (Estado) VALUES ("Libre"),
-                                        ("Ocupado");
+INSERT INTO EstadoAsiento (Estado) VALUES ("Libre");
+INSERT INTO EstadoAsiento (Estado) VALUES ("Ocupado");
 
 INSERT INTO Cine (Nombre, DireccionId) VALUES ("Abasto", 1);
 
@@ -6361,9 +6086,7 @@ INSERT INTO Sala (Numero, CineId) VALUES (1, 1);
 
 INSERT INTO TipoAsiento (Tipo) VALUES ("Standard");
 
-INSERT INTO Asiento (Fila, Columna, TipoAsientoId, EstadoAsientoId, SalaId)
-VALUES (1, 1, 1, 1, 1),
-        (1, 2, 1, 1, 1);
+INSERT INTO Asiento (Fila, Columna, TipoAsientoId, EstadoAsientoId, SalaId) VALUES (1, 1, 1, 1, 1);
+INSERT INTO Asiento (Fila, Columna, TipoAsientoId, EstadoAsientoId, SalaId) VALUES (1, 2, 1, 1, 1);
 
-INSERT INTO Funcion (DiaYHora, Precio, TipoFuncionId, SalaId, PeliculaId, CineId)
-VALUES ("2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);
+INSERT INTO Funcion (DiaYHora, Precio, TipoFuncionId, SalaId, PeliculaId, CineId) VALUES ("2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);

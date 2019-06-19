@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class PeliculaDaoImpl implements PeliculaDao{
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<Pelicula> consultarPeliculas(Date actual) {
+	public List<Pelicula> consultarPeliculas(LocalDate actual) {
 		final Session session = sessionFactory.getCurrentSession();
 		
 		return session.createCriteria(Pelicula.class)

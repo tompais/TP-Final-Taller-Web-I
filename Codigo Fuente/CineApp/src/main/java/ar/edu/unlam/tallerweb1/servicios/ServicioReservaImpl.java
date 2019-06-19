@@ -1,10 +1,10 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,7 +57,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	private ReservaAsientoDao servicioReservaAsientoDao;
 	
 	@Override
-	public List<Pelicula> consultarPeliculas(Date actual) {
+	public List<Pelicula> consultarPeliculas(LocalDate actual) {
 		return servicioPeliculaDao.consultarPeliculas(actual);
 	}	
 	
@@ -86,8 +86,8 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	
 	@Override
-	public void cambiarEstadoAsiento(EstadoAsiento estadoAsiento) {
-		servicioAsientoDao.cambiarEstado(estadoAsiento);
+	public void cambiarEstadoAsiento(Asiento asiento) {
+		servicioAsientoDao.cambiarEstado(asiento);
 	}
 
 
@@ -113,7 +113,8 @@ public class ServicioReservaImpl implements ServicioReserva{
 		reserva.setUsuario(usuario);
 		reserva.setFuncion(funcion);
 		
-		reserva.setFechaCompra(new Date());
+		LocalDateTime fecha = LocalDateTime.now();
+		reserva.setFechaCompra(fecha);
 		reserva.setNumeroTicket((int)Math.random());
 		
 		ReservaAsiento reservaAsiento = new ReservaAsiento();

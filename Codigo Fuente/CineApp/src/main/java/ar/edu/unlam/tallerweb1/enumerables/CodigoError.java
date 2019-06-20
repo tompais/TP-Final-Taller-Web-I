@@ -11,4 +11,8 @@ public enum CodigoError {
 
     CodigoError(){
     }
+
+    public int getValor() {
+        return codigoError;
+    }
 }

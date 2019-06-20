@@ -37,9 +37,9 @@
 
                                 <button class="sign__btn" type="button">Sign in</button>
 
-                                <span class="sign__text">Don't have an account? <a href="${context}/signup">Sign up!</a></span>
+                                <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">Regístrate!</a></span>
 
-                                <span class="sign__text"><a href="#">Forgot password?</a></span>
+                                <span class="sign__text"><a href="#">¿Olvidaste tu contraseña?</a></span>
                             </form>
                             <!-- end authorization form -->
                         </div>

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ControladorAyuda {
+public class ControladorAyuda extends ControladorBase {
     @RequestMapping(path = "/about", method = RequestMethod.GET)
     public ModelAndView irAAbout() {
         return new ModelAndView("Ayuda/about");

@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-public class ControladorChat {
+public class ControladorChat extends ControladorBase {
     @MessageMapping("/sendMessage")
     @SendTo("/topic/chat")
     public OutputMessage send(Message message) {

@@ -27,6 +27,7 @@
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.dao" />
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.servicios" />
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.servidores" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.excepciones" />
 	
 
 </beans>

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ControladorHome {
+public class ControladorHome extends ControladorBase {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView irAInicio() {
         return new ModelAndView("Home/inicio");

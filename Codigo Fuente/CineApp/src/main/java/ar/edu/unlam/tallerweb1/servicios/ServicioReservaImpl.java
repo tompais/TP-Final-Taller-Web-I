@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,7 +56,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	private ReservaAsientoDao servicioReservaAsientoDao;
 	
 	@Override
-	public List<Pelicula> consultarPeliculas(LocalDate actual) {
+	public List<Pelicula> consultarPeliculas(Date actual) {
 		return servicioPeliculaDao.consultarPeliculas(actual);
 	}	
 	
@@ -113,7 +112,9 @@ public class ServicioReservaImpl implements ServicioReserva{
 		reserva.setUsuario(usuario);
 		reserva.setFuncion(funcion);
 		
-		LocalDateTime fecha = LocalDateTime.now();
+		long millis = System.currentTimeMillis();
+		java.util.Date fecha = new java.util.Date(millis);
+		
 		reserva.setFechaCompra(fecha);
 		reserva.setNumeroTicket((int)Math.random());
 		

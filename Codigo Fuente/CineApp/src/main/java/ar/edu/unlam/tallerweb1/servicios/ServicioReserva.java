@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Funcion;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Asiento;
@@ -15,7 +15,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cine;
 import ar.edu.unlam.tallerweb1.modelo.PeliculaCine;
 
 public interface ServicioReserva {
-	List<Pelicula> consultarPeliculas (LocalDate actual);
+	List<Pelicula> consultarPeliculas (Date actual);
 	List<Cine> consultarCinesPelicula (Pelicula pelicula);
 	List<Funcion> consultarFunciones (PeliculaCine peliculaCine);
 	Asiento consultaAsiento (Asiento asiento);

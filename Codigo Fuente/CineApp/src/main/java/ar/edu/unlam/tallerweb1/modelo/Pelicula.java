@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Pelicula {
@@ -18,8 +16,7 @@ public class Pelicula {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate fechaEstreno;
+	private Date fechaEstreno;
 	
 	private String nombre;
 	private String sinopsis;
@@ -39,11 +36,11 @@ public class Pelicula {
 		this.id = id;
 	}
 
-	public LocalDate getFechaEstreno() {
+	public Date getFechaEstreno() {
 		return fechaEstreno;
 	}
 
-	public void setFechaEstreno(LocalDate fechaEstreno) {
+	public void setFechaEstreno(Date fechaEstreno) {
 		this.fechaEstreno = fechaEstreno;
 	}
 

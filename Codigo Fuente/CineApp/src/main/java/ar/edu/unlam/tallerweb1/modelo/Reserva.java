@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -22,7 +21,7 @@ public class Reserva {
 	private Integer numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime fechaCompra;
+	private Date fechaCompra;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
@@ -46,11 +45,11 @@ public class Reserva {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public LocalDateTime getFechaCompra() {
+	public Date getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(LocalDateTime fechaCompra) {
+	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 

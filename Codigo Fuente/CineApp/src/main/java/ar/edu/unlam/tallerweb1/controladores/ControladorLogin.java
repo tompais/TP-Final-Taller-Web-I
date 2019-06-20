@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,8 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Asiento;
+import ar.edu.unlam.tallerweb1.modelo.Cine;
+import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.modelo.Funcion;
+import ar.edu.unlam.tallerweb1.modelo.Pelicula;
+import ar.edu.unlam.tallerweb1.modelo.PeliculaCine;
+import ar.edu.unlam.tallerweb1.modelo.Sala;
+import ar.edu.unlam.tallerweb1.modelo.TipoAsiento;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioReserva;
 
 @Controller
 public class ControladorLogin {
@@ -21,6 +33,9 @@ public class ControladorLogin {
 	// @Service o @Repository y debe estar en un paquete de los indicados en applicationContext.xml
 	@Inject
 	private ServicioLogin servicioLogin;
+	
+	@Inject
+	private ServicioReserva servicioReserva;
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
@@ -60,6 +75,61 @@ public class ControladorLogin {
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public ModelAndView irAHome() {
 		return new ModelAndView("ejemplos/home");
+	}
+	
+	@RequestMapping(path = "/prueba", method = RequestMethod.GET)
+	public ModelAndView prueba() {
+		ModelMap modelo = new ModelMap();
+		
+		Usuario usuarioBuscado = new Usuario();
+		usuarioBuscado.setEmail("ezequiel.allio@gmail.com");
+		usuarioBuscado.setuPassword("ezeallio");
+		
+		Usuario usuario = servicioLogin.consultarUsuario(usuarioBuscado);
+		
+		long millis = System.currentTimeMillis();
+		Date actual = new Date(millis);
+		
+		List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
+		
+		List<Cine> cines = servicioReserva.consultarCinesPelicula(peliculas.get(0));
+		
+		PeliculaCine peliculaCine = new PeliculaCine();
+		
+		peliculaCine.setCine(cines.get(0));
+		peliculaCine.setPelicula(peliculas.get(0));
+		
+		List<Funcion> funciones = servicioReserva.consultarFunciones(peliculaCine);
+		
+		Sala sala = new Sala();
+		sala.setId((long)1);
+		sala.setCine(cines.get(0));
+		sala.setNumero(1);
+		
+		TipoAsiento tipoAsiento = new TipoAsiento();
+		tipoAsiento.setId((long)1);
+		tipoAsiento.setTipo("Standard");
+		
+		EstadoAsiento estadoAsiento = new EstadoAsiento();
+		estadoAsiento.setId((long)1);
+		estadoAsiento.setEstado("Libre");
+		
+		Asiento asiento = new Asiento();
+		asiento.setId((long)1);
+		asiento.setFila(1);
+		asiento.setColumna(1);
+		asiento.setSala(sala);
+		asiento.setTipoAsiento(tipoAsiento);
+		asiento.setEstadoAsiento(estadoAsiento);
+		
+		Integer ticket = servicioReserva.reservar(usuario, funciones.get(0), asiento);
+		
+		if(ticket != 0)
+			modelo.put("mensaje", "Numero de reserva: " + ticket);
+		else
+			modelo.put("mensaje", "No se pudo realizar la reserva correctamente");
+		
+		return new ModelAndView("prueba", modelo);
 	}
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.

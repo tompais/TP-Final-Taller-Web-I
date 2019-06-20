@@ -5,5 +5,5 @@ import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
 
 public interface AsientoDao {
 	Asiento consultarAsiento (Asiento asiento);
-	void cambiarEstado (EstadoAsiento estadoAsiento);
+	void cambiarEstado (Asiento asiento);
 }

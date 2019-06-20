@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 // Clase que modela el concepto de Usuario, la anotacion @Entity le avisa a hibernate que esta clase es persistible
 // el paquete ar.edu.unlam.tallerweb1.modelo esta indicado en el archivo hibernateCOntext.xml para que hibernate
 // busque entities en él
@@ -25,7 +27,8 @@ public class Usuario {
 	private String apellido;
 	private String username;
 	private String email;
-	private String password;
+	private String uPassword;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -45,12 +48,6 @@ public class Usuario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getNombre() {
 		return nombre;
@@ -87,5 +84,11 @@ public class Usuario {
 	}
 	public void setGenero(Genero genero) {
 		this.genero = genero;
+	}
+	public String getuPassword() {
+		return uPassword;
+	}
+	public void setuPassword(String uPassword) {
+		this.uPassword = uPassword;
 	}
 }

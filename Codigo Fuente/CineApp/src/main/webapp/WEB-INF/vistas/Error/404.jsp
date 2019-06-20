@@ -17,9 +17,9 @@
                     <div class="col-12">
                         <div class="page-404__wrap">
                             <div class="page-404__content">
-                                <h1 class="page-404__title">404</h1>
-                                <p class="page-404__text">The page you are looking for not available!</p>
-                                <a href="Home/index.html" class="page-404__btn">go back</a>
+                                <h1 class="page-404__title">ERROR</h1>
+                                <p class="page-404__text">${error}</p>
+                                <a href="${context}" class="page-404__btn">Volver</a>
                             </div>
                         </div>
                     </div>

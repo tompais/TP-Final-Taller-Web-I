@@ -11,7 +11,7 @@ public class EstadoAsiento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Boolean estado;
+	private String estado;
 
 	public Long getId() {
 		return id;
@@ -21,11 +21,11 @@ public class EstadoAsiento {
 		this.id = id;
 	}
 
-	public Boolean getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 }

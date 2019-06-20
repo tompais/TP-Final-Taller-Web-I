@@ -19,11 +19,6 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
 
     var respuesta;
 
-    if (!noMostrarLoading)
-    // dibujar el div dinamicamente
-        mostrarMsgWarning(mensajeLoading != null && mensajeLoading != undefined ? mensajeLoading : 'Procesando...');
-
-
     // el parametro parametrosExtra, son datos que se pueden mandar
     // opcionalmente y que serán reenviados a la funcion de exito o error.
     $.ajax({
@@ -40,20 +35,12 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
             respuesta = true;
             var res;
             if (!jsDeRetorno || !jsDeRetorno.error) {
-                if (!noMostrarLoading) {
-                    // quitar loading dibujado
-                    quitarAlerta();
-                }
-
                 res = window[funcionEscenarioExitoso](jsDeRetorno,
                     parametrosExtra);
                 return res;
             }
 
             else {
-                if (!noMostrarLoading)
-                // quitar loading dibujado
-                    quitarAlerta();
                 res = window[funcionEscenarioErroneo](jsDeRetorno.error,
                     parametrosExtra, true);
                 return res;
@@ -62,9 +49,6 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
 
         error: function (e, a, i) {
             respuesta = false;
-            if (!noMostrarLoading)
-            // quitar loading dibujado
-                quitarAlerta();
             if (e.status == 300) {
                 window.location = e.responseText;
                 return;
@@ -75,15 +59,17 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
                     "No se pudo conectar al servidor. Revise si tiene acceso a internet y vuelva a intentar nuevamente";
                 if (window[funcionEscenarioErroneo])
                     return window[funcionEscenarioErroneo](err, parametrosExtra, true);
-                else
-                    return alert(err);
+                else {
+                    alertify.alert("Error", err);
+                    return;
+                }
             }
 
             if (window[funcionEscenarioErroneo])
                 return window[funcionEscenarioErroneo](e.responseText,
                     parametrosExtra);
             else
-                mostrarMsgError(e.responseText);
+                alertify.alert("Error", e.responseText);
         }
     });
 

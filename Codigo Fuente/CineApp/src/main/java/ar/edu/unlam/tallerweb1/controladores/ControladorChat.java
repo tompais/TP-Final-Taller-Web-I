@@ -22,6 +22,6 @@ public class ControladorChat {
 
     @RequestMapping("/chat")
     public ModelAndView irAChat() {
-        return new ModelAndView("chat");
+        return new ModelAndView("ejemplos/chat");
     }
 }

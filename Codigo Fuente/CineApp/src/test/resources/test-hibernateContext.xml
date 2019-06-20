@@ -30,7 +30,7 @@
 				<!--Cambiar a true si se quiere ver por consola el codigo sql generado por hibernate-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<!--Para indicar si hibernate genera el modelo de datos al startup-->
+				<!--Para indicar si hibernate genera el modelos de datos al startup-->
 				<!--create: lo crea siempre-->
 				<!--update: aplica cambios realizados-->
 				<!--none: no modifica nunca el esquema de datos-->
@@ -43,7 +43,7 @@
 		<!--clases persistibles-->
 		<property name="packagesToScan">
 			<list>
-				<value>ar.edu.unlam.tallerweb1.modelo</value>
+				<value>ar.edu.unlam.tallerweb1.modelos</value>
 			</list>
 		</property>
 	</bean>

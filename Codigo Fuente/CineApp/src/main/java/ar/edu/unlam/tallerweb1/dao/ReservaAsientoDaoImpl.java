@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.unlam.tallerweb1.modelo.ReservaAsiento;
+import ar.edu.unlam.tallerweb1.modelos.ReservaAsiento;
 
 @Repository("reservaAsientoDao")
 public class ReservaAsientoDaoImpl implements ReservaAsientoDao{

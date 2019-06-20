@@ -7,15 +7,15 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.unlam.tallerweb1.modelo.Asiento;
-import ar.edu.unlam.tallerweb1.modelo.Cine;
-import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
-import ar.edu.unlam.tallerweb1.modelo.Funcion;
-import ar.edu.unlam.tallerweb1.modelo.Pelicula;
-import ar.edu.unlam.tallerweb1.modelo.TipoAsiento;
-import ar.edu.unlam.tallerweb1.modelo.TipoFuncion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.modelo.Reserva;
+import ar.edu.unlam.tallerweb1.modelos.Asiento;
+import ar.edu.unlam.tallerweb1.modelos.Cine;
+import ar.edu.unlam.tallerweb1.modelos.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.modelos.Funcion;
+import ar.edu.unlam.tallerweb1.modelos.Pelicula;
+import ar.edu.unlam.tallerweb1.modelos.TipoAsiento;
+import ar.edu.unlam.tallerweb1.modelos.TipoFuncion;
+import ar.edu.unlam.tallerweb1.modelos.Usuario;
+import ar.edu.unlam.tallerweb1.modelos.Reserva;
 import ar.edu.unlam.tallerweb1.dao.FuncionDao;
 import ar.edu.unlam.tallerweb1.dao.AsientoDao;
 import ar.edu.unlam.tallerweb1.dao.EstadoAsientoDao;
@@ -24,8 +24,8 @@ import ar.edu.unlam.tallerweb1.dao.TipoFuncionDao;
 import ar.edu.unlam.tallerweb1.dao.ReservaAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaCineDao;
-import ar.edu.unlam.tallerweb1.modelo.ReservaAsiento;
-import ar.edu.unlam.tallerweb1.modelo.PeliculaCine;
+import ar.edu.unlam.tallerweb1.modelos.ReservaAsiento;
+import ar.edu.unlam.tallerweb1.modelos.PeliculaCine;
 
 @Service("servicioReserva")
 @Transactional

@@ -11,12 +11,12 @@ import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
-import ar.edu.unlam.tallerweb1.Models.Cine;
 import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
+import ar.edu.unlam.tallerweb1.Models.Sala;
 
 public interface ServicioReserva {
 	List<Pelicula> consultarPeliculas (Date actual);
-	List<Cine> consultarCinesPelicula (Pelicula pelicula);
+	List<PeliculaCine> consultarCinesPelicula (Pelicula pelicula);
 	List<Funcion> consultarFunciones (PeliculaCine peliculaCine);
 	Asiento consultaAsiento (Asiento asiento);
 	EstadoAsiento consultarEstadoAsiento (EstadoAsiento estadoAsiento);
@@ -24,4 +24,5 @@ public interface ServicioReserva {
 	TipoAsiento consultarTipoAsiento (TipoAsiento tipoAsiento);
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
 	Integer reservar (Usuario usuario, Funcion funcion, Asiento asiento);
+	Sala consultarSala (Sala sala);
 }

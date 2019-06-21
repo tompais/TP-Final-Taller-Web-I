@@ -6055,7 +6055,7 @@ INSERT INTO Pais (id, nombre) VALUES (1, "Estados Unidos");
 
 INSERT INTO Clasificacion (id, nombre) VALUES (1, "+13");
 
-INSERT INTO Pelicula (id, fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id) VALUES (1, "2019-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
+INSERT INTO Pelicula (id, fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id) VALUES (1, "2020-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
 
 INSERT INTO Actor (id, nombre, apellido) VALUES (1, "Robert", "Downey JR.");
 

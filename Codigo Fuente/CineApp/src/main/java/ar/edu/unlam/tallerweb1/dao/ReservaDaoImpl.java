@@ -17,8 +17,7 @@ public class ReservaDaoImpl implements ReservaDao{
 	public Boolean realizarReserva(Reserva reserva) {
 		final Session session = sessionFactory.getCurrentSession();
 		
-		if(session.save(reserva) == null)
-			return false;
+		session.save(reserva);
 		
 		return true;
 	}

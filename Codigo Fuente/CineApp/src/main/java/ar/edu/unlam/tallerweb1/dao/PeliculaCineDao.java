@@ -1,11 +1,10 @@
 package ar.edu.unlam.tallerweb1.dao;
 
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
+import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
 import java.util.List;
 
-import ar.edu.unlam.tallerweb1.Models.Cine;
-
 public interface PeliculaCineDao {
-	List<Cine> consultarCinesPelicula (Pelicula pelicula);
+	List<PeliculaCine> consultarCinesPelicula (Pelicula pelicula);
 }

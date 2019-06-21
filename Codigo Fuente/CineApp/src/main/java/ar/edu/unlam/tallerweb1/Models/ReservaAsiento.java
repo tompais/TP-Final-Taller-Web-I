@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.Models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +12,10 @@ public class ReservaAsiento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Reserva reserva;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Asiento asiento;
 
 	public Long getId() {

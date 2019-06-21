@@ -92,7 +92,11 @@ public class ControladorLogin {
 		
 		List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
 		
+		System.out.println("Pelicula rescatada: " + peliculas.get(0).getNombre());
+		
 		List<Cine> cines = servicioReserva.consultarCinesPelicula(peliculas.get(0));
+		
+		System.out.println("Cine rescatada: " + cines.get(0).getNombre());
 		
 		PeliculaCine peliculaCine = new PeliculaCine();
 		
@@ -100,6 +104,8 @@ public class ControladorLogin {
 		peliculaCine.setPelicula(peliculas.get(0));
 		
 		List<Funcion> funciones = servicioReserva.consultarFunciones(peliculaCine);
+		
+		System.out.println("Funcion rescatada: " + funciones.get(0).getId());
 		
 		Sala sala = new Sala();
 		sala.setId((long)1);

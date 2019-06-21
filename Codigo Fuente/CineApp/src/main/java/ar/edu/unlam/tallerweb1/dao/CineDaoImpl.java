@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.unlam.tallerweb1.modelos.Cine;
+import ar.edu.unlam.tallerweb1.Models.Cine;
 
 @Repository("cineDao")
 public class CineDaoImpl implements CineDao{

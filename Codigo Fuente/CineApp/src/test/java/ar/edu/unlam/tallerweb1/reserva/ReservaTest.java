@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import ar.edu.unlam.tallerweb1.modelos.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
-import ar.edu.unlam.tallerweb1.servicios.ServicioLoginImpl;
+import ar.edu.unlam.tallerweb1.Models.Usuario;
+import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
+import ar.edu.unlam.tallerweb1.Services.ServicioLoginImpl;
 import ar.edu.unlam.tallerweb1.SpringTest;
 
 public class ReservaTest extends SpringTest{
@@ -38,11 +38,11 @@ public class ReservaTest extends SpringTest{
 //		ServicioReserva servicioReserva = new ServicioReservaImpl();
 //		ServicioLogin servicioLogin = new ServicioLoginImpl();
 //
-//		Usuario modelos = new Usuario();
-//		modelos.setEmail("ezequiel.allio@gmail.com");
-//		modelos.setuPassword("ezeallio");
+//		Usuario Models = new Usuario();
+//		Models.setEmail("ezequiel.allio@gmail.com");
+//		Models.setuPassword("ezeallio");
 //
-//		Usuario usuario = servicioLogin.consultarUsuario(modelos);
+//		Usuario usuario = servicioLogin.consultarUsuario(Models);
 //
 //		LocalDate actual = LocalDate.now();
 //

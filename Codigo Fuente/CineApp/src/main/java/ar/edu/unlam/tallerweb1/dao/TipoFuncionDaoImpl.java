@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.dao;
 
-import ar.edu.unlam.tallerweb1.modelos.TipoFuncion;
+import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import org.springframework.stereotype.Repository;
 
 @Repository("TipoFuncionDao")

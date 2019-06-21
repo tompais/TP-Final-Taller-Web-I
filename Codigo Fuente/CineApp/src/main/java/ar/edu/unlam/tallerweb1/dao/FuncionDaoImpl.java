@@ -17,11 +17,12 @@ public class FuncionDaoImpl implements FuncionDao{
 	@Inject
 	private SessionFactory sessionFactory;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Funcion> consultarFunciones(PeliculaCine peliculaCine) {
 		final Session session = sessionFactory.getCurrentSession();
 		
-		return session.createCriteria(Funcion.class)
+		return (List<Funcion>) session.createCriteria(Funcion.class)
 				.add(Restrictions.eq("pelicula", peliculaCine.getPelicula()))
 				.add(Restrictions.eq("cine", peliculaCine.getCine()))
 				.list();

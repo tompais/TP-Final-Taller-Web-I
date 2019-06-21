@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,10 +22,10 @@ public class Reserva {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fechaCompra;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Usuario usuario;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Funcion funcion;
 
 	public Long getId() {

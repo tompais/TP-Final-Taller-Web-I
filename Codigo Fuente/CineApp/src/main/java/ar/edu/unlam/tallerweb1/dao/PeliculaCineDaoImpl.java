@@ -8,21 +8,21 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
-import ar.edu.unlam.tallerweb1.Models.Cine;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
+import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
 @Repository("peliculaCineDao")
 public class PeliculaCineDaoImpl implements PeliculaCineDao{
 	@Inject
     private SessionFactory sessionFactory;
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cine> consultarCinesPelicula(Pelicula pelicula) {
+	public List<PeliculaCine> consultarCinesPelicula(Pelicula pelicula) {
 		final Session session = sessionFactory.getCurrentSession();
 		
-		return session.createCriteria(Cine.class)
-				.add(Restrictions.eq("peliculaId", pelicula.getId()))
+		return (List<PeliculaCine>) session.createCriteria(PeliculaCine.class)
+				.add(Restrictions.eq("pelicula", pelicula))
 				.list();
 	}
 

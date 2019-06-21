@@ -2,13 +2,13 @@ package ar.edu.unlam.tallerweb1.Services;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.Models.Asiento;
-import ar.edu.unlam.tallerweb1.Models.Cine;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
@@ -22,9 +22,12 @@ import ar.edu.unlam.tallerweb1.dao.EstadoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoFuncionDao;
 import ar.edu.unlam.tallerweb1.dao.ReservaAsientoDao;
+import ar.edu.unlam.tallerweb1.dao.ReservaDao;
+import ar.edu.unlam.tallerweb1.dao.SalaDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaCineDao;
 import ar.edu.unlam.tallerweb1.Models.ReservaAsiento;
+import ar.edu.unlam.tallerweb1.Models.Sala;
 import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
 @Service("servicioReserva")
@@ -55,13 +58,19 @@ public class ServicioReservaImpl implements ServicioReserva{
 	@Inject
 	private ReservaAsientoDao servicioReservaAsientoDao;
 	
+	@Inject
+	private ReservaDao servicioReservaDao;
+	
+	@Inject
+	private SalaDao servicioSalaDao;
+	
 	@Override
 	public List<Pelicula> consultarPeliculas(Date actual) {
 		return servicioPeliculaDao.consultarPeliculas(actual);
 	}	
 	
 	@Override
-	public List<Cine> consultarCinesPelicula(Pelicula pelicula) {
+	public List<PeliculaCine> consultarCinesPelicula(Pelicula pelicula) {
 		return servicioPeliculaCineDao.consultarCinesPelicula(pelicula);
 	}
 	
@@ -116,17 +125,26 @@ public class ServicioReservaImpl implements ServicioReserva{
 		java.util.Date fecha = new java.util.Date(millis);
 		
 		reserva.setFechaCompra(fecha);
-		reserva.setNumeroTicket((int)Math.random());
+		
+		Random random = new Random();
+		
+		reserva.setNumeroTicket(random.nextInt(5000) + 1);
 		
 		ReservaAsiento reservaAsiento = new ReservaAsiento();
 		
 		reservaAsiento.setAsiento(asiento);
 		reservaAsiento.setReserva(reserva);
 		
-		if(servicioReservaAsientoDao.realizarReservaAsiento(reservaAsiento))
-			return 0;
+		servicioReservaDao.realizarReserva(reserva);
+		
+		servicioReservaAsientoDao.realizarReservaAsiento(reservaAsiento);
 		
 		return reserva.getNumeroTicket();
+	}
+
+	@Override
+	public Sala consultarSala(Sala sala) {
+		return servicioSalaDao.cosultarSala(sala);
 	}	
 	
 }

@@ -17,8 +17,7 @@ public class ReservaAsientoDaoImpl implements ReservaAsientoDao{
 	public Boolean realizarReservaAsiento(ReservaAsiento reservaAsiento) {
 		final Session session = sessionFactory.getCurrentSession();
 		
-		if(session.save(reservaAsiento) == null)
-			return false;
+		session.save(reservaAsiento);
 		
 		return true;
 	}

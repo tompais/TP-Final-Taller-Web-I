@@ -15,11 +15,12 @@ public class PeliculaDaoImpl implements PeliculaDao{
 	@Inject
 	private SessionFactory sessionFactory;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Pelicula> consultarPeliculas(Date actual) {
 		final Session session = sessionFactory.getCurrentSession();
 		
-		return session.createCriteria(Pelicula.class)
+		return (List<Pelicula>) session.createCriteria(Pelicula.class)
 				.add(Restrictions.ge("fechaEstreno", actual))
 				.list();
 	}

@@ -233,10 +233,8 @@ ul {
   background-color: #28282d;
   width: 140px;
 }
-.header__logo img {
+.header__logo span {
   width: auto;
-  max-width: 110px;
-  display: block;
 }
 .header__logo:hover {
   background-color: #2b2b31;

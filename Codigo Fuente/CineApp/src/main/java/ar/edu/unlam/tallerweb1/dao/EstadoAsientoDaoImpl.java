@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.dao;
 
-import ar.edu.unlam.tallerweb1.modelo.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 
 import javax.inject.Inject;
 

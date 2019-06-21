@@ -9,29 +9,6 @@
 		<title>CineApp</title>
 	</jsp:attribute>
 
-    <jsp:attribute name="styles">
-        <link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.theme.default.min.css">
-		<link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.carousel.min.css">
-		<link rel="stylesheet" href="${context}/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="${context}/lib/noUiSlider/distribute/nouislider.min.css">
-        <link rel="stylesheet" href="${context}/lib/ionicons/docs/css/ionicons.min.css">
-		<link rel="stylesheet" href="${context}/lib/plyr/dist/plyr.css">
-		<link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/photoswipe.css">
-		<link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/default-skin/default-skin.css">
-	</jsp:attribute>
-
-    <jsp:attribute name="scripts">
-        <script src="${context}/lib/OwlCarousel/dist/owl.carousel.min.js"></script>
-        <script src="${context}/lib/jquery-mousewheel/jquery.mousewheel.min.js"></script>
-        <script src="${context}/lib/malihu-custom-scrollbar-plugin/js/minified/jquery.mCustomScrollbar.min.js"></script>
-        <script src="${context}/lib/wnumb/wNumb.js"></script>
-        <script src="${context}/lib/noUiSlider/distribute/nouislider.min.js"></script>
-        <script src="${context}/lib/plyr/dist/plyr.min.js"></script>
-        <script src="${context}/lib/morelines/jquery.morelines.min.js"></script>
-        <script src="${context}/lib/PhotoSwipe/dist/photoswipe.min.js"></script>
-        <script src="${context}/lib/PhotoSwipe/dist/photoswipe-ui-default.min.js"></script>
-    </jsp:attribute>
-
     <jsp:body>
         <!-- home -->
         <section class="home home--bg">

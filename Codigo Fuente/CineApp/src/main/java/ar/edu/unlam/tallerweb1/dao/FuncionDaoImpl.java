@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.unlam.tallerweb1.modelos.Funcion;
-import ar.edu.unlam.tallerweb1.modelos.PeliculaCine;
+import ar.edu.unlam.tallerweb1.Models.Funcion;
+import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
 @Repository("funcionDao")
 public class FuncionDaoImpl implements FuncionDao{

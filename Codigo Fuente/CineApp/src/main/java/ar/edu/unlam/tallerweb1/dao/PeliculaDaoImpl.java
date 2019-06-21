@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import ar.edu.unlam.tallerweb1.modelos.Pelicula;
+import ar.edu.unlam.tallerweb1.Models.Pelicula;
 
 @Repository("peliculaDao")
 public class PeliculaDaoImpl implements PeliculaDao{

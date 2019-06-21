@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.unlam.tallerweb1.modelos.Sala;
+import ar.edu.unlam.tallerweb1.Models.Sala;
 
 @Repository("salaDao")
 public class SalaDaoImpl implements SalaDao{

@@ -55,11 +55,11 @@
 <script src="${context}/lib/jquery/jquery-3.4.1.min.js" type="text/javascript"></script>
 <script src="${context}/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="${context}/lib/jquery-sizzle/dist/sizzle.min.js" type="text/javascript"></script>
+<script src="${context}/lib/popperjs/popper.min.js" type="text/javascript"></script>
+<script src="${context}/lib/tooltipjs/tooltip.min.js" type="text/javascript"></script>
 <script src="${context}/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <script src="${context}/lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${context}/lib/fontawesome/js/all.min.js" type="text/javascript"></script>
-<script src="${context}/lib/popperjs/popper.min.js" type="text/javascript"></script>
-<script src="${context}/lib/tooltipjs/tooltip.min.js" type="text/javascript"></script>
 <script src="${context}/lib/validatejs/validate.min.js" type="text/javascript"></script>
 <script src="${context}/lib/momentjs/moment-with-locales.js" type="text/javascript"></script>
 <script src="${context}/lib/daterangepicker/daterangepicker.js" type="text/javascript"></script>
@@ -94,12 +94,7 @@
                         <ul class="header__nav">
                             <!-- dropdown -->
                             <li class="header__nav-item">
-                                <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-
-                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuHome">
-                                    <li><a href="${context}">Home</a></li>
-                                </ul>
+                                <a href="${context}" class="header__nav-link">Inicio</a>
                             </li>
                             <!-- end dropdown -->
 
@@ -107,7 +102,7 @@
                             <li class="header__nav-item">
                                 <a class="dropdown-toggle header__nav-link" href="#" role="button"
                                    id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">Catalog</a>
+                                   aria-expanded="false">Catálogo</a>
 
                                 <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
                                     <li><a href="catalog1.html">Catalog Grid</a></li>
@@ -119,20 +114,12 @@
                             <!-- end dropdown -->
 
                             <li class="header__nav-item">
-                                <a href="${context}/faq" class="header__nav-link">Help</a>
+                                <a href="${context}/faq" class="header__nav-link">Ayuda</a>
                             </li>
 
                             <!-- dropdown -->
-                            <li class="dropdown header__nav-item">
-                                <a class="dropdown-toggle header__nav-link header__nav-link--more" href="#"
-                                   role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false"><i class="icon ion-ios-more"></i></a>
-
-                                <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-                                    <li><a href="${context}/about">About</a></li>
-                                    <li><a href="${context}/signin">Sign In</a></li>
-                                    <li><a href="${context}/signup">Sign Up</a></li>
-                                </ul>
+                            <li class="header__nav-item">
+                                <a href="${context}/about" class="header__nav-link">About</a>
                             </li>
                             <!-- end dropdown -->
                         </ul>
@@ -146,7 +133,7 @@
 
                             <a href="${context}/signin" class="header__sign-in">
                                 <i class="icon ion-ios-log-in"></i>
-                                <span>sign in</span>
+                                <span>Ingresar</span>
                             </a>
                         </div>
                         <!-- end header auth -->
@@ -170,9 +157,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="header__search-content">
-                        <input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+                        <input type="text" placeholder="Busque la película que desee ver...">
 
-                        <button type="button">search</button>
+                        <button type="button">buscar</button>
                     </div>
                 </div>
             </div>

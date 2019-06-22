@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class UsuarioTarjeta {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

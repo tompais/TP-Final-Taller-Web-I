@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="home__title"><b>NEW ITEMS</b> OF THIS SEASON</h1>
+                        <h1 class="home__title"><b>PELÍCULAS</b> DE ESTRENO</h1>
 
                         <button class="home__nav home__nav--prev" type="button">
                             <i class="icon ion-ios-arrow-round-back"></i>
@@ -32,9 +32,6 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
@@ -42,7 +39,10 @@
 										<a href="#">Action</a>
 										<a href="#">Triler</a>
 									</span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                                        <ul class="card__list ml-0">
+                                            <li>HD</li>
+                                            <li>16+</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <!-- end card -->
@@ -53,16 +53,16 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover2.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Benched</a></h3>
                                         <span class="card__category">
 										<a href="#">Comedy</a>
 									</span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                                        <ul class="card__list ml-0">
+                                            <li>HD</li>
+                                            <li>16+</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <!-- end card -->
@@ -73,9 +73,6 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover3.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Whitney</a></h3>
@@ -83,7 +80,10 @@
 										<a href="#">Romance</a>
 										<a href="#">Drama</a>
 									</span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                                        <ul class="card__list ml-0">
+                                            <li>HD</li>
+                                            <li>16+</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <!-- end card -->
@@ -94,9 +94,6 @@
                                 <div class="card card--big">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover4.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Blindspotting</a></h3>
@@ -104,7 +101,10 @@
 										<a href="#">Comedy</a>
 										<a href="#">Drama</a>
 									</span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                                    <ul class="card__list ml-0">
+                                        <li>HD</li>
+                                        <li>16+</li>
+                                    </ul>
                                     </div>
                                 </div>
                                 <!-- end card -->
@@ -200,9 +200,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -248,9 +245,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover2.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -292,9 +286,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover3.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -339,9 +330,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover4.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -387,9 +375,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover5.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -435,9 +420,6 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <img src="${context}/img/covers/cover6.jpg" alt="">
-                                                <a href="#" class="card__play">
-                                                    <i class="icon ion-ios-play"></i>
-                                                </a>
                                             </div>
                                         </div>
 
@@ -486,9 +468,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
@@ -507,9 +486,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover2.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Benched</a></h3>
@@ -527,9 +503,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover3.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Whitney</a></h3>
@@ -549,9 +522,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover4.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Blindspotting</a></h3>
@@ -570,9 +540,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover5.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
@@ -591,9 +558,6 @@
                                 <div class="card">
                                     <div class="card__cover">
                                         <img src="${context}/img/covers/cover6.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
                                     </div>
                                     <div class="card__content">
                                         <h3 class="card__title"><a href="#">Benched</a></h3>
@@ -628,9 +592,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
@@ -649,9 +610,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover3.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">Benched</a></h3>
@@ -669,9 +627,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover2.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">Whitney</a></h3>
@@ -691,9 +646,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover6.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">Blindspotting</a></h3>
@@ -712,9 +664,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover4.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
@@ -733,9 +682,6 @@
                         <div class="card">
                             <div class="card__cover">
                                 <img src="${context}/img/covers/cover5.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
                             </div>
                             <div class="card__content">
                                 <h3 class="card__title"><a href="#">Benched</a></h3>

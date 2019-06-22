@@ -29,6 +29,8 @@ $(document).ready(function () {
 		}
 	});
 
+	$('.dropdown-toggle').dropdown();
+
 	/*==============================
 	Home
 	==============================*/

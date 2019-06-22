@@ -6036,57 +6036,52 @@ INSERT INTO Localidad (id,partido_id,nombre) VALUES(5437,566,'YACUCHINA');
 INSERT INTO Localidad (id,partido_id,nombre) VALUES(5438,572,'YANIMAS');
 INSERT INTO Localidad (id,partido_id,nombre) VALUES(5439,571,'YERBA BUENA');
 
-INSERT INTO Rol (id, nombre) VALUES (1, "Usuario");
+INSERT INTO Rol (nombre) VALUES ("Usuario");
 
-INSERT INTO Permiso (id, nombre) VALUES (1, "Reservar");
+INSERT INTO Permiso (nombre) VALUES ("Reservar");
 
-INSERT INTO PermisoRol (id, permiso_id, rol_id) VALUES (1, 1, 1);
+INSERT INTO PermisoRol (permiso_id, rol_id) VALUES (1, 1);
 
-INSERT INTO Genero (id, nombre) VALUES (1, "Masculino");
-INSERT INTO Genero (id, nombre) VALUES (2, "Femenino");
-INSERT INTO Genero (id, nombre) VALUES (3, "Otro");
+INSERT INTO Genero (nombre) VALUES ("Masculino"), ("Femenino"), ("Otro");
 
-INSERT INTO Usuario (id, nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id, genero_id) VALUES (1, "Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1);
-INSERT INTO Usuario (id, nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id, genero_id) VALUES (2, "Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
+INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id, genero_id) VALUES ("Ezequiel", "Allio", "1996-05-07", "ezequiel.allio@gmail.com", "ezeallio", "ezeallio", 1, 1), ("Tomás", "Pais", "1995-11-15", "tomas.j.pais@gmail.com", "tpais", "tomas1234", 1, 1);
 
-INSERT INTO Direccion (id, calle, altura, localidad_id) VALUES (1, "Aquiles", 509, 764);
+INSERT INTO Direccion (calle, altura, localidad_id) VALUES ("Aquiles", 509, 764);
 
 INSERT INTO Pais (id, nombre) VALUES (1, "Estados Unidos");
 
-INSERT INTO Clasificacion (id, nombre) VALUES (1, "+13");
+INSERT INTO Clasificacion (nombre) VALUES ("+13");
 
-INSERT INTO Pelicula (id, fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id) VALUES (1, "2020-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1);
+INSERT INTO Poster (nombre) VALUES ("cover7.jpg");
 
-INSERT INTO Actor (id, nombre, apellido) VALUES (1, "Robert", "Downey JR.");
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ("2020-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1, 1);
 
-INSERT INTO GeneroPelicula (id, nombre) VALUES (1, "Superheroes");
+INSERT INTO Actor (nombre, apellido) VALUES ("Robert", "Downey JR.");
 
-INSERT INTO PeliculaActor (id, pelicula_id, actor_id) VALUES (1, 1, 1);
+INSERT INTO GeneroPelicula (nombre) VALUES ("Superheroes");
 
-INSERT INTO PeliculaGeneroPelicula (id, pelicula_id, generoPelicula_id) VALUES (1, 1, 1);
+INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1);
 
-INSERT INTO Tarjeta (id, numero, codigoSeguridad, DNITitular, fechaVencimiento) VALUES (1, 12345678, 123, 39670211, "2020-04-17");
+INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1);
 
-INSERT INTO UsuarioTarjeta (id, tarjeta_id, usuario_id) VALUES (1, 1, 1);
-INSERT INTO UsuarioTarjeta (id, tarjeta_id, usuario_id) VALUES (2, 1, 2);
+INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALUES (12345678, 123, 39670211, "2020-04-17");
 
-INSERT INTO TipoFuncion (id, tipo) VALUES (1, "2D");
+INSERT INTO UsuarioTarjeta (tarjeta_id, usuario_id) VALUES (1, 1), (1, 2);
 
-INSERT INTO TipoCalificacion (id, tipo) VALUES (1, "Me Gusta");
-INSERT INTO TipoCalificacion (id, tipo) VALUES (2, "No Me Gusta");
+INSERT INTO TipoFuncion (tipo) VALUES ("2D");
 
-INSERT INTO EstadoAsiento (id, estado) VALUES (1, "Libre");
-INSERT INTO EstadoAsiento (id, estado) VALUES (2, "Ocupado");
+INSERT INTO TipoCalificacion (tipo) VALUES ("Me Gusta"), ("No Me Gusta");
 
-INSERT INTO Cine (id, nombre, direccion_id) VALUES (1, "Abasto", 1);
+INSERT INTO EstadoAsiento (estado) VALUES ("Libre"), ("Ocupado");
 
-INSERT INTO PeliculaCine (id, pelicula_id, cine_id) VALUES (1, 1, 1);
+INSERT INTO Cine (nombre, direccion_id) VALUES ("Abasto", 1);
 
-INSERT INTO Sala (id, numero, cine_id) VALUES (1, 1, 1);
+INSERT INTO PeliculaCine (pelicula_id, cine_id) VALUES (1, 1);
 
-INSERT INTO TipoAsiento (id, tipo) VALUES (1, "Standard");
+INSERT INTO Sala (numero, cine_id) VALUES (1, 1);
 
-INSERT INTO Asiento (id, fila, columna, tipoAsiento_id, estadoAsiento_id, sala_id) VALUES (1, 1, 1, 1, 1, 1);
-INSERT INTO Asiento (id, fila, columna, tipoAsiento_id, estadoAsiento_id, sala_id) VALUES (2, 1, 2, 1, 1, 1);
+INSERT INTO TipoAsiento (tipo) VALUES ("Standard");
 
-INSERT INTO Funcion (id, diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES (1, "2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, estadoAsiento_id, sala_id) VALUES (1, 1, 1, 1, 1), (1, 2, 1, 1, 1);
+
+INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ("2019-04-28 16:30:00", 200.00, 1, 1, 1, 1);

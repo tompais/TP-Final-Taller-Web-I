@@ -1,3 +1,5 @@
+ALTER DATABASE cineapp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 INSERT INTO Provincia (id,nombre) VALUES(1,'BUENOS AIRES');
 INSERT INTO Provincia (id,nombre) VALUES(2,'CATAMARCA');
 INSERT INTO Provincia (id,nombre) VALUES(3,'CHACO');
@@ -6050,19 +6052,19 @@ INSERT INTO Direccion (calle, altura, localidad_id) VALUES ("Aquiles", 509, 764)
 
 INSERT INTO Pais (id, nombre) VALUES (1, "Estados Unidos");
 
-INSERT INTO Clasificacion (nombre) VALUES ("+13");
+INSERT INTO Clasificacion (nombre) VALUES ("ATP"), ("+13"), ("+16"), ("+18");
 
-INSERT INTO Poster (nombre) VALUES ("cover7.jpg");
+INSERT INTO Poster (nombre) VALUES ("cover7.jpg"), ("cover8.jpg");
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ("2020-04-26", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1, 1);
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ("2019-04-07", "Avengers: Endgame", "Muere Iron Man", 180, 1, 1, 1), ("2016-02-11", "Deadpool", "Una película de amor", 180, 1, 1, 2);
 
-INSERT INTO Actor (nombre, apellido) VALUES ("Robert", "Downey JR.");
+INSERT INTO Actor (nombre, apellido) VALUES ("Robert", "Downey JR."), ("Ryan", "Reynolds");
 
 INSERT INTO GeneroPelicula (nombre) VALUES ("Superheroes");
 
-INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1);
+INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1), (2, 2);
 
-INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1);
+INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1), (2, 1);
 
 INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALUES (12345678, 123, 39670211, "2020-04-17");
 
@@ -6074,9 +6076,9 @@ INSERT INTO TipoCalificacion (tipo) VALUES ("Me Gusta"), ("No Me Gusta");
 
 INSERT INTO EstadoAsiento (estado) VALUES ("Libre"), ("Ocupado");
 
-INSERT INTO Cine (nombre, direccion_id) VALUES ("Abasto", 1);
+INSERT INTO Cine (nombre, direccion_id) VALUES ("Abasto", 1), ("Showcase Haedo", 1);
 
-INSERT INTO PeliculaCine (pelicula_id, cine_id) VALUES (1, 1);
+INSERT INTO PeliculaCine (pelicula_id, cine_id) VALUES (1, 1), (1, 2), (2, 1), (2, 2);
 
 INSERT INTO Sala (numero, cine_id) VALUES (1, 1);
 

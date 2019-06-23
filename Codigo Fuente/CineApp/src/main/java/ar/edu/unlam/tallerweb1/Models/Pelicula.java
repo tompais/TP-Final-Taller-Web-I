@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.Models;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -25,6 +26,18 @@ public class Pelicula {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Poster poster;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "pelicula_id")
+	private List<PeliculaGeneroPelicula> peliculaGeneroPeliculas;
+
+	public List<PeliculaGeneroPelicula> getPeliculaGeneroPeliculas() {
+		return peliculaGeneroPeliculas;
+	}
+
+	public void setPeliculaGeneroPeliculas(List<PeliculaGeneroPelicula> peliculaGeneroPeliculas) {
+		this.peliculaGeneroPeliculas = peliculaGeneroPeliculas;
+	}
 
 	public Poster getPoster() {
 		return poster;

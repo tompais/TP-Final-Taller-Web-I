@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PeliculaCineDao {
 	List<PeliculaCine> consultarCinesPelicula (Pelicula pelicula);
+
+	List<Pelicula> consultarPeliculasDisponiblesEnCartelera();
 }

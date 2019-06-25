@@ -6044,7 +6044,7 @@ INSERT INTO Permiso (nombre) VALUES ('Reservar');
 
 INSERT INTO PermisoRol (permiso_id, rol_id) VALUES (1, 1);
 
-INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id, genero_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', 'ezeallio', 1, 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'tomas1234', 1, 1);
+INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', 'ezeallio', 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'tomas1234', 1);
 
 INSERT INTO Direccion (calle, altura, localidad_id) VALUES ('Aquiles', 509, 764);
 
@@ -6052,17 +6052,17 @@ INSERT INTO Pais (id, nombre) VALUES (1, 'Estados Unidos');
 
 INSERT INTO Clasificacion (nombre) VALUES ('ATP'), ('+13'), ('+16'), ('+18');
 
-INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg');
+INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg');
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2);
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2), ('2019-07-13', 'Sherlock', 'Elemental Watson', 180, 1, 1, 3);
 
 INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds');
 
-INSERT INTO GeneroPelicula (nombre) VALUES ('Superheroes');
+INSERT INTO GeneroPelicula (nombre) VALUES ('Superheroes'), ('Acción');
 
-INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1), (2, 2);
+INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1), (2, 2), (3, 1);
 
-INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1), (2, 1);
+INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1), (2, 1), (3, 2);
 
 INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALUES (12345678, 123, 39670211, '2020-04-17');
 

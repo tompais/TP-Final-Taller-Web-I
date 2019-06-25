@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.Comparator;
 import java.util.List;
 
 @Service("servicioPelicula")
@@ -22,5 +23,16 @@ public class ServicioPeliculaImpl implements ServicioPelicula {
     @Override
     public List<Pelicula> getPeliculasDisponiblesEnCartelera() {
         return peliculaCineDao.consultarPeliculasDisponiblesEnCartelera();
+    }
+
+    @Override
+    public List<Pelicula> getProximosEstrenos() {
+        List<Pelicula> proximosEstrenos = peliculaDao.getProximosEstrenos();
+
+        Comparator<Pelicula> compareByFechaEstreno = Comparator.comparing(Pelicula::getFechaEstreno);
+
+        proximosEstrenos.sort(compareByFechaEstreno);
+
+        return peliculaDao.getProximosEstrenos();
     }
 }

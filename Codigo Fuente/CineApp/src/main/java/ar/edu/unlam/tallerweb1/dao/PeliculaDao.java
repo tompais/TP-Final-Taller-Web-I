@@ -7,5 +7,4 @@ import ar.edu.unlam.tallerweb1.Models.Pelicula;
 
 public interface PeliculaDao {
 	List<Pelicula> consultarPeliculas (Date fechaActual);
-	List<Pelicula> getPeliculasEstrenadas();
 }

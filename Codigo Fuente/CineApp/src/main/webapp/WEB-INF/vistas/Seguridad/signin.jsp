@@ -17,17 +17,17 @@
                     <div class="col-12">
                         <div class="sign__content">
                             <!-- authorization form -->
-                            <form action="#" class="sign__form">
+                            <form:form action="validar-login" method="POST" modelAttribute="usuario">
                                 <a href="${context}" class="sign__logo">
                                     <h2 class="text-center text-white">Cine<span style="color: #ff5860">App</span></h2>
                                 </a>
 
                                 <div class="sign__group">
-                                    <input type="text" class="sign__input" placeholder="Email">
+                                    <form:input path="email" type="text" class="sign__input" placeholder="Email"/>
                                 </div>
 
                                 <div class="sign__group">
-                                    <input type="password" class="sign__input" placeholder="Contraseña">
+                                    <form:input path="uPassword" type="password" class="sign__input" placeholder="Contraseña"/>
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">
@@ -35,13 +35,17 @@
                                     <label for="remember">Recordarme</label>
                                 </div>
 
-                                <button class="sign__btn" type="button">Ingresar</button>
+                                <button class="sign__btn" type="submit">Ingresar</button>
 
                                 <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">Regístrate!</a></span>
 
                                 <span class="sign__text"><a href="#">¿Olvidaste tu contraseña?</a></span>
-                            </form>
+                            </form:form>
                             <!-- end authorization form -->
+                            <c:if test="${not empty error}">
+			        			<h4><span>${error}</span></h4>
+			        			<br>
+		        			</c:if>	
                         </div>
                     </div>
                 </div>

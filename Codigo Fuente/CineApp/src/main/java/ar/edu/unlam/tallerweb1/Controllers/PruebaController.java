@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -75,6 +76,15 @@ public class PruebaController extends BaseController{
 		Integer ticket = servicioReserva.reservar(usuario, funciones.get(0), asiento);
 		
 		modelo.put("mensaje", "Numero de ticket: " + ticket);
+		
+		return new ModelAndView("Prueba/prueba", modelo);
+	}
+	
+	@RequestMapping(path = "/prueba2", method = RequestMethod.GET)
+	public ModelAndView prueba2(HttpServletRequest request) {
+		ModelMap modelo = new ModelMap();
+		
+		modelo.put("mensaje", request.getSession().getAttribute("username"));
 		
 		return new ModelAndView("Prueba/prueba", modelo);
 	}

@@ -27,15 +27,15 @@
                                 </div>
 
                                 <div class="sign__group">
-                                    <input type="password" class="sign__input" placeholder="Password">
+                                    <input type="password" class="sign__input" placeholder="Contraseña">
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">
                                     <input id="remember" name="remember" type="checkbox" checked="checked">
-                                    <label for="remember">Remember Me</label>
+                                    <label for="remember">Recordarme</label>
                                 </div>
 
-                                <button class="sign__btn" type="button">Sign in</button>
+                                <button class="sign__btn" type="button">Ingresar</button>
 
                                 <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">Regístrate!</a></span>
 

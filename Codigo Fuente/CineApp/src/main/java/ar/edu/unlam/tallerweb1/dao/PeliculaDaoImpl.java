@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.dao;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,11 +18,29 @@ public class PeliculaDaoImpl implements PeliculaDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Pelicula> consultarPeliculas(Date actual) {
+	public List<Pelicula> consultarPeliculas(Date fechaActual) {
 		final Session session = sessionFactory.getCurrentSession();
 		
 		return (List<Pelicula>) session.createCriteria(Pelicula.class)
-				.add(Restrictions.ge("fechaEstreno", actual))
+				.add(Restrictions.ge("fechaEstreno", fechaActual))
 				.list();
+	}
+
+	@Override
+	public List<Pelicula> getPeliculasEstrenadas() {
+		final Session session = sessionFactory.getCurrentSession();
+
+		List<Pelicula> peliculas = new ArrayList<>();
+
+
+		List peliculasBuscadas = session.createCriteria(Pelicula.class)
+				.add(Restrictions.le("fechaEstreno", new Date(new java.util.Date().getTime())))
+				.list();
+
+		for (Object peliculaBuscada :
+			 peliculasBuscadas) {
+			peliculas.add((Pelicula) peliculaBuscada);
+		}
+		return peliculas;
 	}
 }

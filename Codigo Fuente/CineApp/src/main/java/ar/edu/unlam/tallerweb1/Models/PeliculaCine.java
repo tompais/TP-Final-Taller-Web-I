@@ -6,11 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.sql.Date;
 
 @Entity
 public class PeliculaCine {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -18,6 +19,16 @@ public class PeliculaCine {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
+
+	private Date fechaBaja;
+
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
 
 	public Long getId() {
 		return id;

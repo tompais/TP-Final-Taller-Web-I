@@ -1,19 +1,15 @@
 package ar.edu.unlam.tallerweb1.Models;
 
 import java.sql.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @Entity
 public class Pelicula {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private Date fechaEstreno;
@@ -27,6 +23,29 @@ public class Pelicula {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Clasificacion clasificacion;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private Poster poster;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "pelicula_id")
+	private List<PeliculaGeneroPelicula> peliculaGeneroPeliculas;
+
+	public List<PeliculaGeneroPelicula> getPeliculaGeneroPeliculas() {
+		return peliculaGeneroPeliculas;
+	}
+
+	public void setPeliculaGeneroPeliculas(List<PeliculaGeneroPelicula> peliculaGeneroPeliculas) {
+		this.peliculaGeneroPeliculas = peliculaGeneroPeliculas;
+	}
+
+	public Poster getPoster() {
+		return poster;
+	}
+
+	public void setPoster(Poster poster) {
+		this.poster = poster;
+	}
 
 	public Long getId() {
 		return id;

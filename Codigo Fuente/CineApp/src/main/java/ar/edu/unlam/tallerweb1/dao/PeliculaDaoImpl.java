@@ -25,22 +25,4 @@ public class PeliculaDaoImpl implements PeliculaDao{
 				.add(Restrictions.ge("fechaEstreno", fechaActual))
 				.list();
 	}
-
-	@Override
-	public List<Pelicula> getPeliculasEstrenadas() {
-		final Session session = sessionFactory.getCurrentSession();
-
-		List<Pelicula> peliculas = new ArrayList<>();
-
-
-		List peliculasBuscadas = session.createCriteria(Pelicula.class)
-				.add(Restrictions.le("fechaEstreno", new Date(new java.util.Date().getTime())))
-				.list();
-
-		for (Object peliculaBuscada :
-			 peliculasBuscadas) {
-			peliculas.add((Pelicula) peliculaBuscada);
-		}
-		return peliculas;
-	}
 }

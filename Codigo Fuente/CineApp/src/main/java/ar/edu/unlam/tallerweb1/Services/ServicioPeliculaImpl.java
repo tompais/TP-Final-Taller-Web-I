@@ -20,11 +20,6 @@ public class ServicioPeliculaImpl implements ServicioPelicula {
     private PeliculaCineDao peliculaCineDao;
 
     @Override
-    public List<Pelicula> getPeliculasEnCartelera() {
-        return peliculaDao.getPeliculasEstrenadas();
-    }
-
-    @Override
     public List<Pelicula> getPeliculasDisponiblesEnCartelera() {
         return peliculaCineDao.consultarPeliculasDisponiblesEnCartelera();
     }

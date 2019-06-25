@@ -8,10 +8,13 @@
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
+
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:invoke fragment="title"/>

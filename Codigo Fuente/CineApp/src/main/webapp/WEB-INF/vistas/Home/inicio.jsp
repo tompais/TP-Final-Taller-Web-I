@@ -15,97 +15,51 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="home__title"><b>RECIÉN</b> ESTRENADOS</h1>
+                        <h1 class="home__title"><b>RECIÉN</b> ESTRENADAS</h1>
 
-                        <button class="home__nav home__nav--prev" type="button">
-                            <i class="icon ion-ios-arrow-round-back"></i>
-                        </button>
-                        <button class="home__nav home__nav--next" type="button">
-                            <i class="icon ion-ios-arrow-round-forward"></i>
-                        </button>
+                        <c:if test="${estrenos != null && estrenos.size() > 0}">
+                            <button class="home__nav home__nav--prev" type="button">
+                                <i class="icon ion-ios-arrow-round-back"></i>
+                            </button>
+                            <button class="home__nav home__nav--next" type="button">
+                                <i class="icon ion-ios-arrow-round-forward"></i>
+                            </button>
+                        </c:if>
                     </div>
 
                     <div class="col-12">
-                        <div class="owl-carousel home__carousel">
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <a href="${context}/signup" class="card__cover">
-                                        <img src="${context}/img/covers/cover7.jpg" class="img-fluid" alt="">
-                                    </a>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="${context}/signup">Avengers: Endgame</a></h3>
-                                        <span class="card__category">
-										<a href="#">Action</a>
-										<a href="#">Triler</a>
-									</span>
-                                        <ul class="card__list ml-0">
-                                            <li>16+</li>
-                                        </ul>
-                                    </div>
+                        <c:choose>
+                            <c:when test="${estrenos != null && estrenos.size() > 0}">
+                                <div class="owl-carousel home__carousel">
+                                    <c:forEach items="${estrenos}" var="estreno">
+                                        <div class="item">
+                                            <div class="card card--big">
+                                                <a href="#" class="card__cover">
+                                                    <img src="${context}/img/covers/${estreno.poster.nombre}"
+                                                         alt="${estreno.nombre}" class="img-fluid">
+                                                </a>
+                                                <div class="card__content">
+                                                    <h3 class="card__title">
+                                                        <a href="#">${estreno.nombre}</a>
+                                                    </h3>
+                                                    <span class="card__category">
+                                                        <c:forEach items="${estreno.peliculaGeneroPeliculas}" var="peliculaGeneroPelicula">
+                                                            <a href="#">${peliculaGeneroPelicula.generoPelicula.nombre}</a>
+                                                        </c:forEach>
+                                                    </span>
+                                                    <ul class="card__list ml-0">
+                                                        <li>${estreno.clasificacion.nombre}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
                                 </div>
-                                <!-- end card -->
-                            </div>
-
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="${context}/img/covers/cover2.jpg" alt="">
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Benched</a></h3>
-                                        <span class="card__category">
-										<a href="#">Comedy</a>
-									</span>
-                                        <ul class="card__list ml-0">
-                                            <li>16+</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
-
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="${context}/img/covers/cover3.jpg" alt="">
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Whitney</a></h3>
-                                        <span class="card__category">
-										<a href="#">Romance</a>
-										<a href="#">Drama</a>
-									</span>
-                                        <ul class="card__list ml-0">
-                                            <li>16+</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
-
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="${context}/img/covers/cover4.jpg" alt="">
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Blindspotting</a></h3>
-                                        <span class="card__category">
-										<a href="#">Comedy</a>
-										<a href="#">Drama</a>
-									</span>
-                                        <ul class="card__list ml-0">
-                                            <li>16+</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
-                        </div>
+                            </c:when>
+                            <c:otherwise>
+                                <h5 class="text-white-50 text-center mt-5">No se han encontrado estrenos recientes</h5>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
@@ -129,35 +83,35 @@
             <div class="container">
                 <div class="row">
                     <!-- card -->
-                    <c:forEach var="pelicula" items="${peliculas}">
+                    <c:forEach var="publicacion" items="${publicaciones}">
                         <div class="col-6 col-sm-12 col-lg-6">
                             <div class="card card--list">
                                 <div class="row">
                                     <div class="col-12 col-sm-4">
                                         <div class="card__cover">
-                                            <img src="${context}/img/covers/${pelicula.poster.nombre}" alt="">
+                                            <img src="${context}/img/covers/${publicacion.pelicula.poster.nombre}" alt="">
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-sm-8">
                                         <div class="card__content">
-                                            <h3 class="card__title"><a href="#">${pelicula.nombre}</a></h3>
+                                            <h3 class="card__title"><a href="#">${publicacion.pelicula.nombre}</a></h3>
                                             <span class="card__category">
-                                                <c:forEach var="peliculaGeneroPelicula" items="${pelicula.peliculaGeneroPeliculas}">
+                                                <c:forEach var="peliculaGeneroPelicula" items="${publicacion.pelicula.peliculaGeneroPeliculas}">
                                                     <a href="#">${peliculaGeneroPelicula.generoPelicula.nombre}</a>
                                                 </c:forEach>
 											</span>
 
                                             <div class="card__wrap">
-                                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                                                <span class="card__rate"><i class="icon ion-ios-star"></i>${publicacion.promedioCalificacion}</span>
 
                                                 <ul class="card__list">
-                                                    <li>${pelicula.clasificacion.nombre}</li>
+                                                    <li>${publicacion.pelicula.clasificacion.nombre}</li>
                                                 </ul>
                                             </div>
 
                                             <div class="card__description">
-                                                <p>${pelicula.sinopsis}</p>
+                                                <p>${publicacion.pelicula.sinopsis}</p>
                                             </div>
                                         </div>
                                     </div>

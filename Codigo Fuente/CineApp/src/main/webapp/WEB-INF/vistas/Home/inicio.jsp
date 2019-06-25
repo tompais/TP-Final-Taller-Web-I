@@ -82,43 +82,49 @@
 
             <div class="container">
                 <div class="row">
-                    <!-- card -->
-                    <c:forEach var="publicacion" items="${publicaciones}">
-                        <div class="col-6 col-sm-12 col-lg-6">
-                            <div class="card card--list">
-                                <div class="row">
-                                    <div class="col-12 col-sm-4">
-                                        <div class="card__cover">
-                                            <img src="${context}/img/covers/${publicacion.pelicula.poster.nombre}" alt="">
-                                        </div>
-                                    </div>
+                    <c:choose>
+                        <c:when test="${publicaciones != null && publicaciones.size() > 0}">
+                            <c:forEach var="publicacion" items="${publicaciones}">
+                                <div class="col-6 col-sm-12 col-lg-6">
+                                    <div class="card card--list">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4">
+                                                <div class="card__cover">
+                                                    <img src="${context}/img/covers/${publicacion.pelicula.poster.nombre}" alt="">
+                                                </div>
+                                            </div>
 
-                                    <div class="col-12 col-sm-8">
-                                        <div class="card__content">
-                                            <h3 class="card__title"><a href="#">${publicacion.pelicula.nombre}</a></h3>
-                                            <span class="card__category">
+                                            <div class="col-12 col-sm-8">
+                                                <div class="card__content">
+                                                    <h3 class="card__title"><a href="#">${publicacion.pelicula.nombre}</a></h3>
+                                                    <span class="card__category">
                                                 <c:forEach var="peliculaGeneroPelicula" items="${publicacion.pelicula.peliculaGeneroPeliculas}">
                                                     <a href="#">${peliculaGeneroPelicula.generoPelicula.nombre}</a>
                                                 </c:forEach>
 											</span>
 
-                                            <div class="card__wrap">
-                                                <span class="card__rate"><i class="icon ion-ios-star"></i>${publicacion.promedioCalificacion}</span>
+                                                    <div class="card__wrap">
+                                                        <span class="card__rate"><i class="icon ion-ios-star"></i>${publicacion.promedioCalificacion}</span>
 
-                                                <ul class="card__list">
-                                                    <li>${publicacion.pelicula.clasificacion.nombre}</li>
-                                                </ul>
-                                            </div>
+                                                        <ul class="card__list">
+                                                            <li>${publicacion.pelicula.clasificacion.nombre}</li>
+                                                        </ul>
+                                                    </div>
 
-                                            <div class="card__description">
-                                                <p>${publicacion.pelicula.sinopsis}</p>
+                                                    <div class="card__description">
+                                                        <p>${publicacion.pelicula.sinopsis}</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <h5 class="text-white-50 text-center w-100">No se ha encontrado una lista de mejor calificadas</h5>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </section>
@@ -130,122 +136,41 @@
                 <div class="row">
                     <!-- section title -->
                     <div class="col-12">
-                        <h2 class="section__title">Expected premiere</h2>
+                        <h2 class="section__title">Próximos Estrenos</h2>
                     </div>
                     <!-- end section title -->
 
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover7.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Avengers: Endgame</a></h3>
-                                <span class="card__category">
-								<a href="#">Action</a>
-								<a href="#">Triler</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover3.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Benched</a></h3>
-                                <span class="card__category">
-								<a href="#">Comedy</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover2.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Whitney</a></h3>
-                                <span class="card__category">
-								<a href="#">Romance</a>
-								<a href="#">Drama</a>
-								<a href="#">Music</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover6.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
-                                <span class="card__category">
-								<a href="#">Comedy</a>
-								<a href="#">Drama</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover4.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-                                <span class="card__category">
-								<a href="#">Action</a>
-								<a href="#">Triler</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="${context}/img/covers/cover5.jpg" alt="">
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Benched</a></h3>
-                                <span class="card__category">
-								<a href="#">Comedy</a>
-							</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- section btn -->
-                    <div class="col-12">
-                        <a href="#" class="section__btn">Show more</a>
-                    </div>
-                    <!-- end section btn -->
+                    <c:choose>
+                        <c:when test="${proximosEstrenos != null && proximosEstrenos.size() > 0}">
+                            <c:forEach items="${proximosEstrenos}" var="proximoEstreno">
+                                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                                    <div class="card">
+                                        <div class="card__cover">
+                                            <img src="${context}/img/covers/${proximoEstreno.poster.nombre}"
+                                                 alt="${proximoEstreno.nombre}">
+                                        </div>
+                                        <div class="card__content">
+                                            <h3 class="card__title">
+                                                <a href="#">
+                                                        ${proximoEstreno.nombre}
+                                                </a>
+                                            </h3>
+                                            <span class="card__category">
+                                        <c:forEach items="${proximoEstreno.peliculaGeneroPeliculas}" var="peliculaGeneroPelicula">
+                                            <a href="#">
+                                                    ${peliculaGeneroPelicula.generoPelicula.nombre}
+                                            </a>
+                                        </c:forEach>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <h5 class="text-white-50 text-center w-100">No se han encontrado próximos estrenos</h5>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </section>

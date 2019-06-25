@@ -7,4 +7,5 @@ import java.util.List;
 public interface ServicioPelicula {
 
     List<Pelicula> getPeliculasDisponiblesEnCartelera();
+    List<Pelicula> getProximosEstrenos();
 }

@@ -34,9 +34,6 @@ public class Usuario {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Rol rol;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Genero genero;
-	
 	public Long getId() {
 		return id;
 	}
@@ -78,12 +75,6 @@ public class Usuario {
 	}
 	public void setRol(Rol rol) {
 		this.rol = rol;
-	}
-	public Genero getGenero() {
-		return genero;
-	}
-	public void setGenero(Genero genero) {
-		this.genero = genero;
 	}
 	public String getuPassword() {
 		return uPassword;

@@ -41,12 +41,7 @@
                                 </div>
                                 
                                 <div class="sign__group">
-                                    <div class="input-group">
-                            			<form:input path="fechaNacimiento" type="text" name="fechaNacimiento" id="inputFechaNacimiento" class="form-control"/>
-			                            <div class="input-group-append">
-			                                <button class="btn btn-outline-secondary" id="btnInputFechaNacimiento" type="button"><i class="fas fa-calendar-alt"></i></button>
-			                            </div>
-			                        </div>
+                                    <form:input path="fechaNacimiento" type="date" class="sign__input" placeholder="Fecha de nacimiento (YYYY-MM-DD)"/>
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">

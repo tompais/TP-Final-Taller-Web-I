@@ -15,32 +15,44 @@
                     <div class="col-12">
                         <div class="sign__content">
                             <!-- registration form -->
-                            <form action="#" class="sign__form">
+                            <form:form action="registro" method="POST" modelAttribute="usuario">
                                 <a href="${context}" class="sign__logo">
                                     <h2 class="text-center text-white">Cine<span style="color: #ff5860">App</span></h2>
                                 </a>
 
                                 <div class="sign__group">
-                                    <input type="text" class="sign__input" placeholder="Name">
+                                    <form:input path="nombre" type="text" class="sign__input" placeholder="Nombre"/>
+                                </div>
+                                
+                                <div class="sign__group">
+                                    <form:input path="apellido" type="text" class="sign__input" placeholder="Apellido"/>
                                 </div>
 
                                 <div class="sign__group">
-                                    <input type="text" class="sign__input" placeholder="Email">
+                                    <form:input path="email" type="text" class="sign__input" placeholder="Email"/>
+                                </div>
+                                
+                                <div class="sign__group">
+                                    <form:input path="username" type="text" class="sign__input" placeholder="Nickname"/>
                                 </div>
 
                                 <div class="sign__group">
-                                    <input type="password" class="sign__input" placeholder="Password">
+                                    <form:input path="uPassword" type="password" class="sign__input" placeholder="Contraseña"/>
+                                </div>
+                                
+                                <div class="sign__group">
+                                    <form:input path="fechaNacimiento" type="date" class="sign__input" placeholder="Fecha de nacimiento (YYYY-MM-DD)"/>
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">
                                     <input id="remember" name="remember" type="checkbox" checked="checked">
-                                    <label for="remember">I agree to the <a href="#">Privacy Policy</a></label>
+                                    <label for="remember">Estoy de acuerdo con las <a href="#">Políticas de privacidad</a></label>
                                 </div>
 
-                                <button class="sign__btn" type="button">Sign up</button>
+                                <button class="sign__btn" type="submit">Registrarse</button>
 
-                                <span class="sign__text">Already have an account? <a href="${context}/signin">Sign in!</a></span>
-                            </form>
+                                <span class="sign__text">Ya tienes cuenta? <a href="${context}/signin">Ingresa!</a></span>
+                            </form:form>
                             <!-- registration form -->
                         </div>
                     </div>

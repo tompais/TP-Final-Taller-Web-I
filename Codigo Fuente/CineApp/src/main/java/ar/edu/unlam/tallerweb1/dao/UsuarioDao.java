@@ -6,4 +6,5 @@ import ar.edu.unlam.tallerweb1.Models.Usuario;
 public interface UsuarioDao {
 	
 	Usuario consultarUsuario (Usuario usuario);
+	void realizarRegistro (Usuario usuario);
 }

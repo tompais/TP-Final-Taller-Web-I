@@ -32,4 +32,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				.uniqueResult();
 	}
 
+	@Override
+	public void realizarRegistro(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+		
+		session.save(usuario);		
+	}
+
 }

@@ -12,11 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
+import ar.edu.unlam.tallerweb1.Services.ServicioRegistro;
 
 @Controller
 public class SeguridadController {
 	@Inject
 	private ServicioLogin servicioLogin;
+	
+	@Inject
+	private ServicioRegistro servicioRegistro;
 	
     @RequestMapping(path = "/signin", method = RequestMethod.GET)
     public ModelAndView irALogin(HttpServletRequest request) {
@@ -33,7 +37,7 @@ public class SeguridadController {
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
-		ModelMap model = new ModelMap();
+		ModelMap modelo = new ModelMap();
 
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		
@@ -45,14 +49,31 @@ public class SeguridadController {
 			return new ModelAndView("redirect:/prueba2");
 		}
 		else
-			model.put("error", "Usuario o clave incorrecta");
+			modelo.put("error", "Usuario o clave incorrecta");
 		
-		return new ModelAndView("Seguridad/signin", model);
+		return new ModelAndView("Seguridad/signin", modelo);
 	}
     
     @RequestMapping(path = "/signup", method = RequestMethod.GET)
-    public ModelAndView irARegistrar() {
-        return new ModelAndView("Seguridad/signup");
+    public ModelAndView irARegistrar(HttpServletRequest request) {
+    	ModelMap modelo = new ModelMap();
+    	
+    	if(request.getSession().getAttribute("username") != null)
+    		return new ModelAndView("redirect:/");
+    	
+    	Usuario usuario = new Usuario();
+		modelo.put("usuario", usuario);
+    	
+        return new ModelAndView("Seguridad/signup", modelo);
+    }
+    
+    @RequestMapping(path = "/registro", method = RequestMethod.GET)
+    public ModelAndView registro(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+    	
+    	if(servicioLogin.consultarUsuario(usuario) == null)
+    		servicioRegistro.realizarRegistro(usuario);
+    	
+        return new ModelAndView("/");
     }
     
     @RequestMapping(path = "/signout", method = RequestMethod.GET)

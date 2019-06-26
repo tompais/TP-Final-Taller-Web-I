@@ -34,6 +34,8 @@ public class HomeController extends BaseController {
 
         List<Pelicula> peliculas = servicioPelicula.getPeliculasDisponiblesEnCartelera();
 
+        List<Pelicula> proximosEstrenos = servicioPelicula.getProximosEstrenos();
+
         List<Pelicula> estrenos = peliculas.stream().filter(p -> Period.between(p.getFechaEstreno().toLocalDate(), LocalDate.now()).getDays() <= 7).collect(Collectors.toList());
 
         Comparator<Pelicula> compareByFechaEstreno = Comparator.comparing(Pelicula::getFechaEstreno).reversed();
@@ -56,6 +58,8 @@ public class HomeController extends BaseController {
         mm.addAttribute("publicaciones", publicaciones);
 
         mm.addAttribute("estrenos", estrenos);
+
+        mm.addAttribute("proximosEstrenos", proximosEstrenos);
 
         return new ModelAndView("Home/inicio", mm);
     }

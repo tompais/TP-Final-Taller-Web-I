@@ -13,9 +13,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="sign__content">
+                        <div class="sign__content my-3">
                             <!-- registration form -->
-                            <form:form action="registro" method="POST" modelAttribute="usuario">
+                            <form:form action="registro" method="POST" modelAttribute="usuario" class="sign__form">
                                 <a href="${context}" class="sign__logo">
                                     <h2 class="text-center text-white">Cine<span style="color: #ff5860">App</span></h2>
                                 </a>

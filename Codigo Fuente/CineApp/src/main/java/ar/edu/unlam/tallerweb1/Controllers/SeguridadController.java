@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-
+import ar.edu.unlam.tallerweb1.Models.Rol;
+import ar.edu.unlam.tallerweb1.Models.Usuario;
+import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
+import ar.edu.unlam.tallerweb1.Services.ServicioRegistro;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.Models.Rol;
-import ar.edu.unlam.tallerweb1.Models.Usuario;
-import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
-import ar.edu.unlam.tallerweb1.Services.ServicioRegistro;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class SeguridadController {

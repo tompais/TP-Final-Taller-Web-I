@@ -39,10 +39,13 @@
                                 <div class="sign__group">
                                     <form:input path="uPassword" type="password" class="sign__input" placeholder="Contraseña"/>
                                 </div>
-                                
-                                <div class="sign__group">
-                                    <form:input path="fechaNacimiento" type="date" class="sign__input" placeholder="Fecha de nacimiento (YYYY-MM-DD)"/>
-                                </div>
+                               
+                                    <div class="input-group">
+			                            <form:input path="fechaNacimiento" type="text" name="fechaNacimiento" id="inputFechaNacimiento" class="sign__input"/>
+			                            <div class="input-group-append">
+			                                <button class="btn btn-outline-secondary" id="btnInputFechaNacimiento" type="button"><i class="fas fa-calendar-alt"></i></button>
+			                            </div>
+			                        </div>
 
                                 <div class="sign__group sign__group--checkbox">
                                     <input id="remember" name="remember" type="checkbox" checked="checked">
@@ -59,6 +62,7 @@
                 </div>
             </div>
         </div>
+        <script src="${context}/js/seguridad/registrar.js"></script>
     </jsp:body>
 </t:layout-seguridad>
 

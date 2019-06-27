@@ -23,33 +23,44 @@
                                 </a>
 
                                 <div class="sign__group">
-                                    <form:input path="email" type="text" class="sign__input" placeholder="Email"/>
+                                    <form:input path="email" type="text" class="sign__input" id="inputEmail" placeholder="Email"/>
                                 </div>
+                                <div class="sign__group w-100">
+                                <div id="errorEmail" class="error bg-danger"><i class="fas fa-exclamation-triangle"></i> Ingrese su Email </div>
+                                <div id="errorEmail2" class="error bg-danger"><i class="fas fa-exclamation-triangle"></i> Escriba un Email
+					                válido
+					            </div>
+					            </div>
 
                                 <div class="sign__group">
-                                    <form:input path="uPassword" type="password" class="sign__input" placeholder="Contraseña"/>
+                                    <form:input path="uPassword" type="password" id="inputPassword" class="sign__input" placeholder="Contraseña"/>
                                 </div>
+                                <div class="sign__group w-100">
+                                <div id="errorPass" class="error bg-danger"><i class="fas fa-exclamation-triangle"></i> Por favor ingrese su
+					                contraseña
+					            </div>
+					            <div id="errorPass2" class="error bg-danger"><i class="fas fa-exclamation-triangle"></i> Su contraseña debe ser
+					                entre 6-15 digitos
+					            </div>
+					            </div>
 
                                 <div class="sign__group sign__group--checkbox">
                                     <input id="remember" name="remember" type="checkbox" checked="checked">
                                     <label for="remember">Recordarme</label>
                                 </div>
 
-                                <button class="sign__btn" type="submit">Ingresar</button>
+                                <button class="sign__btn" id="btnIngresar" type="button">Ingresar</button>
 
                                 <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">Regístrate!</a></span>
 
                                 <span class="sign__text"><a href="#">¿Olvidaste tu contraseña?</a></span>
                             </form:form>
                             <!-- end authorization form -->
-                            <c:if test="${not empty error}">
-			        			<h4><span>${error}</span></h4>
-			        			<br>
-		        			</c:if>	
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="${context}/js/seguridad/validarLogin.js"></script>
     </jsp:body>
 </t:layout-seguridad>

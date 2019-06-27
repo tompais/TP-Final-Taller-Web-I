@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/photoswipe.css">
     <link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/default-skin/default-skin.css">
     <link rel="stylesheet" href="${context}/css/shared/estilos.css" type="text/css">
+    <link rel="stylesheet" href="${context}/css/error/error.css" type="text/css">
 
 
     <!-- Favicons -->

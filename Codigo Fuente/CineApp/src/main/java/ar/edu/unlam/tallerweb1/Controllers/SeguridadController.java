@@ -4,12 +4,11 @@ import ar.edu.unlam.tallerweb1.Models.Rol;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
 import ar.edu.unlam.tallerweb1.Services.ServicioRegistro;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import ar.edu.unlam.tallerweb1.ViewModels.UsuarioViewModel;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 public class SeguridadController {
@@ -32,7 +29,7 @@ public class SeguridadController {
     public ModelAndView irALogin(HttpServletRequest request) {
     	ModelMap modelo = new ModelMap();
     	
-    	if(request.getSession().getAttribute("username") != null)
+    	if(request.getSession().getAttribute("email") != null)
     		return new ModelAndView("redirect:/");
     	
     	Usuario usuario = new Usuario();
@@ -47,9 +44,9 @@ public class SeguridadController {
 		
 		if (usuarioBuscado != null)
 		{
-			request.getSession().setAttribute("username", usuarioBuscado.getUsername());
+			request.getSession().setAttribute("email", usuarioBuscado.getEmail());
 			request.getSession().setAttribute("rol", usuarioBuscado.getRol().getNombre());
-			request.getSession().setAttribute("id", usuarioBuscado.getId());
+			System.out.println("ENTREEEEE!!!");
 			return new ModelAndView("redirect:/");
 		}
 		
@@ -60,39 +57,39 @@ public class SeguridadController {
     public ModelAndView irARegistrar(HttpServletRequest request) {
     	ModelMap modelo = new ModelMap();
     	
-    	if(request.getSession().getAttribute("username") != null)
+    	if(request.getSession().getAttribute("email") != null)
     		return new ModelAndView("redirect:/");
     	
-    	Usuario usuario = new Usuario();
+    	UsuarioViewModel usuario = new UsuarioViewModel();
 		modelo.put("usuario", usuario);
     	
         return new ModelAndView("Seguridad/signup", modelo);
     }
     
-    @InitBinder
-    public void dataBinding(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        CustomDateEditor dateEditor = new CustomDateEditor(dateFormat, true);
-        binder.registerCustomEditor(Date.class, dateEditor);
-    }
-    
     @RequestMapping(path = "/registro", method = RequestMethod.POST)
-    public ModelAndView registro(@ModelAttribute("usuario") Usuario usuario, BindingResult result, HttpServletRequest request) {
+    public ModelAndView registro(@ModelAttribute @Validated UsuarioViewModel usuario, HttpServletRequest request) {
     	
-    	if(servicioLogin.consultarUsuario(usuario) == null)
+    	Usuario modelo = new Usuario();
+    	
+    	modelo.setEmail(usuario.getEmail());
+    	modelo.setuPassword(usuario.getuPassword());
+    	
+    	if(servicioLogin.consultarUsuario(modelo) == null)
     	{
-    		System.out.println("Resultado: " + result);
     		Rol rol = new Rol();
     		rol.setId((long)1);
     		rol.setNombre("Usuario");
-    		usuario.setRol(rol);
+    		modelo.setRol(rol);
     		
-    		servicioRegistro.realizarRegistro(usuario);
+    		modelo.setApellido(usuario.getApellido());
+    		modelo.setUsername(usuario.getUsername());
+    		modelo.setNombre(usuario.getNombre());
+    		modelo.setFechaNacimiento(usuario.getFechaNacimiento());
     		
-    		request.getSession().setAttribute("username", usuario.getUsername());
-			request.getSession().setAttribute("rol", usuario.getRol().getNombre());
-			request.getSession().setAttribute("id", usuario.getId());
+    		servicioRegistro.realizarRegistro(modelo);
+    		
+    		request.getSession().setAttribute("email", modelo.getEmail());
+			request.getSession().setAttribute("rol", modelo.getRol().getNombre());
     	}
     	
         return new ModelAndView("Home/inicio");
@@ -101,7 +98,7 @@ public class SeguridadController {
     @RequestMapping(path = "/signout", method = RequestMethod.GET)
     public ModelAndView cerrarSesion(HttpServletRequest request) {
     	
-    	if(request.getSession().getAttribute("username") != null)
+    	if(request.getSession().getAttribute("email") != null)
     		request.getSession().invalidate();
     	
     	return new ModelAndView("redirect:/");

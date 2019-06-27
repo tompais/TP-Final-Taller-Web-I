@@ -1,0 +1,12 @@
+.error{
+    -moz-box-shadow: 0 0 6px #929292;
+    -webkit-box-shadow: 0 0 6px #929292;
+    box-shadow: 0 0 6px #929292;
+    background: #ffbc37;
+    color: white;
+    display: none;
+    font-size: 14px;
+    padding: 5px;
+    position: relative;
+    text-align: center;
+}

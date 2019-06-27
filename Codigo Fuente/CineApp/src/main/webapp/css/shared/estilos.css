@@ -3139,7 +3139,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  padding: 40px 0;
 }
 .sign__form {
   background-color: #28282d;
@@ -3667,4 +3666,11 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   background-image: -webkit-linear-gradient(180deg, #ff55a5 0%, #ff5860 100%);
   background-image: -ms-linear-gradient(180deg, #ff55a5 0%, #ff5860 100%);
   background-image: linear-gradient(180deg, #ff55a5 0%, #ff5860 100%);
+}
+
+/* Mis Agregados */
+
+.form-control:focus {
+    background-color: #2b2b31;
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 107, 0.25);
 }

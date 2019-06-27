@@ -17,7 +17,7 @@
                     <div class="col-12">
                         <div class="sign__content">
                             <!-- authorization form -->
-                            <form:form action="validar-login" method="POST" modelAttribute="usuario">
+                            <form:form action="validar-login" method="POST" modelAttribute="usuario" class="sign__form">
                                 <a href="${context}" class="sign__logo">
                                     <h2 class="text-center text-white">Cine<span style="color: #ff5860">App</span></h2>
                                 </a>

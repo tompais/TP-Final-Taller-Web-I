@@ -27,15 +27,24 @@
 				<!--Dialecto especifico del motor de base de datos utilizado-->
 				<!--Hay que cambiarlo si se cambia de motor de base de datos-->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="connection.url">jdbc:mysql://localhost:3306/cineapp?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;requireSSL=false&amp;verifyServerCertificate=false</prop>
 				<!--Cambiar a true si se quiere ver por consola el codigo sql generado por hibernate-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<!--Para indicar si hibernate genera el modelo de datos al startup-->
+				<!-- Agrego codificación a UTF-8 -->
+				<prop key="hibernate.connection.useUnicode">true</prop><!-- added -->
+				<prop key="hibernate.connection.characterEncoding">utf8</prop><!-- added -->
+				<prop key="hibernate.connection.charSet">utf8</prop><!-- added -->
+				<prop key="hibernate.connection.defaultNChar">true</prop>
+				<prop key="hibernate.sendStringParametersAsUnicode">true</prop>
+				<!--Para indicar si hibernate genera el Models de datos al startup-->
 				<!--create: lo crea siempre-->
 				<!--update: aplica cambios realizados-->
 				<!--none: no modifica nunca el esquema de datos-->
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</prop>
 				<prop key="hibernate.hbm2ddl.import_files">scriptInserts.sql</prop>
+
 			</props>
 		</property>
 		<!--Se configura qué paquetes debe escanear hibernate en busca de clases persistibles, es decir-->

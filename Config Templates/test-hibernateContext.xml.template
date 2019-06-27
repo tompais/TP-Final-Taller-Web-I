@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<!--Se indica cual es la fuente de datos de la aplicación, es decir donde está y que usuario y password -->
@@ -17,7 +17,7 @@
 	<!--Configuracion de la factory encargada de generar las sesiones con la base de datos, la misma -->
 	<!--usa el data source configurado antes-->
 	<bean id="sessionFactory"
-		  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- Properties -->
 		<property name="hibernateProperties">
@@ -27,18 +27,27 @@
 				<!--Dialecto especifico del motor de base de datos utilizado-->
 				<!--Hay que cambiarlo si se cambia de motor de base de datos-->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="connection.url">jdbc:mysql://localhost:3306/cineapp?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;requireSSL=false&amp;verifyServerCertificate=false</prop>
 				<!--Cambiar a true si se quiere ver por consola el codigo sql generado por hibernate-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">false</prop>
+				<!-- Agrego codificación a UTF-8 -->
+				<prop key="hibernate.connection.useUnicode">true</prop><!-- added -->
+				<prop key="hibernate.connection.characterEncoding">utf8</prop><!-- added -->
+				<prop key="hibernate.connection.charSet">utf8</prop><!-- added -->
+				<prop key="hibernate.connection.defaultNChar">true</prop>
+				<prop key="hibernate.sendStringParametersAsUnicode">true</prop>
 				<!--Para indicar si hibernate genera el Models de datos al startup-->
 				<!--create: lo crea siempre-->
 				<!--update: aplica cambios realizados-->
 				<!--none: no modifica nunca el esquema de datos-->
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</prop>
 				<prop key="hibernate.hbm2ddl.import_files">scriptInserts.sql</prop>
+
 			</props>
 		</property>
-		<!--Se configura qué paquetes debe escanear hibernate en busca de clases persistible, es decir-->
+		<!--Se configura qué paquetes debe escanear hibernate en busca de clases persistibles, es decir-->
 		<!--clases anotadas como @Entity, es necesario hacer esto y no unicamente anotar como @Entity las-->
 		<!--clases persistibles-->
 		<property name="packagesToScan">
@@ -50,7 +59,7 @@
 
 	<!--Se declara el transaction manager de la aplicacion asociado con la db configurada antes-->
 	<bean id="transactionManager"
-		  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
+<c:set var="baseURL" value="${pageContext.request.requestURL}"/>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:layout-seguridad>
@@ -10,6 +11,14 @@
 		<title>Iniciar Sesión</title>
 	</jsp:attribute>
 
+    <jsp:attribute name="scripts">
+        <script>
+            const pathHome = "${context}";
+            const pathLogin = "loguearUsuario";
+        </script>
+        <script src="${context}/js/seguridad/signin.js"></script>
+    </jsp:attribute>
+
     <jsp:body>
         <div class="sign section--bg" data-bg="${context}/img/section/section.jpg">
             <div class="container">
@@ -17,35 +26,31 @@
                     <div class="col-12">
                         <div class="sign__content">
                             <!-- authorization form -->
-                            <form:form action="validar-login" method="POST" modelAttribute="usuario" class="sign__form">
+                            <div class="sign__form">
                                 <a href="${context}" class="sign__logo">
                                     <h2 class="text-center text-white">Cine<span style="color: #ff5860">App</span></h2>
                                 </a>
 
-                                <div class="sign__group">
-                                    <form:input path="email" type="text" class="sign__input" placeholder="Email"/>
+                                <div class="form-group sign__group">
+                                    <input type="text" class="form-control sign__input" id="inputEmailOrNick" placeholder="Email"/>
                                 </div>
 
-                                <div class="sign__group">
-                                    <form:input path="uPassword" type="password" class="sign__input" placeholder="Contraseña"/>
+                                <div class="form-group sign__group">
+                                    <input type="password" class="form-control sign__input" id="inputPassword" placeholder="Contraseña"/>
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">
-                                    <input id="remember" name="remember" type="checkbox" checked="checked">
+                                    <input id="remember" name="remember" type="checkbox">
                                     <label for="remember">Recordarme</label>
                                 </div>
 
-                                <button class="sign__btn" type="submit">Ingresar</button>
+                                <button class="sign__btn" type="button" id="singInButton">Ingresar</button>
 
-                                <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">Regístrate!</a></span>
+                                <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">¡Regístrate!</a></span>
 
                                 <span class="sign__text"><a href="#">¿Olvidaste tu contraseña?</a></span>
-                            </form:form>
+                            </div>
                             <!-- end authorization form -->
-                            <c:if test="${not empty error}">
-			        			<h4><span>${error}</span></h4>
-			        			<br>
-		        			</c:if>	
                         </div>
                     </div>
                 </div>

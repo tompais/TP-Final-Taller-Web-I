@@ -7,4 +7,5 @@ public interface UsuarioDao {
 	
 	Usuario consultarUsuario (Usuario usuario);
 	void realizarRegistro (Usuario usuario);
+	Usuario loguearUsuario(String emailOrNick, String password);
 }

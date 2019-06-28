@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptorHelper {
 
     public static String encryptToSha1(String input) throws NoSuchAlgorithmException {
-        return encryptTo(input, "SHA-1");
+        return encryptTo(input, ConstanteHelper.SHA1);
     }
 
     private static String encryptTo(String input, String digestInstance) throws NoSuchAlgorithmException {
@@ -18,6 +18,6 @@ public class EncryptorHelper {
     }
 
     public static String encryptToMd5(String input) throws NoSuchAlgorithmException {
-        return encryptTo(input, "MD5");
+        return encryptTo(input, ConstanteHelper.MD5);
     }
 }

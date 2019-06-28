@@ -6,4 +6,5 @@ import ar.edu.unlam.tallerweb1.Models.Usuario;
 public interface ServicioLogin {
 
 	Usuario consultarUsuario(Usuario usuario);
+	Usuario loguearUsuario(String emailOrNick, String password);
 }

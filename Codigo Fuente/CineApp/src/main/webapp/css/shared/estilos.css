@@ -3674,3 +3674,33 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     background-color: #2b2b31;
     box-shadow: 0 0 0 0.2rem rgba(255, 0, 107, 0.25);
 }
+
+.error {
+  display: none;
+  font-size: 14px;
+}
+
+/* Alertifyjs */
+
+.alertify .ajs-header {
+  background-color: #28282d;
+  color: #ff5860;
+  border-bottom: 1px solid #ff5860;
+}
+
+.alertify .ajs-dialog {
+  background-color: #2b2b31;
+}
+
+.alertify .ajs-body {
+  color: #ff5860;
+}
+
+.alertify .ajs-footer {
+  background-color: #28282d;
+  border-top: 1px solid #ff5860;
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
+  color: #ff5860;
+}

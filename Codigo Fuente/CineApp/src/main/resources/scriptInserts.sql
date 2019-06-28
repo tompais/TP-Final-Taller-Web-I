@@ -6044,7 +6044,7 @@ INSERT INTO Permiso (nombre) VALUES ('Reservar');
 
 INSERT INTO PermisoRol (permiso_id, rol_id) VALUES (1, 1);
 
-INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', 'ezeallio', 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'tomas1234', 1);
+INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', '8b2019000e1fa73774a96cbe75c486e32842dc4e', 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'c720f95d7b12b6fd252b432853bf8c0a118dd4a1', 1);
 
 INSERT INTO Direccion (calle, altura, localidad_id) VALUES ('Aquiles', 509, 764);
 

@@ -27,7 +27,7 @@
     <link href="${context}/lib/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css">
     <link href="${context}/lib/alertifyjs/css/alertify.min.css" rel="stylesheet" type="text/css">
     <link href="${context}/lib/alertifyjs/css/themes/default.min.css" rel="stylesheet" type="text/css">
-    <link href="${context}/lib/alertifyjs/css/themes/semantic.min.css" rel="stylesheet" type="text/css">
+    <link href="${context}/lib/alertifyjs/css/themes/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="${context}/lib/OwlCarousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="${context}/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/photoswipe.css">
     <link rel="stylesheet" href="${context}/lib/PhotoSwipe/dist/default-skin/default-skin.css">
     <link rel="stylesheet" href="${context}/css/shared/estilos.css" type="text/css">
-    <link rel="stylesheet" href="${context}/css/error/error.css" type="text/css">
 
 
     <!-- Favicons -->
@@ -64,6 +63,7 @@
 <script src="${context}/lib/validatejs/validate.min.js" type="text/javascript"></script>
 <script src="${context}/lib/momentjs/moment-with-locales.js" type="text/javascript"></script>
 <script src="${context}/lib/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="${context}/lib/jquery-mask/dist/jquery.mask.min.js" type="text/javascript"></script>
 <script src="${context}/lib/alertifyjs/alertify.min.js" type="text/javascript"></script>
 <script src="${context}/lib/OwlCarousel/dist/owl.carousel.min.js"></script>
 <script src="${context}/lib/jquery-mousewheel/jquery.mousewheel.min.js"></script>
@@ -77,6 +77,7 @@
 <script src="${context}/js/utilidades/constantes.js" type="text/javascript"></script>
 <script src="${context}/js/utilidades/utilidades.js" type="text/javascript"></script>
 <script src="${context}/js/shared/layout.js"></script>
+
 
 <jsp:doBody/>
 

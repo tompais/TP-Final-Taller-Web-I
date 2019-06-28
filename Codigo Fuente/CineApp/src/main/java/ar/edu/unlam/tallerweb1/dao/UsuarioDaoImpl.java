@@ -39,4 +39,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		session.save(usuario);		
 	}
 
+	@Override
+	public Usuario loguearUsuario(String emailOrNick, String password) {
+		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class, "usuario")
+				.add(Restrictions.and(Restrictions.or(Restrictions.like("username", emailOrNick), Restrictions.like("email", emailOrNick)), Restrictions.like("uPassword", password)))
+				.uniqueResult();
+	}
+
 }

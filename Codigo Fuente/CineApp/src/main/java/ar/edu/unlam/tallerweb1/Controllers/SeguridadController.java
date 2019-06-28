@@ -24,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Controller
 public class SeguridadController {
@@ -76,7 +78,7 @@ public class SeguridadController {
     }
     
     @RequestMapping(path = "/registro", method = RequestMethod.POST)
-    public ModelAndView registro(@ModelAttribute @Validated UsuarioViewModel usuario, HttpServletRequest request) {
+    public ModelAndView registro(@ModelAttribute @Validated UsuarioViewModel usuario, HttpServletRequest request) throws ParseException {
     	
     	Usuario modelo = new Usuario();
     	
@@ -93,7 +95,10 @@ public class SeguridadController {
     		modelo.setApellido(usuario.getApellido());
     		modelo.setUsername(usuario.getUsername());
     		modelo.setNombre(usuario.getNombre());
-    		modelo.setFechaNacimiento(usuario.getFechaNacimiento());
+    		
+    		java.util.Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(usuario.getFechaNacimiento());
+    		
+    		modelo.setFechaNacimiento(new java.sql.Date(fecha.getTime()));
     		
     		servicioRegistro.realizarRegistro(modelo);
     		

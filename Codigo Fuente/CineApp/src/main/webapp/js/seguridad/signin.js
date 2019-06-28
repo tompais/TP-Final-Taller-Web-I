@@ -55,7 +55,7 @@ function loguearUsuario() {
                 window.location.href = pathHome;
             })
             .fail(function (xhr, status, error) {
-                alertify.alert("Error de Login", "Usuario y/o contraseña inválido/s. Por favor, revise sus datos y vuelva a intentarlo");
+                alertify.alert("Error de Login", xhr.responseText);
             });
     }
 }

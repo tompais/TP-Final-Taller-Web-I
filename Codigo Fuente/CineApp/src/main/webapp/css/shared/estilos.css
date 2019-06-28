@@ -3675,6 +3675,11 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     box-shadow: 0 0 0 0.2rem rgba(255, 0, 107, 0.25);
 }
 
+.error {
+  display: none;
+  font-size: 14px;
+}
+
 /* Alertifyjs */
 
 .alertify .ajs-header {

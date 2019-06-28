@@ -32,11 +32,16 @@
                                 </a>
 
                                 <div class="form-group sign__group">
-                                    <input type="text" class="form-control sign__input" id="inputEmailOrNick" placeholder="Email"/>
+                                    <input type="text" class="form-control sign__input" id="inputEmailOrNick" placeholder="Email o Username"/>
+                                    <div id="errorEmailOrNick" class="error mt-2 p-3 bg-danger shadow rounded text-white-50"><i class="fas fa-exclamation-triangle mr-2"></i><span></span></div>
                                 </div>
 
                                 <div class="form-group sign__group">
                                     <input type="password" class="form-control sign__input" id="inputPassword" placeholder="Contraseña"/>
+                                    <div id="errorPass" class="error mt-2 p-3 shadow rounded text-white-50 bg-danger">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        <span></span>
+                                    </div>
                                 </div>
 
                                 <div class="sign__group sign__group--checkbox">

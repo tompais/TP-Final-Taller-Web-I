@@ -135,10 +135,26 @@
                                 <i class="icon ion-ios-search"></i>
                             </button>
 
-                            <a href="${context}/signin" class="header__sign-in">
-                                <i class="icon ion-ios-log-in"></i>
-                                <span>Ingresar</span>
-                            </a>
+                            <c:choose>
+                                <c:when test="${sessionScope.username  == null}">
+                                    <a href="${context}/signin" class="header__sign-in">
+                                        <i class="icon ion-ios-log-in"></i>
+                                        <span>Ingresar</span>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="dropdown ml-5">
+                                        <button class="btn btn-secondary dropdown-toggle text-white" type="button" id="btnDropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon ion-md-person mr-3"></i><span>Cuenta</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right bg-dark justify-content-end align-content-end" aria-labelledby="dropdownMenuUser">
+                                            <h6 class="dropdown-header text-center" style="color: #ff5860;">${sessionScope.username}</h6>
+                                            <div class="dropdown-divider" style="border-top:1px solid #ff5860;"></div>
+                                            <a class="dropdown-item text-white-50" href="${context}/signout"><i class="icon ion-md-log-out mr-3"></i>Cerrar Sesión</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <!-- end header auth -->
 

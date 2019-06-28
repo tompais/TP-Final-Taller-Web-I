@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Exceptions.RecursoNoEncontradoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioInvalidoException;
 import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import ar.edu.unlam.tallerweb1.Models.Rol;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
@@ -45,15 +48,16 @@ public class SeguridadController {
 
     @ResponseBody
     @RequestMapping(path = "/loguearUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String loguearUsuario(@ModelAttribute LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException {
+	public String loguearUsuario(@ModelAttribute LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException, RecursoNoEncontradoException, UsuarioInvalidoException {
 
 		Usuario usuarioBuscado = servicioLogin.loguearUsuario(loginViewModel.getEmailOrNick(), EncryptorHelper.encryptToSha1(loginViewModel.getPassword()));
 
-		if (usuarioBuscado != null) {
-			request.getSession().setAttribute("email", usuarioBuscado.getEmail());
-			request.getSession().setAttribute("rol", usuarioBuscado.getRol().getNombre());
-			request.getSession().setAttribute("username", usuarioBuscado.getUsername());
-		}
+		if (usuarioBuscado == null)
+			throw new UsuarioInvalidoException("Usuario y/o contraseña inválido/s. Por favor, revise sus datos y vuelva a intentarlo", CodigoError.USUARIOINVALIDO);
+
+		request.getSession().setAttribute("email", usuarioBuscado.getEmail());
+		request.getSession().setAttribute("rol", usuarioBuscado.getRol().getNombre());
+		request.getSession().setAttribute("username", usuarioBuscado.getUsername());
 
 		return new Gson().toJson(usuarioBuscado);
 	}

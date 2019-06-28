@@ -1,30 +1,16 @@
 package ar.edu.unlam.tallerweb1.ViewModels;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import ar.edu.unlam.tallerweb1.Models.Rol;
 
 public class UsuarioViewModel {
 	
-	private Long id;
 	private String nombre;
 	private String apellido;
 	private String username;
 	private String email;
 	private String uPassword;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private Rol rol;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -66,11 +52,11 @@ public class UsuarioViewModel {
 		this.uPassword = uPassword;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

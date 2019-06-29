@@ -41,7 +41,7 @@ function validarPassword() {
 }
 
 function loguearUsuario() {
-    $(".error").fadeOut().find("span").text("");
+    $(".error").fadeOut().find("span").empty();
 
     var validacion = validarEmail() && validarPassword();
 

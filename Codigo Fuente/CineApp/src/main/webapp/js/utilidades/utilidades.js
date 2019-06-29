@@ -75,3 +75,7 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
 
     return respuesta;
 }
+
+function isNullOrEmpty(text) {
+    return text === null || text.length === 0 || text === "";
+}

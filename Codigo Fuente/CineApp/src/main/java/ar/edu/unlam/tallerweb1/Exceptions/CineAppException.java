@@ -6,7 +6,7 @@ public abstract class CineAppException extends Exception {
 
     private CodigoError codigoError;
 
-    public CineAppException(String message, CodigoError codigoError) {
+    CineAppException(String message, CodigoError codigoError) {
         super(message);
         this.codigoError = codigoError;
     }

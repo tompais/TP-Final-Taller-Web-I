@@ -46,4 +46,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				.uniqueResult();
 	}
 
+	@Override
+	public Usuario getUsuarioByEmailOrUsername(String email, String username) {
+		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class, "usuario")
+				.add(Restrictions.or(Restrictions.ilike("email", email), Restrictions.ilike("username", username)))
+				.uniqueResult();
+	}
+
 }

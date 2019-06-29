@@ -18,15 +18,20 @@
 	<!--Se indica que la configuracion del MVC se hará utilizanbdo anotaciones-->
 	<mvc:annotation-driven />
 
-	<!--Se indica que el transaction manager a utilizar en la capa de servicios es el bean declarado en hibernateContext.xml-->
+	<!--Se indica que el transaction manager a utilizar en la capa de Services es el bean declarado en hibernateContext.xml-->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!--Se indican qué paquetes debe escanear Spring al levantar el contexto para encontrar componentes, -->
 	<!--esto es clases anotadas como @Controller, @Service o @Repository-->
-	<context:component-scan base-package="ar.edu.unlam.tallerweb1.controladores" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Controllers" />
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.dao" />
-	<context:component-scan base-package="ar.edu.unlam.tallerweb1.servicios" />
-	
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Services" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Servers" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Exceptions" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Handlers" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Enums" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.Helpers" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.ViewModels" />
 
 </beans>
 

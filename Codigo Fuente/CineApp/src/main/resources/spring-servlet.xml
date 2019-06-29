@@ -28,5 +28,6 @@
     <mvc:resources mapping="/json/**" location="/json/" />
     <mvc:resources mapping="/lib/**" location="/lib/" />
     <mvc:resources mapping="/pdf/**" location="/pdf/" />
+    <mvc:resources mapping="/icon/**" location="/icon/" />
 
 </beans>

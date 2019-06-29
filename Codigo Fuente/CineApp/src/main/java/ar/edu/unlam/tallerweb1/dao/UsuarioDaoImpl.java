@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.dao;
 
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.Models.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -28,7 +28,28 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		final Session session = sessionFactory.getCurrentSession();
 		return (Usuario) session.createCriteria(Usuario.class)
 				.add(Restrictions.eq("email", usuario.getEmail()))
-				.add(Restrictions.eq("password", usuario.getPassword()))
+				.add(Restrictions.eq("uPassword", usuario.getuPassword()))
+				.uniqueResult();
+	}
+
+	@Override
+	public void realizarRegistro(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+		
+		session.save(usuario);		
+	}
+
+	@Override
+	public Usuario loguearUsuario(String emailOrNick, String password) {
+		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class, "usuario")
+				.add(Restrictions.and(Restrictions.or(Restrictions.like("username", emailOrNick), Restrictions.like("email", emailOrNick)), Restrictions.like("uPassword", password)))
+				.uniqueResult();
+	}
+
+	@Override
+	public Usuario getUsuarioByEmailOrUsername(String email, String username) {
+		return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class, "usuario")
+				.add(Restrictions.or(Restrictions.ilike("email", email), Restrictions.ilike("username", username)))
 				.uniqueResult();
 	}
 

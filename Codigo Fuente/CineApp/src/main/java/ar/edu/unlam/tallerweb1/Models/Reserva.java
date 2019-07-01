@@ -2,12 +2,7 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,6 +15,7 @@ public class Reserva {
 	private Integer numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date fechaCompra;
 	
 	@OneToOne

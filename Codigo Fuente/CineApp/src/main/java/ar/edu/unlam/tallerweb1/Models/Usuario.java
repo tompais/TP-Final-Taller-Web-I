@@ -2,11 +2,7 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Usuario {
@@ -14,13 +10,19 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	private String nombre;
+	@Column(nullable = false)
 	private String apellido;
+	@Column(nullable = false, unique = true)
 	private String username;
+	@Column(nullable = false, unique = true)
 	private String email;
+	@Column(nullable = false)
 	private String uPassword;
-	
+
+	@Column(nullable = false)
 	private Date fechaNacimiento;
 	
 	@ManyToOne

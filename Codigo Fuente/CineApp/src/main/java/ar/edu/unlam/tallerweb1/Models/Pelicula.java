@@ -11,11 +11,15 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	private Date fechaEstreno;
-	
+
+	@Column(nullable = false)
 	private String nombre;
+	@Column(nullable = false)
 	private String sinopsis;
+	@Column(nullable = false)
 	private Integer duracion;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

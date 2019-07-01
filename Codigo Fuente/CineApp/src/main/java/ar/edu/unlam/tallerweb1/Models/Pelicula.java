@@ -21,6 +21,8 @@ public class Pelicula {
 	private String sinopsis;
 	@Column(nullable = false)
 	private Integer duracion;
+	@Column(nullable = false, unique = true)
+	private String trailer;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Pais pais;
@@ -34,6 +36,14 @@ public class Pelicula {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pelicula_id")
 	private List<PeliculaGeneroPelicula> peliculaGeneroPeliculas;
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
 
 	public List<PeliculaGeneroPelicula> getPeliculaGeneroPeliculas() {
 		return peliculaGeneroPeliculas;

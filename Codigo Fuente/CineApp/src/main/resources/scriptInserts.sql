@@ -6054,7 +6054,7 @@ INSERT INTO Clasificacion (nombre) VALUES ('ATP'), ('+13'), ('+16'), ('+18');
 
 INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg');
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2), ('2019-07-13', 'Sherlock', 'Elemental Watson', 180, 1, 1, 3);
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1, 'https://www.youtube.com/watch?v=znk2OICHbjY'), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2, 'https://www.youtube.com/watch?v=0JnRdfiUMa8'), ('2019-07-13', 'Sherlock', 'Elemental Watson', 180, 1, 1, 3, 'https://www.youtube.com/watch?v=J7nJksXDBWc');
 
 INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds');
 

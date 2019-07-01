@@ -11,7 +11,8 @@ public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
+	@Column(nullable = false, unique = true)
 	private Integer numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

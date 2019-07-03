@@ -1,15 +1,18 @@
-package ar.edu.unlam.tallerweb1.Models;
+package ar.edu.unlam.tallerweb1.Enums;
 
-import javax.persistence.*;
+public enum Roles {
+    USUARIO ((long)1, "Usuario");
 
-@Entity
-public class Poster {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, unique = true)
     private String nombre;
+
+    Roles() {
+    }
+
+    Roles(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;

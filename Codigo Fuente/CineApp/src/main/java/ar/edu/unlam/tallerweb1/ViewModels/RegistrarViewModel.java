@@ -1,16 +1,15 @@
 package ar.edu.unlam.tallerweb1.ViewModels;
 
-import ar.edu.unlam.tallerweb1.Models.Rol;
+import java.sql.Date;
 
-public class UsuarioViewModel {
+public class RegistrarViewModel {
 	
 	private String nombre;
 	private String apellido;
 	private String username;
 	private String email;
 	private String uPassword;
-	private String fechaNacimiento;
-	private Rol rol;
+	private Date fechaNacimiento;
 
 	public String getNombre() {
 		return nombre;
@@ -52,19 +51,12 @@ public class UsuarioViewModel {
 		this.uPassword = uPassword;
 	}
 
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
 }

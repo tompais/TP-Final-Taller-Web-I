@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.Enums;
 
 public enum CodigoError {
-    NOENCONTRADO (404);
+    NOENCONTRADO (404),
+    USUARIOINVALIDO (1),
+    USUARIODUPLICADO (2);
 
     private int codigoError;
 

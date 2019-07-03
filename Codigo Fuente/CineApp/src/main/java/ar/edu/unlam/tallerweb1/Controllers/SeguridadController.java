@@ -1,12 +1,18 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Enums.Roles;
+import ar.edu.unlam.tallerweb1.Exceptions.RecursoNoEncontradoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioDuplicadoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioInvalidoException;
 import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import ar.edu.unlam.tallerweb1.Models.Rol;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
 import ar.edu.unlam.tallerweb1.Services.ServicioRegistro;
+import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.ViewModels.LoginViewModel;
-import ar.edu.unlam.tallerweb1.ViewModels.UsuarioViewModel;
+import ar.edu.unlam.tallerweb1.ViewModels.RegistrarViewModel;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,7 +28,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 @Controller
 public class SeguridadController {
@@ -31,6 +36,9 @@ public class SeguridadController {
 	
 	@Inject
 	private ServicioRegistro servicioRegistro;
+
+	@Inject
+	private ServicioUsuario servicioUsuario;
 	
     @RequestMapping(path = "/signin", method = RequestMethod.GET)
     public ModelAndView irALogin(HttpServletRequest request) {
@@ -45,17 +53,22 @@ public class SeguridadController {
         return mv;
     }
 
+    private void setSessionUsuario(HttpServletRequest request, Usuario usuario) {
+		request.getSession().setAttribute("email", usuario.getEmail());
+		request.getSession().setAttribute("rol", usuario.getRol().getId());
+		request.getSession().setAttribute("username", usuario.getUsername());
+	}
+
     @ResponseBody
     @RequestMapping(path = "/loguearUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String loguearUsuario(@ModelAttribute LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException {
+	public String loguearUsuario(@ModelAttribute @Validated LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException, RecursoNoEncontradoException, UsuarioInvalidoException {
 
 		Usuario usuarioBuscado = servicioLogin.loguearUsuario(loginViewModel.getEmailOrNick(), EncryptorHelper.encryptToSha1(loginViewModel.getPassword()));
 
-		if (usuarioBuscado != null) {
-			request.getSession().setAttribute("email", usuarioBuscado.getEmail());
-			request.getSession().setAttribute("rol", usuarioBuscado.getRol().getNombre());
-			request.getSession().setAttribute("username", usuarioBuscado.getUsername());
-		}
+		if (usuarioBuscado == null)
+			throw new UsuarioInvalidoException("Usuario y/o contraseña inválido/s. Por favor, revise sus datos y vuelva a intentarlo", CodigoError.USUARIOINVALIDO);
+
+		setSessionUsuario(request, usuarioBuscado);
 
 		return new Gson().toJson(usuarioBuscado);
 	}
@@ -67,44 +80,41 @@ public class SeguridadController {
     	if(request.getSession().getAttribute("email") != null)
     		return new ModelAndView("redirect:/");
     	
-    	UsuarioViewModel usuario = new UsuarioViewModel();
+    	RegistrarViewModel usuario = new RegistrarViewModel();
 		modelo.put("usuario", usuario);
     	
         return new ModelAndView("Seguridad/signup", modelo);
     }
-    
-    @RequestMapping(path = "/registro", method = RequestMethod.POST)
-    public ModelAndView registro(@ModelAttribute @Validated UsuarioViewModel usuario, HttpServletRequest request) throws ParseException {
-    	
-    	Usuario modelo = new Usuario();
-    	
-    	modelo.setEmail(usuario.getEmail());
-    	modelo.setuPassword(usuario.getuPassword());
-    	
-    	if(servicioLogin.consultarUsuario(modelo) == null)
-    	{
-    		Rol rol = new Rol();
-    		rol.setId((long)1);
-    		rol.setNombre("Usuario");
-    		modelo.setRol(rol);
-    		
-    		modelo.setApellido(usuario.getApellido());
-    		modelo.setUsername(usuario.getUsername());
-    		modelo.setNombre(usuario.getNombre());
-    		
-    		java.util.Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(usuario.getFechaNacimiento());
-    		
-    		modelo.setFechaNacimiento(new java.sql.Date(fecha.getTime()));
-    		
-    		servicioRegistro.realizarRegistro(modelo);
-    		
-    		request.getSession().setAttribute("email", modelo.getEmail());
-			request.getSession().setAttribute("rol", modelo.getRol().getNombre());
-    	}
-    	
-        return new ModelAndView("Home/inicio");
+
+    @ResponseBody
+    @RequestMapping(path = "/registrarUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String registrarUsuario(@ModelAttribute @Validated RegistrarViewModel registrarViewModel, HttpServletRequest request) throws ParseException, UsuarioDuplicadoException {
+
+		if(servicioUsuario.existeUsuarioByEmailAndUsername(registrarViewModel.getEmail(), registrarViewModel.getUsername()))
+			throw new UsuarioDuplicadoException("Ya se encuentra registrado un usuario con el correo electrónico '" + registrarViewModel.getEmail() + "' y/o nombre de usuario '" + registrarViewModel.getUsername() + "'", CodigoError.USUARIODUPLICADO);
+
+		Usuario modelo = new Usuario();
+
+		modelo.setEmail(registrarViewModel.getEmail());
+		modelo.setuPassword(registrarViewModel.getuPassword());
+		Rol rol = new Rol();
+		rol.setId(Roles.USUARIO.getId());
+		rol.setNombre(Roles.USUARIO.getNombre());
+		modelo.setRol(rol);
+
+		modelo.setApellido(registrarViewModel.getApellido());
+		modelo.setUsername(registrarViewModel.getUsername());
+		modelo.setNombre(registrarViewModel.getNombre());
+
+		modelo.setFechaNacimiento(registrarViewModel.getFechaNacimiento());
+
+		servicioRegistro.realizarRegistro(modelo);
+
+		setSessionUsuario(request, modelo);
+
+		return new Gson().toJson(modelo);
     }
-    
+
     @RequestMapping(path = "/signout", method = RequestMethod.GET)
     public ModelAndView cerrarSesion(HttpServletRequest request) {
     	

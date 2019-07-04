@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.Services;
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
 import ar.edu.unlam.tallerweb1.Exceptions.RegistroInvalidoException;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioInvalidoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoEncontradoException;
 import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
 import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
@@ -37,11 +38,16 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public Usuario loguearUsuario(String emailOrNick, String password) throws NoSuchAlgorithmException, UsuarioInvalidoException {
+    public Usuario loguearUsuario(String emailOrNick, String password) throws NoSuchAlgorithmException, UsuarioInvalidoException, UsuarioNoEncontradoException {
         if((!validarUsuarioEmail(emailOrNick) && !validarUsuarioUsername(emailOrNick)) || !validarUsuarioPassword(password))
             throw new UsuarioInvalidoException("Usuario y/o contraseña inválido/s. Por favor, revise sus datos y vuelva a intentarlo", CodigoError.USUARIOINVALIDO);
 
-        return usuarioDao.loguearUsuario(emailOrNick, EncryptorHelper.encryptToSha1(password));
+        Usuario usuario = usuarioDao.loguearUsuario(emailOrNick, EncryptorHelper.encryptToSha1(password));
+
+        if(usuario == null)
+            throw new UsuarioNoEncontradoException("No se ha encontrado un usuario registrado con los datos ingresados", CodigoError.USUARIONOENCONTRADO);
+
+        return usuario;
     }
 
     @Override

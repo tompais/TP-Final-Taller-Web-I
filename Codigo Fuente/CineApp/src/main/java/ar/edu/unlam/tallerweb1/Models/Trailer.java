@@ -3,13 +3,12 @@ package ar.edu.unlam.tallerweb1.Models;
 import javax.persistence.*;
 
 @Entity
-public class Poster {
+public class Trailer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String nombre;
+    @Column(unique = true, nullable = false)
+    private String embed;
 
     public Long getId() {
         return id;
@@ -19,11 +18,11 @@ public class Poster {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getEmbed() {
+        return embed;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEmbed(String embed) {
+        this.embed = embed;
     }
 }

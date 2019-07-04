@@ -1,19 +1,16 @@
 package ar.edu.unlam.tallerweb1.Models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Asiento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false)
 	private Integer fila;
+	@Column(nullable = false)
 	private Integer columna;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -21,9 +18,6 @@ public class Asiento {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private TipoAsiento tipoAsiento;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private EstadoAsiento estadoAsiento;
 
 	public Long getId() {
 		return id;
@@ -63,13 +57,5 @@ public class Asiento {
 
 	public void setTipoAsiento(TipoAsiento tipoAsiento) {
 		this.tipoAsiento = tipoAsiento;
-	}
-
-	public EstadoAsiento getEstadoAsiento() {
-		return estadoAsiento;
-	}
-
-	public void setEstadoAsiento(EstadoAsiento estadoAsiento) {
-		this.estadoAsiento = estadoAsiento;
 	}
 }

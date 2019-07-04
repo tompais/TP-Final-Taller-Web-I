@@ -2,20 +2,21 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Tarjeta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(nullable = false, unique = true)
 	private Integer numero;
+	@Column(nullable = false)
 	private Integer codigoSeguridad;
+	@Column(nullable = false)
 	private Integer DNITitular;
+	@Column(nullable = false)
 	private Date fechaVencimiento;
 	
 	public Long getId() {

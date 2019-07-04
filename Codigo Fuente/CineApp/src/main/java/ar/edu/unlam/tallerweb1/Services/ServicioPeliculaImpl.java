@@ -35,4 +35,9 @@ public class ServicioPeliculaImpl implements ServicioPelicula {
 
         return peliculaDao.getProximosEstrenos();
     }
+
+    @Override
+    public Pelicula getPeliculaById(Long peliculaId) {
+        return peliculaDao.getPeliculaById(peliculaId);
+    }
 }

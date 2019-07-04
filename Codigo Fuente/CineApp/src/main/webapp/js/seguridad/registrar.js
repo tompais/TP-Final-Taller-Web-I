@@ -131,7 +131,7 @@ function validarPassword() {
         $('#errorPassword').fadeIn('slow').find('span').text('Ingrese su contraseña');
     } else if(!regexLetrasYNumeros.test(pass)) {
         $('#errorPassword').fadeIn('slow').find('span').text('Ingrese caracteres válidos');
-    } else if(pass.length < 5 || pass.length > 15) {
+    } else if(pass.length < 6 || pass.length > 15) {
         $('#errorPassword').fadeIn('slow').find('span').text('Entre 5 y 15 caracteres');
     } else {
         validacion = true;

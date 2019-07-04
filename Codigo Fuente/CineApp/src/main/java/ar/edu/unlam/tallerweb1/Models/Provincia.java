@@ -1,16 +1,14 @@
 package ar.edu.unlam.tallerweb1.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Provincia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
+	@Column(nullable = false, unique = true)
 	private String nombre;
 
 	public Integer getId() {

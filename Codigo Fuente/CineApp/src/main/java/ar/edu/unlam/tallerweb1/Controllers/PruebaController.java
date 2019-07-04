@@ -1,18 +1,24 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.Models.Asiento;
+import ar.edu.unlam.tallerweb1.Models.Cine;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
@@ -42,7 +48,7 @@ public class PruebaController extends BaseController{
 		long millis = System.currentTimeMillis();
 		Date actual = new Date(millis);
 
-		List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
+		/*List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
 		
 		System.out.println("Pelicula rescatada: " + peliculas.get(0).getNombre());
 		
@@ -75,7 +81,7 @@ public class PruebaController extends BaseController{
 		
 		Integer ticket = servicioReserva.reservar(usuario, funciones.get(0), asiento);
 		
-		modelo.put("mensaje", "Numero de ticket: " + ticket);
+		modelo.put("mensaje", "Numero de ticket: " + ticket);*/
 		
 		return new ModelAndView("Prueba/prueba", modelo);
 	}

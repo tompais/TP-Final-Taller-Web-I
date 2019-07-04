@@ -6054,7 +6054,9 @@ INSERT INTO Clasificacion (nombre) VALUES ('ATP'), ('+13'), ('+16'), ('+18');
 
 INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg');
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2), ('2019-07-13', 'Sherlock', 'Elemental Watson', 180, 1, 1, 3);
+INSERT INTO Trailer (embed) VALUES ('znk2OICHbjY'), ('0JnRdfiUMa8'), ('J7nJksXDBWc');
+
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Los Vengadores restantes deben encontrar una manera de recuperar a sus aliados para un enfrentamiento épico con Thanos, el malvado que diezmó el planeta y el universo.', 180, 1, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Un exmercenario quien, tras haber sido sometido a un cruel experimento, adquiere el superpoder de sanar rápidamente y pretende vengarse del hombre que destrozó su vida.', 180, 1, 1, 2, 2), ('2019-07-13', 'Sherlock', 'El ingenioso detective y su compañero, que se dedican a resolver crímenes, se enfrentan a un nuevo enemigo e intentan desenredar un plan mortal que podría destruir Inglaterra.', 180, 1, 1, 3, 3);
 
 INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds');
 
@@ -6080,8 +6082,10 @@ INSERT INTO Sala (numero, cine_id) VALUES (1, 1);
 
 INSERT INTO TipoAsiento (tipo) VALUES ('Standard');
 
-INSERT INTO Asiento (fila, columna, tipoAsiento_id, estadoAsiento_id, sala_id) VALUES (1, 1, 1, 1, 1), (1, 2, 1, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (1, 1, 1, 1), (1, 2, 1, 1);
 
 INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-04-28 16:30:00', 200.00, 1, 1, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 1);
 
 INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (1, 1, 4.5);

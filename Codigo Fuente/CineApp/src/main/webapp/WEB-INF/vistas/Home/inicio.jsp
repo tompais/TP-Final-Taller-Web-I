@@ -34,16 +34,17 @@
                                     <c:forEach items="${estrenos}" var="estreno">
                                         <div class="item">
                                             <div class="card card--big">
-                                                <a href="#" class="card__cover">
+                                                <a href="${context}/pelicula/${estreno.id}" class="card__cover">
                                                     <img src="${context}/img/covers/${estreno.poster.nombre}"
                                                          alt="${estreno.nombre}" class="img-fluid">
                                                 </a>
                                                 <div class="card__content">
                                                     <h3 class="card__title">
-                                                        <a href="#">${estreno.nombre}</a>
+                                                        <a href="${context}/pelicula/${estreno.id}">${estreno.nombre}</a>
                                                     </h3>
                                                     <span class="card__category">
-                                                        <c:forEach items="${estreno.peliculaGeneroPeliculas}" var="peliculaGeneroPelicula">
+                                                        <c:forEach items="${estreno.peliculaGeneroPeliculas}"
+                                                                   var="peliculaGeneroPelicula">
                                                             <a href="#">${peliculaGeneroPelicula.generoPelicula.nombre}</a>
                                                         </c:forEach>
                                                     </span>
@@ -90,21 +91,28 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-4">
                                                 <div class="card__cover">
-                                                    <img src="${context}/img/covers/${publicacion.pelicula.poster.nombre}" alt="">
+                                                    <a href="${context}/pelicula/${publicacion.pelicula.id}">
+                                                        <img src="${context}/img/covers/${publicacion.pelicula.poster.nombre}"
+                                                             alt="${publicacion.pelicula.nombre}">
+                                                    </a>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-sm-8">
                                                 <div class="card__content">
-                                                    <h3 class="card__title"><a href="#">${publicacion.pelicula.nombre}</a></h3>
+                                                    <h3 class="card__title"><a
+                                                            href="${context}/pelicula/${publicacion.pelicula.id}">${publicacion.pelicula.nombre}</a>
+                                                    </h3>
                                                     <span class="card__category">
-                                                <c:forEach var="peliculaGeneroPelicula" items="${publicacion.pelicula.peliculaGeneroPeliculas}">
+                                                <c:forEach var="peliculaGeneroPelicula"
+                                                           items="${publicacion.pelicula.peliculaGeneroPeliculas}">
                                                     <a href="#">${peliculaGeneroPelicula.generoPelicula.nombre}</a>
                                                 </c:forEach>
 											</span>
 
                                                     <div class="card__wrap">
-                                                        <span class="card__rate"><i class="icon ion-ios-star"></i>${publicacion.promedioCalificacion}</span>
+                                                        <span class="card__rate"><i
+                                                                class="icon ion-ios-star"></i>${publicacion.promedioCalificacion}</span>
 
                                                         <ul class="card__list">
                                                             <li>${publicacion.pelicula.clasificacion.nombre}</li>
@@ -122,7 +130,8 @@
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            <h5 class="text-white-50 text-center w-100">No se ha encontrado una lista de mejor calificadas</h5>
+                            <h5 class="text-white-50 text-center w-100">No se ha encontrado una lista de mejor
+                                calificadas</h5>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -146,17 +155,20 @@
                                 <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
                                     <div class="card">
                                         <div class="card__cover">
-                                            <img src="${context}/img/covers/${proximoEstreno.poster.nombre}"
-                                                 alt="${proximoEstreno.nombre}">
+                                            <a href="${context}/pelicula/${proximoEstreno.id}">
+                                                <img src="${context}/img/covers/${proximoEstreno.poster.nombre}"
+                                                     alt="${proximoEstreno.nombre}">
+                                            </a>
                                         </div>
                                         <div class="card__content">
                                             <h3 class="card__title">
-                                                <a href="#">
+                                                <a href="${context}/pelicula/${proximoEstreno.id}">
                                                         ${proximoEstreno.nombre}
                                                 </a>
                                             </h3>
                                             <span class="card__category">
-                                        <c:forEach items="${proximoEstreno.peliculaGeneroPeliculas}" var="peliculaGeneroPelicula">
+                                        <c:forEach items="${proximoEstreno.peliculaGeneroPeliculas}"
+                                                   var="peliculaGeneroPelicula">
                                             <a href="#">
                                                     ${peliculaGeneroPelicula.generoPelicula.nombre}
                                             </a>

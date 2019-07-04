@@ -2,12 +2,7 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +13,9 @@ public class Funcion {
 	private Long id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false, unique = true)
 	private Date diaYHora;
+	@Column(nullable = false, unique = true)
 	private Double precio;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -26,9 +23,6 @@ public class Funcion {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private TipoFuncion tipoFuncion;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Sala sala;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
@@ -79,13 +73,5 @@ public class Funcion {
 
 	public void setTipoFuncion(TipoFuncion tipoFuncion) {
 		this.tipoFuncion = tipoFuncion;
-	}
-
-	public Sala getSala() {
-		return sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
 	}
 }

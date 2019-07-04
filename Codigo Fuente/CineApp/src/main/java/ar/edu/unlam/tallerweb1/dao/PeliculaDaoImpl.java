@@ -42,4 +42,11 @@ public class PeliculaDaoImpl implements PeliculaDao{
 
 		return peliculas;
 	}
+
+	@Override
+	public Pelicula getPeliculaById(Long peliculaId) {
+		return (Pelicula) sessionFactory.getCurrentSession().createCriteria(Pelicula.class, "pelicula")
+				.add(Restrictions.eq("id", peliculaId))
+				.uniqueResult();
+	}
 }

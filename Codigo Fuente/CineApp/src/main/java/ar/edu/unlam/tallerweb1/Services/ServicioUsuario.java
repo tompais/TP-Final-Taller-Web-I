@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.Services;
 
 import ar.edu.unlam.tallerweb1.Exceptions.RegistroInvalidoException;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioInvalidoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoEncontradoException;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 
 import java.security.NoSuchAlgorithmException;
@@ -12,7 +13,7 @@ public interface ServicioUsuario {
 
     Usuario consultarUsuario(Usuario usuario);
 
-    Usuario loguearUsuario(String emailOrNick, String password) throws NoSuchAlgorithmException, UsuarioInvalidoException;
+    Usuario loguearUsuario(String emailOrNick, String password) throws NoSuchAlgorithmException, UsuarioInvalidoException, UsuarioNoEncontradoException;
 
     void realizarRegistro(Usuario usuario) throws NoSuchAlgorithmException, RegistroInvalidoException;
 

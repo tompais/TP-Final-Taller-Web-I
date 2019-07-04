@@ -54,9 +54,6 @@ public class SeguridadController {
 
 		Usuario usuarioBuscado = servicioUsuario.loguearUsuario(loginViewModel.getEmailOrNick(), loginViewModel.getPassword());
 
-		if (usuarioBuscado == null)
-			throw new UsuarioNoEncontradoException("No se ha encontrado un usuario registrado con los datos ingresados", CodigoError.USUARIONOENCONTRADO);
-
 		setSessionUsuario(request, usuarioBuscado);
 
 		return new Gson().toJson(usuarioBuscado);
@@ -64,15 +61,15 @@ public class SeguridadController {
     
     @RequestMapping(path = "/signup", method = RequestMethod.GET)
     public ModelAndView irARegistrar(HttpServletRequest request) {
-    	ModelMap modelo = new ModelMap();
-    	
+
+    	ModelAndView mv = new ModelAndView();
+
     	if(request.getSession().getAttribute("email") != null)
-    		return new ModelAndView("redirect:/");
+    		mv.setViewName("redirect:/");
+    	else
+    		mv.setViewName("Seguridad/signup");
     	
-    	RegistrarViewModel usuario = new RegistrarViewModel();
-		modelo.put("usuario", usuario);
-    	
-        return new ModelAndView("Seguridad/signup", modelo);
+        return mv;
     }
 
     @ResponseBody

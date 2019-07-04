@@ -8,4 +8,5 @@ public interface ServicioPelicula {
 
     List<Pelicula> getPeliculasDisponiblesEnCartelera();
     List<Pelicula> getProximosEstrenos();
+    Pelicula getPeliculaById(Long peliculaId);
 }

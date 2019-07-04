@@ -3,9 +3,9 @@ package ar.edu.unlam.tallerweb1.Controllers;
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
 import ar.edu.unlam.tallerweb1.Enums.Roles;
 import ar.edu.unlam.tallerweb1.Exceptions.RecursoNoEncontradoException;
+import ar.edu.unlam.tallerweb1.Exceptions.RegistroInvalidoException;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioDuplicadoException;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioInvalidoException;
-import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import ar.edu.unlam.tallerweb1.Models.Rol;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
@@ -63,7 +63,7 @@ public class SeguridadController {
     @RequestMapping(path = "/loguearUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public String loguearUsuario(@ModelAttribute @Validated LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException, RecursoNoEncontradoException, UsuarioInvalidoException {
 
-		Usuario usuarioBuscado = servicioLogin.loguearUsuario(loginViewModel.getEmailOrNick(), EncryptorHelper.encryptToSha1(loginViewModel.getPassword()));
+		Usuario usuarioBuscado = servicioLogin.loguearUsuario(loginViewModel.getEmailOrNick(), loginViewModel.getPassword());
 
 		if (usuarioBuscado == null)
 			throw new UsuarioInvalidoException("Usuario y/o contraseña inválido/s. Por favor, revise sus datos y vuelva a intentarlo", CodigoError.USUARIOINVALIDO);
@@ -88,7 +88,7 @@ public class SeguridadController {
 
     @ResponseBody
     @RequestMapping(path = "/registrarUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String registrarUsuario(@ModelAttribute @Validated RegistrarViewModel registrarViewModel, HttpServletRequest request) throws ParseException, UsuarioDuplicadoException {
+    public String registrarUsuario(@ModelAttribute @Validated RegistrarViewModel registrarViewModel, HttpServletRequest request) throws ParseException, UsuarioDuplicadoException, NoSuchAlgorithmException, RegistroInvalidoException {
 
 		if(servicioUsuario.existeUsuarioByEmailAndUsername(registrarViewModel.getEmail(), registrarViewModel.getUsername()))
 			throw new UsuarioDuplicadoException("Ya se encuentra registrado un usuario con el correo electrónico '" + registrarViewModel.getEmail() + "' y/o nombre de usuario '" + registrarViewModel.getUsername() + "'", CodigoError.USUARIODUPLICADO);
@@ -108,7 +108,8 @@ public class SeguridadController {
 
 		modelo.setFechaNacimiento(registrarViewModel.getFechaNacimiento());
 
-		servicioRegistro.realizarRegistro(modelo);
+		if(!servicioRegistro.realizarRegistro(modelo))
+			throw new RegistroInvalidoException("Error al realizar el registro. Verifique que sus datos estén correctos", CodigoError.REGISTROINVALIDO);
 
 		setSessionUsuario(request, modelo);
 

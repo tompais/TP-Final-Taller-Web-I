@@ -5,6 +5,7 @@ public enum CodigoError {
     USUARIOINVALIDO (1),
     USUARIODUPLICADO (2),
     PELICULANOENCONTRADA (3);
+    REGISTROINVALIDO (4);
 
     private int codigoError;
 

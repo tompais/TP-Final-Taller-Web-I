@@ -18,9 +18,6 @@ public class Asiento {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private TipoAsiento tipoAsiento;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private EstadoAsiento estadoAsiento;
 
 	public Long getId() {
 		return id;
@@ -60,13 +57,5 @@ public class Asiento {
 
 	public void setTipoAsiento(TipoAsiento tipoAsiento) {
 		this.tipoAsiento = tipoAsiento;
-	}
-
-	public EstadoAsiento getEstadoAsiento() {
-		return estadoAsiento;
-	}
-
-	public void setEstadoAsiento(EstadoAsiento estadoAsiento) {
-		this.estadoAsiento = estadoAsiento;
 	}
 }

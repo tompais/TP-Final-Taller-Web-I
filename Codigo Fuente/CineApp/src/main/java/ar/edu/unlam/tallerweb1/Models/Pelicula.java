@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.Models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -21,19 +24,30 @@ public class Pelicula {
 	private String sinopsis;
 	@Column(nullable = false)
 	private Integer duracion;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne
 	private Pais pais;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Clasificacion clasificacion;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Poster poster;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pelicula_id")
 	private List<PeliculaGeneroPelicula> peliculaGeneroPeliculas;
+
+	@OneToOne
+	private Trailer trailer;
+
+	public Trailer getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(Trailer trailer) {
+		this.trailer = trailer;
+	}
 
 	public List<PeliculaGeneroPelicula> getPeliculaGeneroPeliculas() {
 		return peliculaGeneroPeliculas;

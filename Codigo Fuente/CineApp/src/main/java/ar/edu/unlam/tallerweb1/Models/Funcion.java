@@ -25,9 +25,6 @@ public class Funcion {
 	private TipoFuncion tipoFuncion;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Sala sala;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
 
 	public Cine getCine() {
@@ -76,13 +73,5 @@ public class Funcion {
 
 	public void setTipoFuncion(TipoFuncion tipoFuncion) {
 		this.tipoFuncion = tipoFuncion;
-	}
-
-	public Sala getSala() {
-		return sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
 	}
 }

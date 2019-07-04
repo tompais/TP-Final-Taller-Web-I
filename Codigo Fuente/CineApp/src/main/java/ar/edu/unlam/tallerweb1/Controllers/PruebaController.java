@@ -26,7 +26,6 @@ import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
-import ar.edu.unlam.tallerweb1.ViewModels.PeliculaCineViewModel;
 
 @Controller
 public class PruebaController extends BaseController{
@@ -49,7 +48,7 @@ public class PruebaController extends BaseController{
 		long millis = System.currentTimeMillis();
 		Date actual = new Date(millis);
 
-		List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
+		/*List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
 		
 		System.out.println("Pelicula rescatada: " + peliculas.get(0).getNombre());
 		
@@ -82,7 +81,7 @@ public class PruebaController extends BaseController{
 		
 		Integer ticket = servicioReserva.reservar(usuario, funciones.get(0), asiento);
 		
-		modelo.put("mensaje", "Numero de ticket: " + ticket);
+		modelo.put("mensaje", "Numero de ticket: " + ticket);*/
 		
 		return new ModelAndView("Prueba/prueba", modelo);
 	}
@@ -94,46 +93,5 @@ public class PruebaController extends BaseController{
 		modelo.put("mensaje", request.getSession().getAttribute("username"));
 		
 		return new ModelAndView("Prueba/prueba", modelo);
-	}
-	
-	@RequestMapping(path = "/pruebaAjax", method = RequestMethod.GET)
-	public ModelAndView pruebaAjax() {
-		ModelMap modelo = new ModelMap();
-		
-		long millis = System.currentTimeMillis();
-		Date actual = new Date(millis);
-		
-		List<Pelicula> peliculas = servicioReserva.consultarPeliculas(actual);
-		
-		List<PeliculaCine> peliculaCines = servicioReserva.consultarCinesPelicula(peliculas.get(0));
-		
-		List<PeliculaCineViewModel> peliculaCinesViewModel = new ArrayList<>();
-		PeliculaCineViewModel peliculaCineModel;
-		
-		for(PeliculaCine peliculaCine : peliculaCines)
-		{
-			peliculaCineModel = new PeliculaCineViewModel();
-			peliculaCineModel.setIdCine(peliculaCine.getCine().getId());
-			peliculaCineModel.setNombreCine(peliculaCine.getCine().getNombre());
-			peliculaCinesViewModel.add(peliculaCineModel);
-			peliculaCineModel = null;
-		}
-
-		modelo.put("cines", peliculaCinesViewModel);
-		
-		return new ModelAndView("Prueba/pruebaAjax", modelo);
-	}
-	
-	@ResponseBody
-	@RequestMapping(path = "/funciones", method = RequestMethod.GET, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ModelAndView traerFunciones(@ModelAttribute PeliculaCineViewModel cineViewModel) {
-		
-		PeliculaCine peliculaCine = new PeliculaCine();
-		
-		peliculaCine.getCine().setId(cineViewModel.getIdCine());
-		
-		List<Funcion> funciones = servicioReserva.consultarFunciones(peliculaCine);
-		
-		
 	}
 }

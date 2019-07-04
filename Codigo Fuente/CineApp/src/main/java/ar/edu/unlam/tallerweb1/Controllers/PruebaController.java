@@ -1,36 +1,24 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.MediaType;
+import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.Models.Asiento;
-import ar.edu.unlam.tallerweb1.Models.Cine;
-import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
-import ar.edu.unlam.tallerweb1.Models.Funcion;
-import ar.edu.unlam.tallerweb1.Models.Pelicula;
-import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
-import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
 
 @Controller
 public class PruebaController extends BaseController{
 	@Inject
-	private ServicioLogin servicioLogin;
+	private ServicioUsuario servicioLogin;
 	
 	@Inject
 	private ServicioReserva servicioReserva;

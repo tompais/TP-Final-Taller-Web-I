@@ -3,10 +3,9 @@ package ar.edu.unlam.tallerweb1.Models;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
-
-import javax.persistence.*;
 
 
 @Entity
@@ -34,12 +33,26 @@ public class Pelicula {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	private Poster poster;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	@JoinColumn(name = "pelicula_id")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PeliculaGeneroPelicula> peliculaGeneroPeliculas;
+
+	@OneToMany
+	@JoinColumn(name = "pelicula_id")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<PeliculaActor> peliculaActores;
 
 	@OneToOne
 	private Trailer trailer;
+
+	public List<PeliculaActor> getPeliculaActores() {
+		return peliculaActores;
+	}
+
+	public void setPeliculaActores(List<PeliculaActor> peliculaActores) {
+		this.peliculaActores = peliculaActores;
+	}
 
 	public Trailer getTrailer() {
 		return trailer;

@@ -38,6 +38,7 @@
                 <div class="col-sm">
                     <h3 class="text-white my-4">Información</h3>
                     <p class="text-white-50 text-justify m-0 p-0"><span class="text-white font-weight-bold">Género:</span> ${listaGeneros}</p>
+                    <p class="text-white-50 text-justify m-0 p-0"><span class="text-white font-weight-bold">Reparto:</span> ${listaActores}</p>
                     <p class="text-white-50 text-justify m-0 p-0"><span class="text-white font-weight-bold">Clasificación:</span> ${pelicula.clasificacion.nombre}</p>
                     <p class="text-white-50 text-justify m-0 p-0"><span class="text-white font-weight-bold">Duración:</span> ${pelicula.duracion} minutos</p>
                     <p class="text-white-50 text-justify m-0 p-0"><span class="text-white font-weight-bold">País de Origen:</span> ${pelicula.pais.nombre}</p>

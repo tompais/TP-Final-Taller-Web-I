@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.Services;
 
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Exceptions.PeliculaNoEncontradaException;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.dao.PeliculaCineDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaDao;
@@ -34,5 +36,15 @@ public class ServicioPeliculaImpl implements ServicioPelicula {
         proximosEstrenos.sort(compareByFechaEstreno);
 
         return peliculaDao.getProximosEstrenos();
+    }
+
+    @Override
+    public Pelicula getPeliculaById(Long peliculaId) throws PeliculaNoEncontradaException {
+        Pelicula pelicula = peliculaDao.getPeliculaById(peliculaId);
+
+        if(pelicula == null)
+            throw new PeliculaNoEncontradaException("No se ha encontrado la película solicitada", CodigoError.PELICULANOENCONTRADA);
+
+        return pelicula;
     }
 }

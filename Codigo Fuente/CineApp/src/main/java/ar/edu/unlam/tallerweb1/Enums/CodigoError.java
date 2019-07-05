@@ -4,7 +4,9 @@ public enum CodigoError {
     NOENCONTRADO (404),
     USUARIOINVALIDO (1),
     USUARIODUPLICADO (2),
-    REGISTROINVALIDO (3);
+    PELICULANOENCONTRADA (3),
+    REGISTROINVALIDO (4),
+    USUARIONOENCONTRADO (5);
 
     private int codigoError;
 

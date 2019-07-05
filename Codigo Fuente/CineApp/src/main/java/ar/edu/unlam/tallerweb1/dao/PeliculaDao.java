@@ -9,4 +9,6 @@ public interface PeliculaDao {
 	List<Pelicula> consultarPeliculas (Date fechaActual);
 
 	List<Pelicula> getProximosEstrenos();
+
+	Pelicula getPeliculaById(Long peliculaId);
 }

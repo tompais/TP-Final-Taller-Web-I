@@ -2,12 +2,12 @@ package ar.edu.unlam.tallerweb1.reserva;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.Services.ServicioUsuarioImpl;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
-import ar.edu.unlam.tallerweb1.Services.ServicioLogin;
-import ar.edu.unlam.tallerweb1.Services.ServicioLoginImpl;
 import ar.edu.unlam.tallerweb1.SpringTest;
 
 public class ReservaTest extends SpringTest{
@@ -17,7 +17,7 @@ public class ReservaTest extends SpringTest{
 	@Rollback()
 	public void traerUsuario()
 	{
-		ServicioLogin servicioLogin = new ServicioLoginImpl();
+		ServicioUsuario servicioLogin = new ServicioUsuarioImpl();
 		
 		Usuario modelo = new Usuario();
 		modelo.setEmail("ezequiel.allio@gmail.com");

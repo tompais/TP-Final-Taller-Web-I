@@ -9,15 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.Models.Asiento;
+import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
+import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 import ar.edu.unlam.tallerweb1.Models.Reserva;
 import ar.edu.unlam.tallerweb1.dao.FuncionDao;
 import ar.edu.unlam.tallerweb1.dao.AsientoDao;
+import ar.edu.unlam.tallerweb1.dao.AsientoFuncionDao;
 import ar.edu.unlam.tallerweb1.dao.EstadoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoFuncionDao;
@@ -63,6 +66,9 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	@Inject
 	private SalaDao servicioSalaDao;
+	
+	@Inject
+	private AsientoFuncionDao asientoFuncionDao;
 	
 	@Override
 	public List<Pelicula> consultarPeliculas(Date actual) {
@@ -145,6 +151,28 @@ public class ServicioReservaImpl implements ServicioReserva{
 	@Override
 	public Sala consultarSala(Sala sala) {
 		return servicioSalaDao.cosultarSala(sala);
-	}	
+	}
+	
+	@Override
+	public SalaViewModel[][] formatoSala(int idFuncion, int fil, int col) {
+		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarAsientoFuncion(idFuncion);
+		
+		SalaViewModel[][] sala = new SalaViewModel[fil][col];
+		
+		SalaViewModel modelo;
+		
+		for(AsientoFuncion asientoFuncion : asientosFuncion) {
+			modelo = new SalaViewModel();
+			
+			modelo.setEstadoAsiento(asientoFuncion.getEstadoAsiento().getId());
+			modelo.setTipoAsiento(asientoFuncion.getAsiento().getTipoAsiento().getId());
+			
+			sala[asientoFuncion.getAsiento().getFila()][asientoFuncion.getAsiento().getColumna()] = modelo;
+			
+			modelo = null;
+		}
+		
+		return sala;
+	}
 	
 }

@@ -10,6 +10,7 @@ import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
+import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 import ar.edu.unlam.tallerweb1.Models.Sala;
@@ -25,4 +26,5 @@ public interface ServicioReserva {
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
 	Integer reservar (Usuario usuario, Funcion funcion, Asiento asiento);
 	Sala consultarSala (Sala sala);
+	SalaViewModel[][] formatoSala(int idFuncion, int fil, int col);
 }

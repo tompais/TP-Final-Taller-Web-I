@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
-import ar.edu.unlam.tallerweb1.Services.ServicioCalificacion;
 import ar.edu.unlam.tallerweb1.Services.ServicioPelicula;
 import ar.edu.unlam.tallerweb1.ViewModels.PublicacionViewModel;
 import org.springframework.stereotype.Controller;
@@ -24,9 +23,6 @@ public class HomeController extends BaseController {
     @Inject
     private ServicioPelicula servicioPelicula;
 
-    @Inject
-    private ServicioCalificacion servicioCalificacion;
-
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView irAInicio() {
         List<PublicacionViewModel> publicaciones = new ArrayList<>();
@@ -44,7 +40,7 @@ public class HomeController extends BaseController {
 
         for (Pelicula pelicula :
                 peliculas) {
-            publicaciones.add(new PublicacionViewModel(pelicula, servicioCalificacion.getPromedioCalificacionByPeliculaId(pelicula.getId())));
+            publicaciones.add(new PublicacionViewModel(pelicula, servicioPelicula.getPromedioCalificacionByPeliculaId(pelicula.getId())));
         }
 
         Comparator<PublicacionViewModel> compareByPromedioCalificacion = Comparator.comparing(PublicacionViewModel::getPromedioCalificacion).reversed();

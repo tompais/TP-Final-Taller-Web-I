@@ -1,10 +1,8 @@
 package ar.edu.unlam.tallerweb1.Models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Funcion {
@@ -12,20 +10,30 @@ public class Funcion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(nullable = false, unique = true)
-	private Date diaYHora;
+	private Timestamp diaYHora;
 	@Column(nullable = false, unique = true)
 	private Double precio;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Pelicula pelicula;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private TipoFuncion tipoFuncion;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Cine cine;
+
+	@ManyToOne
+	private Sala sala;
+
+	public Sala getSala() {
+		return sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
 
 	public Cine getCine() {
 		return cine;
@@ -43,11 +51,11 @@ public class Funcion {
 		this.id = id;
 	}
 
-	public Date getDiaYHora() {
+	public Timestamp getDiaYHora() {
 		return diaYHora;
 	}
 
-	public void setDiaYHora(Date diaYHora) {
+	public void setDiaYHora(Timestamp diaYHora) {
 		this.diaYHora = diaYHora;
 	}
 

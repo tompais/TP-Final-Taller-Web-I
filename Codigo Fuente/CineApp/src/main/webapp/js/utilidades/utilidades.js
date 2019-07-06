@@ -79,3 +79,22 @@ function llamadaAjax(urlServicioWeb, datosServicioWeb, esAsincronico,
 function isNullOrEmpty(text) {
     return text === null || text.length === 0 || text === "";
 }
+
+function limpiarSelect(select) {
+    select.find('option').remove().end();
+}
+
+function reinicializarSelect(select, defaultText) {
+    var option = $('<option value="0" selected disabled>');
+    option.text(defaultText);
+    limpiarSelect(select);
+    select.append(option).val(0);
+}
+
+function habilitarElemento(element) {
+    element.prop('disabled', false);
+}
+
+function deshabilitarElemento(element) {
+    element.prop('disabled', true);
+}

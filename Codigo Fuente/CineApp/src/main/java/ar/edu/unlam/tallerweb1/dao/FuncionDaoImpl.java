@@ -1,11 +1,14 @@
 package ar.edu.unlam.tallerweb1.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +38,18 @@ public class FuncionDaoImpl implements FuncionDao{
 		return (Funcion) session.createCriteria(Funcion.class)
 				.add(Restrictions.eq("id", funcion.getId()))
 				.uniqueResult();
+	}
+
+	@Override
+	public Timestamp getFechaUltimaFuncionByPeliculaAndCineId(Long peliculaId, Long cineId) {
+		return (Timestamp) sessionFactory.getCurrentSession().createCriteria(Funcion.class, "funcion")
+				.createAlias("pelicula", "peliculaBuscada")
+				.createAlias("cine", "cineBuscado")
+				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId)))
+				.addOrder(Order.desc("diaYHora"))
+				.setProjection(Projections.property("diaYHora"))
+		.setFirstResult(0)
+		.uniqueResult();
 	}
 
 }

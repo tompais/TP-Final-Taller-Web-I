@@ -65,6 +65,6 @@ public class PeliculaController {
     @ResponseBody
     @RequestMapping(path = "/getRangoFechaCompra", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getRangoFechaCompra(@RequestBody FuncionDto funcion) {
-        return new Gson().toJson(servicioFuncion.getFechaUltimaFuncionByPeliculaAndCineId(funcion.getPeliculaId(), funcion.getCineId()).toLocalDateTime());
+        return new Gson().toJson(servicioFuncion.getFechaUltimaFuncionByPeliculaAndCineId(funcion.getPeliculaId(), funcion.getCineId()).toLocalDateTime().toString());
     }
 }

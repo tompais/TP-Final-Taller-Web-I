@@ -4,6 +4,15 @@ public class FuncionDto {
 
     private Long peliculaId;
     private Long cineId;
+    private Long tipoFuncionId;
+
+    public Long getTipoFuncionId() {
+        return tipoFuncionId;
+    }
+
+    public void setTipoFuncionId(Long tipoFuncionId) {
+        this.tipoFuncionId = tipoFuncionId;
+    }
 
     public Long getPeliculaId() {
         return peliculaId;

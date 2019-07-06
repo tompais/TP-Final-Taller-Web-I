@@ -5,13 +5,13 @@ var btnInputFechaCompra = $('#btnInputFechaCompra');
 
 /*Datepicker fecha compra*/
 
-function inicializarDatePicker() {
+function inicializarDatePicker(maxDate) {
     inputFechaCompra.daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         opens: "left",
         minDate: moment(),
-        maxDate: moment().add(7, 'days'),
+        maxDate: maxDate,
         startDate: moment().format("DD/MM/YYYY"),
         locale: {
             format: "DD/MM/YYYY",
@@ -37,8 +37,9 @@ btnInputFechaCompra.click(function () {
     inputFechaCompra.data('daterangepicker').toggle();
 });
 
-function getRangoFechaCompraExitoso(data) {
-    console.log(moment(data));
+function getRangoFechaCompraExitoso(date) {
+    inicializarDatePicker(moment(date).format("DD/MM/YYYY"));
+    divFormGroupFechaCompra.removeClass('d-none');
 }
 
 function inicializarFechaCompra() {

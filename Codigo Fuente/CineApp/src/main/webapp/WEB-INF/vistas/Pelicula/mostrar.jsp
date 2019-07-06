@@ -17,6 +17,7 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script>
+            const pathGetTipoFuncionesDisponibles = '${context}' + '/getTipoFuncionesDisponibles';
             const pathGetRangoFechaCompra = '${context}' + '/getRangoFechaCompra';
             const peliculaId = "${pelicula.id}";
             const url = "${context}";
@@ -48,6 +49,15 @@
                             </div>
                         </div>
                         <div class="col-sm">
+                            <div id="divFormGroupTipoFuncion" class="form-group d-none">
+                                <label for="selectTipoFuncion" class="text-white-50">Seleccione el Tipo de Función:</label>
+                                <select name="tipoFuncion" id="selectTipoFuncion" class="form-control border-dark rounded-0 text-white" style="background: #343a40;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
                             <div id="divFormGroupFechaCompra" class="form-group d-none">
                                 <label class="text-white-50" for="inputFechaCompra">Escoja una Fecha:</label>
                                 <div class="input-group">
@@ -58,6 +68,14 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div id="divFormGroupHorarioCompra" class="form-group d-none">
+                                <label for="selectHorarioCompra" class="text-white-50">Seleccione un horario:</label>
+                                <select name="horarioCompra" id="selectHorarioCompra" class="form-control border-dark rounded-0 text-white" style="background: #343a40;">
+
+                                </select>
                             </div>
                         </div>
                     </div>

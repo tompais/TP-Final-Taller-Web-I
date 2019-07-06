@@ -6084,7 +6084,7 @@ INSERT INTO TipoAsiento (tipo) VALUES ('Standard');
 
 INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (1, 1, 1, 1), (1, 2, 1, 1);
 
-INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28 16:30:00', 200.00, 1, 1, 1, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 200.00, 1, 1, 1, 1);
 
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 1);
 

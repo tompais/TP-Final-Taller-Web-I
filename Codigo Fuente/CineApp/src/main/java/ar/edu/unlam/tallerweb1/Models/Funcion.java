@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.Models;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.*;
@@ -10,8 +12,12 @@ public class Funcion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false, unique = true)
-	private Timestamp diaYHora;
+	@Column(nullable = false)
+	private Date fecha;
+
+	@Column(nullable = false)
+	private Time hora;
+
 	@Column(nullable = false, unique = true)
 	private Double precio;
 	
@@ -26,6 +32,22 @@ public class Funcion {
 
 	@ManyToOne
 	private Sala sala;
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Time getHora() {
+		return hora;
+	}
+
+	public void setHora(Time hora) {
+		this.hora = hora;
+	}
 
 	public Sala getSala() {
 		return sala;
@@ -49,14 +71,6 @@ public class Funcion {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Timestamp getDiaYHora() {
-		return diaYHora;
-	}
-
-	public void setDiaYHora(Timestamp diaYHora) {
-		this.diaYHora = diaYHora;
 	}
 
 	public Double getPrecio() {

@@ -1,10 +1,13 @@
 package ar.edu.unlam.tallerweb1.dao;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -41,15 +44,35 @@ public class FuncionDaoImpl implements FuncionDao{
 	}
 
 	@Override
-	public Timestamp getFechaUltimaFuncionByPeliculaAndCineId(Long peliculaId, Long cineId) {
-		return (Timestamp) sessionFactory.getCurrentSession().createCriteria(Funcion.class, "funcion")
+	public Date getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(Long peliculaId, Long cineId, Long tipoFuncionId) {
+		return (Date) sessionFactory.getCurrentSession().createCriteria(Funcion.class, "funcion")
 				.createAlias("pelicula", "peliculaBuscada")
 				.createAlias("cine", "cineBuscado")
-				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId)))
-				.addOrder(Order.desc("diaYHora"))
-				.setProjection(Projections.property("diaYHora"))
+				.createAlias("tipoFuncion", "tipoFuncionBuscada")
+				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId), Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)))
+				.addOrder(Order.desc("fecha"))
+				.setProjection(Projections.property("fecha"))
 		.setFirstResult(0)
 		.uniqueResult();
+	}
+
+	@Override
+	public List<TipoFuncion> getTipoFuncionesDisponiblesByPeliculaAndCineId(Long peliculaId, Long cineId) {
+		List list = sessionFactory.getCurrentSession().createCriteria(Funcion.class, "funcion")
+				.createAlias("pelicula", "peliculaBuscada")
+				.createAlias("cine", "cineBuscado")
+				.createAlias("tipoFuncion", "tipoFuncionBuscada")
+				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId)))
+				.setProjection(Projections.property("tipoFuncion"))
+				.list();
+
+		List<TipoFuncion> tipoFunciones = new ArrayList<>();
+		for (Object obj :
+				list) {
+			tipoFunciones.add((TipoFuncion) obj);
+		}
+
+		return tipoFunciones;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ar.edu.unlam.tallerweb1.Models.Cine;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -51,6 +52,24 @@ public class PeliculaCineDaoImpl implements PeliculaCineDao{
 		}
 
 		return peliculas;
+	}
+
+	@Override
+	public List<Cine> getCinesDisponiblesByPeliculaId(Long peliculaId) {
+		List list = sessionFactory.getCurrentSession().createCriteria(PeliculaCine.class, "peliculaCine")
+				.createAlias("pelicula", "peliculaBuscada")
+				.createAlias("cine", "cineBuscado")
+				.add(Restrictions.eq("pelicula.id", peliculaId))
+				.setProjection(Projections.property("cine"))
+				.list();
+
+		List<Cine> cines = new ArrayList<>();
+
+		for (Object obj :
+				list) {
+			cines.add((Cine) obj);
+		}
+		return cines;
 	}
 
 }

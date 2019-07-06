@@ -1,7 +1,11 @@
 package ar.edu.unlam.tallerweb1.Services;
 
-import java.sql.Timestamp;
+import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
+
+import java.sql.Date;
+import java.util.List;
 
 public interface ServicioFuncion {
-    Timestamp getFechaUltimaFuncionByPeliculaAndCineId(Long peliculaId, Long cineId);
+    Date getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(Long peliculaId, Long cineId, Long tipoFuncionId);
+    List<TipoFuncion> getTipoFuncionesDisponiblesByPeliculaAndCineId(Long peliculaId, Long cineId);
 }

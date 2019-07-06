@@ -1,7 +1,15 @@
 var selectCine = $('#selectCine');
+var divFormGroupTipoFuncion = $('#divFormGroupTipoFuncion');
+var selectTipoFuncion = $('#selectTipoFuncion');
 var divFormGroupFechaCompra = $('#divFormGroupFechaCompra');
 var inputFechaCompra = $('#inputFechaCompra');
 var btnInputFechaCompra = $('#btnInputFechaCompra');
+
+/*Select horario compra*/
+
+
+
+/*Fin select horario compra*/
 
 /*Datepicker fecha compra*/
 
@@ -33,6 +41,13 @@ function inicializarDatePicker(maxDate) {
     });
 }
 
+function destruirDatePicker() {
+    if(inputFechaCompra.data('daterangepicker') !== undefined) {
+        inputFechaCompra.data('daterangepicker').remove();
+    }
+    inputFechaCompra.val('');
+}
+
 btnInputFechaCompra.click(function () {
     inputFechaCompra.data('daterangepicker').toggle();
 });
@@ -40,29 +55,70 @@ btnInputFechaCompra.click(function () {
 function getRangoFechaCompraExitoso(date) {
     inicializarDatePicker(moment(date).format("DD/MM/YYYY"));
     divFormGroupFechaCompra.removeClass('d-none');
+    habilitarElemento(inputFechaCompra);
 }
 
-function inicializarFechaCompra() {
+function inicializarFechaCompra(tipoFuncionId) {
+    deshabilitarElemento(inputFechaCompra);
     var obj = {};
     obj.peliculaId = parseInt(peliculaId);
     obj.cineId = parseInt(selectCine.val());
+    obj.tipoFuncionId = parseInt(tipoFuncionId);
     llamadaAjax(pathGetRangoFechaCompra, JSON.stringify(obj), true, 'getRangoFechaCompraExitoso', 'dummy');
 }
 
-function showHideFechaCompra() {
-    if(selectCine.val() != 0) {
-        inicializarFechaCompra();
+function showHideFechaCompra(tipoFuncionId) {
+    if(tipoFuncionId != 0) {
+        inicializarFechaCompra(tipoFuncionId);
     } else {
         divFormGroupFechaCompra.addClass('d-none');
+        destruirDatePicker();
     }
 }
 
 /*Fin Datepicker fecha compra*/
 
+/*Select Tipo Función*/
+
+function getTipoFuncionesDisponiblesExitoso(tipoFunciones) {
+    $.each(tipoFunciones, function (i, tipoFuncion) {
+        var option = $('<option>');
+        option.val(tipoFuncion.id);
+        option.text(tipoFuncion.tipo);
+        selectTipoFuncion.append(option);
+    });
+    divFormGroupTipoFuncion.removeClass('d-none');
+    habilitarElemento(selectTipoFuncion);
+}
+
+function inicializarSelectTipoFuncion() {
+    deshabilitarElemento(selectTipoFuncion);
+    var obj = {};
+    obj.peliculaId = parseInt(peliculaId);
+    obj.cineId = parseInt(selectCine.val());
+    llamadaAjax(pathGetTipoFuncionesDisponibles, JSON.stringify(obj), true, "getTipoFuncionesDisponiblesExitoso", "dummy");
+}
+
+function showHideTipoFuncion() {
+    reinicializarSelect(selectTipoFuncion, 'Seleccione un tipo de función...');
+    showHideFechaCompra(selectTipoFuncion.find('option').val());
+    if(selectCine.val() != 0) {
+        inicializarSelectTipoFuncion();
+    } else {
+        divFormGroupTipoFuncion.addClass('d-none');
+    }
+}
+
+selectTipoFuncion.change(function () {
+    showHideFechaCompra(selectTipoFuncion.val());
+});
+
+/*Fin Select Tipo Función*/
+
 /*Select Cine*/
 
 selectCine.change(function () {
-    showHideFechaCompra();
+    showHideTipoFuncion();
 });
 
 /*Fin Select cine*/

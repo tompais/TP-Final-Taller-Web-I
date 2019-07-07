@@ -198,7 +198,7 @@ btnRegistrar.click(function () {
         obj.username = inputNickname.val();
         obj.email = inputEmail.val();
         obj.uPassword = inputPassword.val();
-        obj.fechaNacimiento = moment(inputFechaNacimiento.val(), 'DD/MM/YYYY').format('YYYY-MM-DD');
+        obj.fechaNacimiento = moment(inputFechaNacimiento.val(), 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ssZ');
         $.post(pathRegistrar, obj)
             .done(function (response) {
                 window.location.href = pathHome;

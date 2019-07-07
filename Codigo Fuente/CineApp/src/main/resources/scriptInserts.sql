@@ -6070,9 +6070,9 @@ INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALU
 
 INSERT INTO UsuarioTarjeta (tarjeta_id, usuario_id) VALUES (1, 1), (1, 2);
 
-INSERT INTO TipoFuncion (tipo) VALUES ('2D');
+INSERT INTO TipoFuncion (tipo) VALUES ('2D'), ('3D'), ('4D');
 
-INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado');
+INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado'), ('Reservado');
 
 INSERT INTO Cine (nombre, direccion_id) VALUES ('Abasto', 1), ('Showcase Haedo', 1);
 
@@ -6082,10 +6082,18 @@ INSERT INTO Sala (numero, cine_id) VALUES (1, 1);
 
 INSERT INTO TipoAsiento (tipo) VALUES ('Standard');
 
-INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (1, 1, 1, 1), (1, 2, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (1, 1, 1, 1), (1, 2, 1, 1), (1, 4, 1, 1), (1, 5, 1, 1);
 
-INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-04-28 16:30:00', 200.00, 1, 1, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (2, 1, 1, 1), (2, 2, 1, 1), (2, 4, 1, 1), (2, 5, 1, 1);
 
-INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (3, 1, 1, 1), (3, 2, 1, 1), (3, 4, 1, 1), (3, 5, 1, 1);
+
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 200.00, 1, 1, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 2), (3, 1, 2), (4, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (5, 1, 3), (6, 1, 3), (7, 1, 1), (8, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (9, 1, 2), (10, 1, 1), (11, 1, 3), (12, 1, 2);
 
 INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (1, 1, 4.5);

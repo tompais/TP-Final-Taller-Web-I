@@ -65,6 +65,7 @@
 <script src="${context}/lib/fontawesome/js/all.min.js" type="text/javascript"></script>
 <script src="${context}/lib/validatejs/validate.min.js" type="text/javascript"></script>
 <script src="${context}/lib/momentjs/moment-with-locales.js" type="text/javascript"></script>
+<script src="${context}/lib/momentjs/moment-timezone-with-data.js" type="text/javascript"></script>
 <script src="${context}/lib/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 <script src="${context}/lib/jquery-mask/dist/jquery.mask.min.js" type="text/javascript"></script>
 <script src="${context}/lib/alertifyjs/alertify.min.js" type="text/javascript"></script>

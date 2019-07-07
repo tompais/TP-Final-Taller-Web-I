@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,6 +96,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Override
     public boolean esUsuarioMayor(Date fechaNacimiento) {
-        return Period.between(fechaNacimiento.toLocalDate(), LocalDate.now()).getYears() >= 18;
+        return ChronoUnit.YEARS.between(fechaNacimiento.toLocalDate(), LocalDate.now()) >= 18;
     }
 }

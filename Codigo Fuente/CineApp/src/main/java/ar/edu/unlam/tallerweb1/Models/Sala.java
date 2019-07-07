@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Sala {
 	@Id
@@ -17,6 +20,7 @@ public class Sala {
 	private Cine cine;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Asiento> asientos;
 
 	public List<Asiento> getAsientos() {

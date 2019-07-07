@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.dao;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,7 @@ public class FuncionDaoImpl implements FuncionDao{
 				.createAlias("cine", "cineBuscado")
 				.createAlias("tipoFuncion", "tipoFuncionBuscada")
 				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId)))
-				.setProjection(Projections.property("tipoFuncion"))
+				.setProjection(Projections.distinct(Projections.property("tipoFuncion")))
 				.list();
 
 		List<TipoFuncion> tipoFunciones = new ArrayList<>();
@@ -73,6 +74,20 @@ public class FuncionDaoImpl implements FuncionDao{
 		}
 
 		return tipoFunciones;
+	}
+
+	@Override
+	public Funcion getFuncionByConfiguracion(Long peliculaId, Long cineId, Long tipoFuncionId, Date dia, Time hora) {
+		return (Funcion) sessionFactory.getCurrentSession().createCriteria(Funcion.class, "funcion")
+				.createAlias("pelicula", "peliculaBuscada")
+				.createAlias("cine", "cineBuscado")
+				.createAlias("tipoFuncion", "tipoFuncionBuscada")
+				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId)
+						, Restrictions.eq("cineBuscado.id", cineId)
+						, Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)
+						, Restrictions.eq("fecha", dia)
+						, Restrictions.eq("hora", hora)))
+				.uniqueResult();
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +33,7 @@ public class HomeController extends BaseController {
 
         List<Pelicula> proximosEstrenos = servicioPelicula.getProximosEstrenos();
 
-        List<Pelicula> estrenos = peliculas.stream().filter(p -> Period.between(p.getFechaEstreno().toLocalDate(), LocalDate.now()).getDays() <= 7).collect(Collectors.toList());
+        List<Pelicula> estrenos = peliculas.stream().filter(p -> ChronoUnit.WEEKS.between(p.getFechaEstreno().toLocalDate(), LocalDate.now()) <= 1).collect(Collectors.toList());
 
         Comparator<Pelicula> compareByFechaEstreno = Comparator.comparing(Pelicula::getFechaEstreno).reversed();
 

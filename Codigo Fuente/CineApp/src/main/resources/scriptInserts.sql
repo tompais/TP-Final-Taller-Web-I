@@ -6070,7 +6070,7 @@ INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALU
 
 INSERT INTO UsuarioTarjeta (tarjeta_id, usuario_id) VALUES (1, 1), (1, 2);
 
-INSERT INTO TipoFuncion (tipo) VALUES ('2D');
+INSERT INTO TipoFuncion (tipo) VALUES ('2D'), ('3D'), ('4D');
 
 INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado'), ('Reservado');
 

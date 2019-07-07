@@ -1,10 +1,23 @@
 package ar.edu.unlam.tallerweb1.Dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
+
 public class FuncionDto {
 
     private Long peliculaId;
     private Long cineId;
     private Long tipoFuncionId;
+    private Date dia;
+
+    public Date getDia() {
+        return dia;
+    }
+
+    public void setDia(Date dia) {
+        this.dia = dia;
+    }
 
     public Long getTipoFuncionId() {
         return tipoFuncionId;

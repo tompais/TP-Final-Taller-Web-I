@@ -63,7 +63,7 @@ public class FuncionDaoImpl implements FuncionDao{
 				.createAlias("cine", "cineBuscado")
 				.createAlias("tipoFuncion", "tipoFuncionBuscada")
 				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId), Restrictions.eq("cineBuscado.id", cineId)))
-				.setProjection(Projections.property("tipoFuncion"))
+				.setProjection(Projections.distinct(Projections.property("tipoFuncion")))
 				.list();
 
 		List<TipoFuncion> tipoFunciones = new ArrayList<>();

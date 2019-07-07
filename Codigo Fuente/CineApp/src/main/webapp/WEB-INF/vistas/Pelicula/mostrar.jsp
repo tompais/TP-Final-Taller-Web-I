@@ -17,6 +17,8 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script>
+            const pathGetFuncionIdByConfiguracion = '${context}' + '/getFuncionIdByConfiguracion';
+            const pathGetHorariosLibresFuncion = '${context}' + '/getHorariosLibresFuncion';
             const pathGetTipoFuncionesDisponibles = '${context}' + '/getTipoFuncionesDisponibles';
             const pathGetRangoFechaCompra = '${context}' + '/getRangoFechaCompra';
             const peliculaId = "${pelicula.id}";
@@ -71,13 +73,16 @@
                             </div>
                         </div>
                         <div class="col-sm">
+                            <h6 id="textSinHorariosCompra" class="d-none mt-4 text-center mx-auto text-white-50">No hay horarios con asientos libres para esta fecha</h6>
                             <div id="divFormGroupHorarioCompra" class="form-group d-none">
                                 <label for="selectHorarioCompra" class="text-white-50">Seleccione un horario:</label>
                                 <select name="horarioCompra" id="selectHorarioCompra" class="form-control border-dark rounded-0 text-white" style="background: #343a40;">
-
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row my-2 justify-content-center align-items-center">
+                        <a id="anchorSeleccionarSala" href="#" class="d-none p-3 text-white rounded shadow" style="background-color: #ff5860;">Seleccionar Asiento</a>
                     </div>
                 </div>
             </div>

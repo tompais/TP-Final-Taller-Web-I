@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.Dto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class FuncionDto {
 
@@ -10,6 +11,15 @@ public class FuncionDto {
     private Long cineId;
     private Long tipoFuncionId;
     private Date dia;
+    private Time hora;
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
 
     public Date getDia() {
         return dia;

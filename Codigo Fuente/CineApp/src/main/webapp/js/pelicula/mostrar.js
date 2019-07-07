@@ -4,10 +4,83 @@ var selectTipoFuncion = $('#selectTipoFuncion');
 var divFormGroupFechaCompra = $('#divFormGroupFechaCompra');
 var inputFechaCompra = $('#inputFechaCompra');
 var btnInputFechaCompra = $('#btnInputFechaCompra');
+var divFormGroupHorarioCompra = $('#divFormGroupHorarioCompra');
+var selectHorarioCompra = $('#selectHorarioCompra');
+var textSinHorariosCompra = $('#textSinHorariosCompra');
+var anchorSeleccionarSala = $('#anchorSeleccionarSala');
+
+/*Anchor seleccionar asiento*/
+
+function getFuncionIdByConfiguracionExitoso(data) {
+    console.log(data); //TODO cambiar para que arme un href que lleve a la siguiente pantalla
+    habilitarElemento(anchorSeleccionarSala);
+    anchorSeleccionarSala.removeClass('d-none');
+}
+
+function inicializarAnchorSeleccionarAsiento() {
+    var obj = {};
+    obj.peliculaId = parseInt(peliculaId);
+    obj.cineId = parseInt(selectCine.val());
+    obj.tipoFuncionId = parseInt(selectTipoFuncion.val());
+    obj.dia = moment(inputFechaCompra.val(), "DD/MM/YYYY").format("YYYY-MM-DDTHH:mm:ssZ");
+    obj.hora = moment(selectHorarioCompra.val(), "HH:mm").format("HH:mm:ss");
+    llamadaAjax(pathGetFuncionIdByConfiguracion, JSON.stringify(obj), true, "getFuncionIdByConfiguracionExitoso", "dummy");
+}
+
+function showHideAnchorSeleccionarAsiento() {
+    deshabilitarElemento(anchorSeleccionarSala);
+    if(selectHorarioCompra.val() != 0) {
+        inicializarAnchorSeleccionarAsiento();
+    } else {
+        anchorSeleccionarSala.addClass('d-none');
+        anchorSeleccionarSala.attr('href', '#');
+    }
+}
+
+/*Fin anchor seleccionar asiento*/
 
 /*Select horario compra*/
 
+function getHorariosLibresFuncionExitoso(horarios) {
+    if(horarios === null || horarios.length === 0) {
+        divFormGroupHorarioCompra.addClass('d-none');
+        textSinHorariosCompra.removeClass('d-none');
+    } else {
+        textSinHorariosCompra.addClass('d-none');
+        divFormGroupHorarioCompra.removeClass('d-none');
+        $.each(horarios, function (i, horario) {
+            var option = $('<option>');
+            var horarioFormateado = moment(horario).format('HH:mm');
+            option.val(horarioFormateado);
+            option.text(horarioFormateado);
+            selectHorarioCompra.append(option);
+        });
+        habilitarElemento(selectHorarioCompra);
+    }
+}
 
+function inicializarSelectHorarioCompra() {
+    deshabilitarElemento(selectHorarioCompra);
+    var obj = {};
+    obj.peliculaId = parseInt(peliculaId);
+    obj.cineId = parseInt(selectCine.val());
+    obj.dia = moment(inputFechaCompra.val(), 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ssZ');
+    obj.tipoFuncionId = parseInt(selectTipoFuncion.val());
+    llamadaAjax(pathGetHorariosLibresFuncion, JSON.stringify(obj), true, "getHorariosLibresFuncionExitoso", "dummy");
+}
+
+function showHideHorarioCompra() {
+    reinicializarSelect(selectHorarioCompra, 'Seleccione un horario...');
+    if(inputFechaCompra.val() !== null && inputFechaCompra.val() !==  "") {
+        inicializarSelectHorarioCompra();
+    } else {
+        divFormGroupHorarioCompra.addClass('d-none');
+    }
+}
+
+selectHorarioCompra.change(function () {
+    showHideAnchorSeleccionarAsiento();
+});
 
 /*Fin select horario compra*/
 
@@ -55,11 +128,9 @@ btnInputFechaCompra.click(function () {
 function getRangoFechaCompraExitoso(date) {
     inicializarDatePicker(moment(date).format("DD/MM/YYYY"));
     divFormGroupFechaCompra.removeClass('d-none');
-    habilitarElemento(inputFechaCompra);
 }
 
 function inicializarFechaCompra(tipoFuncionId) {
-    deshabilitarElemento(inputFechaCompra);
     var obj = {};
     obj.peliculaId = parseInt(peliculaId);
     obj.cineId = parseInt(selectCine.val());
@@ -75,6 +146,10 @@ function showHideFechaCompra(tipoFuncionId) {
         destruirDatePicker();
     }
 }
+
+inputFechaCompra.change(function () {
+    showHideHorarioCompra();
+});
 
 /*Fin Datepicker fecha compra*/
 
@@ -92,7 +167,6 @@ function getTipoFuncionesDisponiblesExitoso(tipoFunciones) {
 }
 
 function inicializarSelectTipoFuncion() {
-    deshabilitarElemento(selectTipoFuncion);
     var obj = {};
     obj.peliculaId = parseInt(peliculaId);
     obj.cineId = parseInt(selectCine.val());
@@ -100,6 +174,7 @@ function inicializarSelectTipoFuncion() {
 }
 
 function showHideTipoFuncion() {
+    deshabilitarElemento(selectTipoFuncion);
     reinicializarSelect(selectTipoFuncion, 'Seleccione un tipo de función...');
     showHideFechaCompra(selectTipoFuncion.find('option').val());
     if(selectCine.val() != 0) {

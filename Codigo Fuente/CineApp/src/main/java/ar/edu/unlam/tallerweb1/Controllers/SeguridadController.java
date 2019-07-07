@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
-import ar.edu.unlam.tallerweb1.Enums.Roles;
+import ar.edu.unlam.tallerweb1.Enums.Rol;
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.Models.Rol;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.ViewModels.LoginViewModel;
@@ -11,7 +10,6 @@ import ar.edu.unlam.tallerweb1.ViewModels.RegistrarViewModel;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 
 @Controller
 public class SeguridadController {
@@ -83,9 +80,9 @@ public class SeguridadController {
 
 		modelo.setEmail(registrarViewModel.getEmail());
 		modelo.setuPassword(registrarViewModel.getuPassword());
-		Rol rol = new Rol();
-		rol.setId(Roles.USUARIO.getId());
-		rol.setNombre(Roles.USUARIO.getNombre());
+		ar.edu.unlam.tallerweb1.Models.Rol rol = new ar.edu.unlam.tallerweb1.Models.Rol();
+		rol.setId(Rol.USUARIO.getId());
+		rol.setNombre(Rol.USUARIO.getNombre());
 		modelo.setRol(rol);
 
 		modelo.setApellido(registrarViewModel.getApellido());

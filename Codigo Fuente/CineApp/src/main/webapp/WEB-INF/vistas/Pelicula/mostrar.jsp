@@ -22,7 +22,6 @@
             const pathGetTipoFuncionesDisponibles = '${context}' + '/getTipoFuncionesDisponibles';
             const pathGetRangoFechaCompra = '${context}' + '/getRangoFechaCompra';
             const peliculaId = "${pelicula.id}";
-            const url = "${context}";
         </script>
         <script src="${context}/js/pelicula/mostrar.js"></script>
     </jsp:attribute>

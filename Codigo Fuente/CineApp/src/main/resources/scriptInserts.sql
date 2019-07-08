@@ -6092,8 +6092,8 @@ INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cin
 
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 2), (3, 1, 2), (4, 1, 1);
 
-INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (5, 1, 3), (6, 1, 3), (7, 1, 1), (8, 1, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (5, 1, 2), (6, 1, 2), (7, 1, 1), (8, 1, 1);
 
-INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (9, 1, 2), (10, 1, 1), (11, 1, 3), (12, 1, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (9, 1, 2), (10, 1, 1), (11, 1, 2), (12, 1, 2);
 
 INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (1, 1, 4.5);

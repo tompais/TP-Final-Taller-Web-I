@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
@@ -154,10 +155,17 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 	
 	@Override
-	public SalaViewModel[][] formatoSala(int idFuncion, int fil, int col) {
-		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarAsientoFuncion(idFuncion);
+	public Funcion consultarFuncion(Funcion funcion) {
+		return servicioFuncionDao.consultarFuncion(funcion);
+	}
+	
+	@Override
+	public SalaViewModel[][] formatoSala(Funcion funcion, int fil, int col) {
+		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarAsientoFuncion(funcion);
 		
 		SalaViewModel[][] sala = new SalaViewModel[fil][col];
+		
+		//Arrays.fill(sala, 0); //inicializo todas las posiciones de la matriz en null
 		
 		SalaViewModel modelo;
 		
@@ -166,8 +174,9 @@ public class ServicioReservaImpl implements ServicioReserva{
 			
 			modelo.setEstadoAsiento(asientoFuncion.getEstadoAsiento().getId());
 			modelo.setTipoAsiento(asientoFuncion.getAsiento().getTipoAsiento().getId());
+			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(asientoFuncion.getAsiento().getColumna() - 1));
 			
-			sala[asientoFuncion.getAsiento().getFila()][asientoFuncion.getAsiento().getColumna()] = modelo;
+			sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
 			
 			modelo = null;
 		}

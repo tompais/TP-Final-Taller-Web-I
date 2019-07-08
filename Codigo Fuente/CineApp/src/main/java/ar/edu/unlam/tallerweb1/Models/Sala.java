@@ -19,7 +19,8 @@ public class Sala {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Cine cine;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(name = "sala_id")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Asiento> asientos;
 

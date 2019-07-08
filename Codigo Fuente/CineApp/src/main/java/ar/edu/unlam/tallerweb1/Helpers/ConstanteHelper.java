@@ -9,4 +9,5 @@ public final class ConstanteHelper {
     public static final String REGEXSOLOLETRAS = "[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$";
     public static final String REGEXSOLONUMEROS = "^[0-9]+$";
     public static final String REGEXLETRASNUMEROSYESPACIOS = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$";
+    public static final String ABECEDARIO = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 }

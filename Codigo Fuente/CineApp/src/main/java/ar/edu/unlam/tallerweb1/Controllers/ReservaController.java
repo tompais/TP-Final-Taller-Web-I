@@ -14,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.Comparators.OrdenarPorColumnaMayor;
 import ar.edu.unlam.tallerweb1.Comparators.OrdenarPorFilaMayor;
+import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
-import ar.edu.unlam.tallerweb1.Models.Sala;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
 import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 
@@ -27,17 +27,15 @@ public class ReservaController extends BaseController {
 	
 	@RequestMapping(path = "/sala", method = RequestMethod.GET)
 	public ModelAndView mostrarSala(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
 		
 		if(request.getSession().getAttribute("email") != null)
-    		mv.setViewName("redirect:/");
-		else {
-			Sala aux = new Sala();
+    	{
+			Funcion aux = new Funcion();
 			aux.setId((long)1);
 			
-			Sala sala = servicioReserva.consultarSala(aux);
+			Funcion funcion = servicioReserva.consultarFuncion(aux);
 			
-			List<Asiento> asientos = sala.getAsientos();
+			List<Asiento> asientos = funcion.getSala().getAsientos();
 			
 			Collections.sort(asientos, new OrdenarPorFilaMayor());
 			
@@ -47,15 +45,21 @@ public class ReservaController extends BaseController {
 			
 			int col = asientos.get(0).getColumna();
 			
-			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(1, fil, col);
+			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(aux, fil, col);
 			
 			ModelMap modelo = new ModelMap();
 			
 			modelo.put("formatoSala", formatoSala);
+			modelo.put("fila", fil - 1);
+			modelo.put("columna", col - 1);
+			modelo.put("libre", EstadoAsiento.LIBRE.getEstadoAsiento());
+			modelo.put("ocupado", EstadoAsiento.OCUPADO.getEstadoAsiento());
+			modelo.put("reservado", EstadoAsiento.RESERVADO.getEstadoAsiento());
+			modelo.put("precio", funcion.getPrecio());
 			
 			return new ModelAndView("Reserva/sala", modelo);
 		}
 		
-		return mv;
+		return new ModelAndView("redirect:/");
 	}
 }

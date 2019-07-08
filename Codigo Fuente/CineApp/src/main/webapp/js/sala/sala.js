@@ -5,7 +5,7 @@ $("input[type='checkbox']").prop("checked", false);
 
 $("input[type='checkbox']").click(function(e){
 	
-	if(totalAsientos == 4){
+	if(totalAsientos == 6){
 		if($(this).is(":not(:checked)")){
 			totalAsientos--;
 			if(totalAsientos){				

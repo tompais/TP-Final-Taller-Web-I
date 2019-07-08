@@ -165,18 +165,25 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		SalaViewModel[][] sala = new SalaViewModel[fil][col];
 		
-		//Arrays.fill(sala, 0); //inicializo todas las posiciones de la matriz en null
-		
 		SalaViewModel modelo;
 		
+		int cont = 0;
+		
 		for(AsientoFuncion asientoFuncion : asientosFuncion) {
+			
+			if(asientoFuncion.getAsiento().getColumna() - 1 == 0)
+				cont = 0;
+			
 			modelo = new SalaViewModel();
 			
 			modelo.setEstadoAsiento(asientoFuncion.getEstadoAsiento().getId());
 			modelo.setTipoAsiento(asientoFuncion.getAsiento().getTipoAsiento().getId());
-			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(asientoFuncion.getAsiento().getColumna() - 1));
+			
+			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont));
 			
 			sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
+			
+			cont++;
 			
 			modelo = null;
 		}

@@ -28,6 +28,7 @@ public class ReservaController extends BaseController {
 	@RequestMapping(path = "/seleccionarAsiento/{funcionId}", method = RequestMethod.GET)
 	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) {
 
+		ModelAndView mv = new ModelAndView();
 		if(request.getSession().getAttribute("email") != null)
     	{
 			Funcion funcion = servicioReserva.consultarFuncionById(funcionId);
@@ -54,9 +55,12 @@ public class ReservaController extends BaseController {
 			modelo.put("reservado", EstadoAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
 
-			return new ModelAndView("Reserva/seleccionarAsiento", modelo);
-        }
+			mv.setViewName("Reserva/seleccionarAsiento");
+			mv.addAllObjects(modelo);
+        } else {
+			mv.setViewName("redirect:/signin");
+		}
 
-		return new ModelAndView("redirect:/signin");
+		return mv;
 	}
 }

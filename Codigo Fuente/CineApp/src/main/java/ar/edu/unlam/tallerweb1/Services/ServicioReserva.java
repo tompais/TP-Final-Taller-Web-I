@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.Services;
 
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 
 import java.sql.Date;
@@ -26,6 +27,6 @@ public interface ServicioReserva {
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
 	Integer reservar (Usuario usuario, Funcion funcion, Asiento asiento);
 	Sala consultarSala (Sala sala);
-	Funcion consultarFuncionById(Long funcionId);
+	Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException;
 	SalaViewModel[][] formatoSala(Long funcionId, int fil, int col);
 }

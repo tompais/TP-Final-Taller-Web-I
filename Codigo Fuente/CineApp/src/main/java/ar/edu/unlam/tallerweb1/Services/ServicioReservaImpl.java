@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -155,8 +158,11 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 	
 	@Override
-	public Funcion consultarFuncionById(Long funcionId) {
-		return funcionDao.consultarFuncionById(funcionId);
+	public Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException {
+		Funcion funcion = funcionDao.consultarFuncionById(funcionId);
+		if(funcion == null)
+			throw new FuncionInvalidaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONINVALIDA);
+		return funcion;
 	}
 	
 	@Override

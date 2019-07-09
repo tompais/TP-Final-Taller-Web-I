@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +27,9 @@ public class ReservaController extends BaseController {
 	private ServicioReserva servicioReserva;
 
 	@RequestMapping(path = "/seleccionarAsiento/{funcionId}", method = RequestMethod.GET)
-	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) {
+	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) throws FuncionInvalidaException {
 
+		ModelAndView mv = new ModelAndView();
 		if(request.getSession().getAttribute("email") != null)
     	{
 			Funcion funcion = servicioReserva.consultarFuncionById(funcionId);
@@ -54,9 +56,12 @@ public class ReservaController extends BaseController {
 			modelo.put("reservado", EstadoAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
 
-			return new ModelAndView("Reserva/seleccionarAsiento", modelo);
-        }
+			mv.setViewName("Reserva/seleccionarAsiento");
+			mv.addAllObjects(modelo);
+        } else {
+			mv.setViewName("redirect:/signin");
+		}
 
-		return new ModelAndView("redirect:/signin");
+		return mv;
 	}
 }

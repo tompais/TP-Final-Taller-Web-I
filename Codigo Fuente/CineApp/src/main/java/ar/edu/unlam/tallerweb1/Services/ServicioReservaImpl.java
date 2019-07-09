@@ -45,7 +45,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	private PeliculaCineDao servicioPeliculaCineDao;
 	
 	@Inject
-	private FuncionDao servicioFuncionDao;
+	private FuncionDao funcionDao;
 	
 	@Inject
 	private AsientoDao servicioAsientoDao;
@@ -83,7 +83,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	@Override
 	public List<Funcion> consultarFunciones(PeliculaCine peliculaCine) {
-		return servicioFuncionDao.consultarFunciones(peliculaCine);
+		return funcionDao.consultarFunciones(peliculaCine);
 	}
 
 	@Override
@@ -155,17 +155,15 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 	
 	@Override
-	public Funcion consultarFuncion(Funcion funcion) {
-		return servicioFuncionDao.consultarFuncion(funcion);
+	public Funcion consultarFuncionById(Long funcionId) {
+		return funcionDao.consultarFuncionById(funcionId);
 	}
 	
 	@Override
-	public SalaViewModel[][] formatoSala(Funcion funcion, int fil, int col) {
-		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarAsientoFuncion(funcion);
+	public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {
+		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarDistribucionAsientosEnFuncion(funcionId);
 		
 		SalaViewModel[][] sala = new SalaViewModel[fil][col];
-		
-		SalaViewModel modelo;
 		
 		int cont = 0;
 		
@@ -173,19 +171,15 @@ public class ServicioReservaImpl implements ServicioReserva{
 			
 			if(asientoFuncion.getAsiento().getColumna() - 1 == 0)
 				cont = 0;
+
+			SalaViewModel modelo = new SalaViewModel();
 			
-			modelo = new SalaViewModel();
+			modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
+			modelo.setTipoAsientoId(asientoFuncion.getAsiento().getTipoAsiento().getId());
 			
-			modelo.setEstadoAsiento(asientoFuncion.getEstadoAsiento().getId());
-			modelo.setTipoAsiento(asientoFuncion.getAsiento().getTipoAsiento().getId());
-			
-			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont));
+			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont++));
 			
 			sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
-			
-			cont++;
-			
-			modelo = null;
 		}
 		
 		return sala;

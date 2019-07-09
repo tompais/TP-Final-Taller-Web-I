@@ -10,7 +10,7 @@ import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 
 public interface FuncionDao {
 	List<Funcion> consultarFunciones (PeliculaCine peliculaCine);
-	Funcion consultarFuncion (Funcion funcion);
+	Funcion consultarFuncionById(Long funcion);
 	Date getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(Long peliculaId, Long cineId, Long tipoFuncionId);
 	List<TipoFuncion> getTipoFuncionesDisponiblesByPeliculaAndCineId(Long peliculaId, Long cineId);
 	Funcion getFuncionByConfiguracion(Long peliculaId, Long cineId, Long tipoFuncionId, Date dia, Time hora);

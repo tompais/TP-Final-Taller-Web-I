@@ -1,21 +1,21 @@
 package ar.edu.unlam.tallerweb1.ViewModels;
 
 public class SalaViewModel {
-	private Long tipoAsiento;
-	private Long estadoAsiento;
+	private Long tipoAsientoId;
+	private Long estadoAsientoId;
 	private char columna;
 
-	public Long getTipoAsiento() {
-		return tipoAsiento;
+	public Long getTipoAsientoId() {
+		return tipoAsientoId;
 	}
-	public void setTipoAsiento(Long tipoAsiento) {
-		this.tipoAsiento = tipoAsiento;
+	public void setTipoAsientoId(Long tipoAsientoId) {
+		this.tipoAsientoId = tipoAsientoId;
 	}
-	public Long getEstadoAsiento() {
-		return estadoAsiento;
+	public Long getEstadoAsientoId() {
+		return estadoAsientoId;
 	}
-	public void setEstadoAsiento(Long estadoAsiento) {
-		this.estadoAsiento = estadoAsiento;
+	public void setEstadoAsientoId(Long estadoAsientoId) {
+		this.estadoAsientoId = estadoAsientoId;
 	}
 	public char getColumna() {
 		return columna;

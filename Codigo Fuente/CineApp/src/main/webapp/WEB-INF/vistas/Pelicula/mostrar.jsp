@@ -17,6 +17,7 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script>
+            const pathSeleccionarSala = '${context}' + '/seleccionarAsiento';
             const pathGetFuncionIdByConfiguracion = '${context}' + '/getFuncionIdByConfiguracion';
             const pathGetHorariosLibresFuncion = '${context}' + '/getHorariosLibresFuncion';
             const pathGetTipoFuncionesDisponibles = '${context}' + '/getTipoFuncionesDisponibles';
@@ -29,13 +30,13 @@
         <div class="container-fluid mb-4" style="margin-top: 110px;">
             <h1 class="mx-auto text-center text-white">${pelicula.nombre}</h1>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm mt-3 mt-sm-0">
                     <h3 class="text-white mb-4">Trailer</h3>
                     <div class="plyr__video-embed" id="player">
                         <iframe width="1280" height="720" src="https://www.youtube.com/embed/${pelicula.trailer.embed}?origin=${context}&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowtransparency allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="col-sm">
+                <div class="col-sm mt-4 mt-sm-0">
                     <h3 class="text-white mb-4">Compra</h3>
                     <div class="row">
                         <div class="col-sm">

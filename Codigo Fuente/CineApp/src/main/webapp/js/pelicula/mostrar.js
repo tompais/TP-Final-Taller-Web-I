@@ -11,10 +11,10 @@ var anchorSeleccionarSala = $('#anchorSeleccionarSala');
 
 /*Anchor seleccionar asiento*/
 
-function getFuncionIdByConfiguracionExitoso(data) {
-    console.log(data); //TODO cambiar para que arme un href que lleve a la siguiente pantalla
+function getFuncionIdByConfiguracionExitoso(funcionId) {
     habilitarElemento(anchorSeleccionarSala);
     anchorSeleccionarSala.removeClass('d-none');
+    anchorSeleccionarSala.attr('href', pathSeleccionarSala + '/' + funcionId);
 }
 
 function inicializarAnchorSeleccionarAsiento() {

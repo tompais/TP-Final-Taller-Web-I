@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.dao;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +35,11 @@ public class FuncionDaoImpl implements FuncionDao{
 	}
 
 	@Override
-	public Funcion consultarFuncion(Funcion funcion) {
+	public Funcion consultarFuncionById(Long funcionId) {
 		final Session session = sessionFactory.getCurrentSession();
 		
 		return (Funcion) session.createCriteria(Funcion.class)
-				.add(Restrictions.eq("id", funcion.getId()))
+				.add(Restrictions.eq("id", funcionId))
 				.uniqueResult();
 	}
 

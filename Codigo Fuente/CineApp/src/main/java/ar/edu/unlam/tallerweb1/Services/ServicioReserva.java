@@ -26,6 +26,6 @@ public interface ServicioReserva {
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
 	Integer reservar (Usuario usuario, Funcion funcion, Asiento asiento);
 	Sala consultarSala (Sala sala);
-	Funcion consultarFuncion(Funcion funcion);
-	SalaViewModel[][] formatoSala(Funcion funcion, int fil, int col);
+	Funcion consultarFuncionById(Long funcionId);
+	SalaViewModel[][] formatoSala(Long funcionId, int fil, int col);
 }

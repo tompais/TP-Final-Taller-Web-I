@@ -75,8 +75,8 @@ public class ReservaTest extends SpringTest{
 //		asiento.setFila(1);
 //		asiento.setColumna(1);
 //		asiento.setSala(sala);
-//		asiento.setTipoAsiento(tipoAsiento);
-//		asiento.setEstadoAsiento(estadoAsiento);
+//		asiento.setTipoAsientoId(tipoAsiento);
+//		asiento.setEstadoAsientoId(estadoAsiento);
 //
 //		Integer ticket = servicioReserva.reservar(usuario, funciones.get(0), asiento);
 //		assertThat(ticket).isNotEqualTo(0);

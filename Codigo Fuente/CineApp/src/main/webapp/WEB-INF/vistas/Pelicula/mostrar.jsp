@@ -17,9 +17,12 @@
     </jsp:attribute>
     <jsp:attribute name="scripts">
         <script>
+            const pathSeleccionarSala = '${context}' + '/seleccionarAsiento';
+            const pathGetFuncionIdByConfiguracion = '${context}' + '/getFuncionIdByConfiguracion';
+            const pathGetHorariosLibresFuncion = '${context}' + '/getHorariosLibresFuncion';
+            const pathGetTipoFuncionesDisponibles = '${context}' + '/getTipoFuncionesDisponibles';
             const pathGetRangoFechaCompra = '${context}' + '/getRangoFechaCompra';
             const peliculaId = "${pelicula.id}";
-            const url = "${context}";
         </script>
         <script src="${context}/js/pelicula/mostrar.js"></script>
     </jsp:attribute>
@@ -27,13 +30,13 @@
         <div class="container-fluid mb-4" style="margin-top: 110px;">
             <h1 class="mx-auto text-center text-white">${pelicula.nombre}</h1>
             <div class="row">
-                <div class="col-sm">
+                <div class="col-sm mt-3 mt-sm-0">
                     <h3 class="text-white mb-4">Trailer</h3>
                     <div class="plyr__video-embed" id="player">
                         <iframe width="1280" height="720" src="https://www.youtube.com/embed/${pelicula.trailer.embed}?origin=${context}&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowtransparency allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="col-sm">
+                <div class="col-sm mt-4 mt-sm-0">
                     <h3 class="text-white mb-4">Compra</h3>
                     <div class="row">
                         <div class="col-sm">
@@ -48,6 +51,15 @@
                             </div>
                         </div>
                         <div class="col-sm">
+                            <div id="divFormGroupTipoFuncion" class="form-group d-none">
+                                <label for="selectTipoFuncion" class="text-white-50">Seleccione el Tipo de Función:</label>
+                                <select name="tipoFuncion" id="selectTipoFuncion" class="form-control border-dark rounded-0 text-white" style="background: #343a40;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
                             <div id="divFormGroupFechaCompra" class="form-group d-none">
                                 <label class="text-white-50" for="inputFechaCompra">Escoja una Fecha:</label>
                                 <div class="input-group">
@@ -60,6 +72,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm">
+                            <h6 id="textSinHorariosCompra" class="d-none mt-4 text-center mx-auto text-white-50">No hay horarios con asientos libres para esta fecha</h6>
+                            <div id="divFormGroupHorarioCompra" class="form-group d-none">
+                                <label for="selectHorarioCompra" class="text-white-50">Seleccione un horario:</label>
+                                <select name="horarioCompra" id="selectHorarioCompra" class="form-control border-dark rounded-0 text-white" style="background: #343a40;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row my-2 justify-content-center align-items-center">
+                        <a id="anchorSeleccionarSala" href="#" class="d-none p-3 text-white rounded shadow" style="background-color: #ff5860;">Seleccionar Asiento</a>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import ar.edu.unlam.tallerweb1.Dto.FuncionDto;
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Exceptions.FechaUltimaFuncionMenorAFechaActualException;
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionByConfiguracionNoEncontradaException;
 import ar.edu.unlam.tallerweb1.Exceptions.PeliculaNoEncontradaException;
-import ar.edu.unlam.tallerweb1.Models.Cine;
-import ar.edu.unlam.tallerweb1.Models.Pelicula;
-import ar.edu.unlam.tallerweb1.Models.PeliculaActor;
-import ar.edu.unlam.tallerweb1.Models.PeliculaGeneroPelicula;
+import ar.edu.unlam.tallerweb1.Exceptions.TipoFuncionInvalidaException;
+import ar.edu.unlam.tallerweb1.Models.*;
 import ar.edu.unlam.tallerweb1.Services.ServicioFuncion;
 import ar.edu.unlam.tallerweb1.Services.ServicioPelicula;
 import com.google.gson.Gson;
@@ -63,8 +64,31 @@ public class PeliculaController {
     }
 
     @ResponseBody
+    @RequestMapping(path = "/getTipoFuncionesDisponibles", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getTipoFuncionesDisponibles(@RequestBody FuncionDto funcionDto) {
+        return new Gson().toJson(servicioFuncion.getTipoFuncionesDisponiblesByPeliculaAndCineId(funcionDto.getPeliculaId(), funcionDto.getCineId()));
+    }
+
+    @ResponseBody
     @RequestMapping(path = "/getRangoFechaCompra", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String getRangoFechaCompra(@RequestBody FuncionDto funcion) {
-        return new Gson().toJson(servicioFuncion.getFechaUltimaFuncionByPeliculaAndCineId(funcion.getPeliculaId(), funcion.getCineId()).toLocalDateTime().toString());
+    public String getRangoFechaCompra(@RequestBody FuncionDto funcion) throws FechaUltimaFuncionMenorAFechaActualException, TipoFuncionInvalidaException {
+        return new Gson().toJson(servicioFuncion.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(funcion.getPeliculaId(), funcion.getCineId(), funcion.getTipoFuncionId()).toLocalDate().toString());
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/getHorariosLibresFuncion", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getHorariosLibresFuncion(@RequestBody FuncionDto funcionDto) throws TipoFuncionInvalidaException {
+        return new Gson().toJson(servicioFuncion.getHorariosLibresFuncion(funcionDto.getPeliculaId(), funcionDto.getCineId(), funcionDto.getTipoFuncionId(), funcionDto.getDia()));
+    }
+
+    @ResponseBody
+    @RequestMapping(path = "/getFuncionIdByConfiguracion", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getFuncionIdByConfiguracion(@RequestBody FuncionDto funcionDto) throws FuncionByConfiguracionNoEncontradaException {
+        Funcion funcion = servicioFuncion.getFuncionByConfiguracion(funcionDto.getPeliculaId(), funcionDto.getCineId(), funcionDto.getTipoFuncionId(), funcionDto.getDia(), funcionDto.getHora());
+
+        if(funcion == null)
+            throw new FuncionByConfiguracionNoEncontradaException("No se ha encontrado una función disponible para la configuración ingresada", CodigoError.FUNCIONBYCONFIGURACIONNOENCONTRADA);
+
+        return new Gson().toJson(funcion.getId());
     }
 }

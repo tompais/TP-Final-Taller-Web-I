@@ -60,7 +60,7 @@ public class PruebaController extends BaseController{
 		
 		Asiento asiento = servicioReserva.consultaAsiento(asientoBuscado);
 		
-		asiento.setEstadoAsiento(estadoAsiento);
+		asiento.setEstadoAsientoId(estadoAsiento);
 		servicioReserva.cambiarEstadoAsiento(asiento);
 		
 		asiento = servicioReserva.consultaAsiento(asientoBuscado);

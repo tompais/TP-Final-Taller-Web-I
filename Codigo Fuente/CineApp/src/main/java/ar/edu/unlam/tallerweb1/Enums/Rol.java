@@ -1,15 +1,15 @@
 package ar.edu.unlam.tallerweb1.Enums;
 
-public enum Roles {
+public enum Rol {
     USUARIO ((long)1, "Usuario");
 
     private Long id;
     private String nombre;
 
-    Roles() {
+    Rol() {
     }
 
-    Roles(Long id, String nombre) {
+    Rol(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

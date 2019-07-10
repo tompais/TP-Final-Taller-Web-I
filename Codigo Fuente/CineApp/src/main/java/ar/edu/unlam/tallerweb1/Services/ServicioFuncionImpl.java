@@ -29,6 +29,22 @@ public class ServicioFuncionImpl implements ServicioFuncion {
     @Inject
     private AsientoFuncionDao asientoFuncionDao;
 
+    public FuncionDao getFuncionDao() {
+        return funcionDao;
+    }
+
+    public void setFuncionDao(FuncionDao funcionDao) {
+        this.funcionDao = funcionDao;
+    }
+
+    public AsientoFuncionDao getAsientoFuncionDao() {
+        return asientoFuncionDao;
+    }
+
+    public void setAsientoFuncionDao(AsientoFuncionDao asientoFuncionDao) {
+        this.asientoFuncionDao = asientoFuncionDao;
+    }
+
     @Override
     public Date getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(Long peliculaId, Long cineId, Long tipoFuncionId) throws FechaUltimaFuncionMenorAFechaActualException, TipoFuncionInvalidaException {
 

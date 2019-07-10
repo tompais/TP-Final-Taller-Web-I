@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
+import org.apache.taglibs.standard.tag.common.core.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,7 +61,7 @@ public class ReservaController extends BaseController {
 			mv.setViewName("Reserva/seleccionarAsiento");
 			mv.addAllObjects(modelo);
         } else {
-			mv.setViewName("redirect:/signin");
+			mv.setViewName("redirect:/signin?returnUrl=" + Util.URLEncode("/seleccionarAsiento/" + funcionId, StandardCharsets.UTF_8.toString()));
 		}
 
 		return mv;

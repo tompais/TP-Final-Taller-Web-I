@@ -54,6 +54,8 @@
                                 <span class="sign__text">¿No tienes una cuenta? <a href="${context}/signup">¡Regístrate!</a></span>
 
                                 <span class="sign__text"><a href="#">¿Olvidaste tu contraseña?</a></span>
+
+                                <input id="inputReturnUrl" type="hidden" value="${context}${returnUrl}">
                             </div>
                             <!-- end authorization form -->
                         </div>

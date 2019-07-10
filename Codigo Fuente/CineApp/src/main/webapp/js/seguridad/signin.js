@@ -52,7 +52,7 @@ function loguearUsuario() {
         obj.rememberMe = remember.prop('checked');
         $.post(pathLogin, obj)
             .done(function (response) {
-                window.location.href = pathHome;
+                window.location.href = "http://localhost:8080" + $('#inputReturnUrl').val();
             })
             .fail(function (xhr, status, error) {
                 alertify.alert("Error de Login", xhr.responseText);

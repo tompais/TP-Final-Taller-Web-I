@@ -10,11 +10,9 @@ import ar.edu.unlam.tallerweb1.ViewModels.RegistrarViewModel;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -27,14 +25,18 @@ public class SeguridadController {
 	private ServicioUsuario servicioUsuario;
 	
     @RequestMapping(path = "/signin", method = RequestMethod.GET)
-    public ModelAndView irALogin(HttpServletRequest request) {
+    public ModelAndView irALogin(HttpServletRequest request, @RequestParam(required = false) String returnUrl) {
 
+		ModelMap modelMap = new ModelMap();
+		modelMap.addAttribute("returnUrl", returnUrl == null || returnUrl.equals("") ? "/" : returnUrl);
         ModelAndView mv = new ModelAndView();
 
     	if(request.getSession().getAttribute("email") != null)
     		mv.setViewName("redirect:/");
-    	else
-    	    mv.setViewName("Seguridad/signin");
+    	else {
+			mv.setViewName("Seguridad/signin");
+			mv.addAllObjects(modelMap);
+		}
 
         return mv;
     }

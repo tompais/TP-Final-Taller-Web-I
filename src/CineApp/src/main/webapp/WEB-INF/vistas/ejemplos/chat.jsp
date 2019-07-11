@@ -67,7 +67,7 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-        <div>
+        <div style="margin-top: 130px;">
             <div>
                 <input type="text" id="from" placeholder="Choose a nickname"/>
             </div>

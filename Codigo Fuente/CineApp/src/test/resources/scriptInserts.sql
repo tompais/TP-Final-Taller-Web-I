@@ -6044,7 +6044,7 @@ INSERT INTO Permiso (nombre) VALUES ('Reservar');
 
 INSERT INTO PermisoRol (permiso_id, rol_id) VALUES (1, 1);
 
-INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', 'ezeallio', 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'tomas1234', 1);
+INSERT INTO Usuario (nombre, apellido, fechaNacimiento, email, username, uPassword, rol_id) VALUES ('Ezequiel', 'Allio', '1996-05-07', 'ezequiel.allio@gmail.com', 'ezeallio', '8b2019000e1fa73774a96cbe75c486e32842dc4e', 1), ('Tomás', 'Pais', '1995-11-15', 'tomas.j.pais@gmail.com', 'tpais', 'c720f95d7b12b6fd252b432853bf8c0a118dd4a1', 1);
 
 INSERT INTO Direccion (calle, altura, localidad_id) VALUES ('Aquiles', 509, 764);
 
@@ -6054,7 +6054,9 @@ INSERT INTO Clasificacion (nombre) VALUES ('ATP'), ('+13'), ('+16'), ('+18');
 
 INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg');
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Muere Iron Man', 180, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Una película de amor', 180, 1, 1, 2), ('2019-07-13', 'Sherlock', 'Elemental Watson', 180, 1, 1, 3);
+INSERT INTO Trailer (embed) VALUES ('znk2OICHbjY'), ('0JnRdfiUMa8'), ('J7nJksXDBWc');
+
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Los Vengadores restantes deben encontrar una manera de recuperar a sus aliados para un enfrentamiento épico con Thanos, el malvado que diezmó el planeta y el universo.', 180, 1, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Un exmercenario quien, tras haber sido sometido a un cruel experimento, adquiere el superpoder de sanar rápidamente y pretende vengarse del hombre que destrozó su vida.', 180, 1, 1, 2, 2), ('2019-07-13', 'Sherlock', 'El ingenioso detective y su compañero, que se dedican a resolver crímenes, se enfrentan a un nuevo enemigo e intentan desenredar un plan mortal que podría destruir Inglaterra.', 180, 1, 1, 3, 3);
 
 INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds');
 
@@ -6068,9 +6070,9 @@ INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALU
 
 INSERT INTO UsuarioTarjeta (tarjeta_id, usuario_id) VALUES (1, 1), (1, 2);
 
-INSERT INTO TipoFuncion (tipo) VALUES ('2D');
+INSERT INTO TipoFuncion (tipo) VALUES ('2D'), ('3D'), ('4D');
 
-INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado');
+INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado'), ('Reservado');
 
 INSERT INTO Cine (nombre, direccion_id) VALUES ('Abasto', 1), ('Showcase Haedo', 1);
 
@@ -6080,8 +6082,34 @@ INSERT INTO Sala (numero, cine_id) VALUES (1, 1);
 
 INSERT INTO TipoAsiento (tipo) VALUES ('Standard');
 
-INSERT INTO Asiento (fila, columna, tipoAsiento_id, estadoAsiento_id, sala_id) VALUES (1, 1, 1, 1, 1), (1, 2, 1, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (1, 1, 1, 1), (1, 2, 1, 1), (1, 3, 1, 1), (1, 5, 1, 1), (1, 6, 1, 1), (1, 7, 1, 1), (1, 9, 1, 1), (1, 10, 1, 1), (1, 11, 1, 1);
 
-INSERT INTO Funcion (diaYHora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-04-28 16:30:00', 200.00, 1, 1, 1, 1);
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (2, 1, 1, 1), (2, 2, 1, 1), (2, 3, 1, 1), (2, 5, 1, 1), (2, 6, 1, 1), (2, 7, 1, 1), (2, 9, 1, 1), (2, 10, 1, 1), (2, 11, 1, 1);
+
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (3, 1, 1, 1), (3, 2, 1, 1), (3, 3, 1, 1), (3, 5, 1, 1), (3, 6, 1, 1), (3, 7, 1, 1), (3, 9, 1, 1), (3, 10, 1, 1), (3, 11, 1, 1);
+
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (4, 1, 1, 1), (4, 2, 1, 1), (4, 3, 1, 1), (4, 5, 1, 1), (4, 6, 1, 1), (4, 7, 1, 1), (4, 9, 1, 1), (4, 10, 1, 1), (4, 11, 1, 1);
+
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (5, 1, 1, 1), (5, 2, 1, 1), (5, 3, 1, 1), (5, 5, 1, 1), (5, 6, 1, 1), (5, 7, 1, 1), (5, 9, 1, 1), (5, 10, 1, 1), (5, 11, 1, 1);
+
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (6, 1, 1, 1), (6, 2, 1, 1), (6, 3, 1, 1), (6, 5, 1, 1), (6, 6, 1, 1), (6, 7, 1, 1), (6, 9, 1, 1), (6, 10, 1, 1), (6, 11, 1, 1);
+
+INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (7, 1, 1, 1), (7, 2, 1, 1), (7, 3, 1, 1), (7, 5, 1, 1), (7, 6, 1, 1), (7, 7, 1, 1), (7, 9, 1, 1), (7, 10, 1, 1), (7, 11, 1, 1);
+
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 200.00, 1, 1, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 2), (3, 1, 2), (4, 1, 1), (5, 1, 1), (6, 1, 2), (7, 1, 1), (8, 1, 2), (9, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (10, 1, 2), (11, 1, 1), (12, 1, 1), (13, 1, 1), (14, 1, 1), (15, 1, 2), (16, 1, 2), (17, 1, 2), (18, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (19, 1, 1), (20, 1, 1), (21, 1, 2), (22, 1, 2), (23, 1, 1), (24, 1, 1), (25, 1, 2), (26, 1, 2), (27, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (28, 1, 2), (29, 1, 2), (30, 1, 1), (31, 1, 1), (32, 1, 2), (33, 1, 1), (34, 1, 1), (35, 1, 2), (36, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (37, 1, 1), (38, 1, 2), (39, 1, 1), (40, 1, 1), (41, 1, 1), (42, 1, 2), (43, 1, 1), (44, 1, 2), (45, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (46, 1, 2), (47, 1, 1), (48, 1, 1), (49, 1, 1), (50, 1, 2), (51, 1, 1), (52, 1, 2), (53, 1, 2), (54, 1, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (55, 1, 1), (56, 1, 2), (57, 1, 1), (58, 1, 1), (59, 1, 2), (60, 1, 2), (61, 1, 1), (62, 1, 2), (63, 1, 1);
 
 INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (1, 1, 4.5);

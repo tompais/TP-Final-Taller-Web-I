@@ -13,8 +13,8 @@ import java.util.Date;
 
 @Controller
 public class ChatController extends BaseController {
-    @MessageMapping("/sendMessage")
-    @SendTo("/topic/chat")
+    @MessageMapping("/onAsientoSeleccionado")
+    @SendTo("/topic/onReceiveAsientoSeleccionado")
     public OutputMessage send(Message message) {
         String time = new SimpleDateFormat("HH:mm").format(new Date());
         return new OutputMessage(message.getFrom(), message.getText(), time);

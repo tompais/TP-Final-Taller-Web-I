@@ -12,9 +12,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         //Representa el link del message mapping que debe tener en cuenta.
-        stompEndpointRegistry.addEndpoint("/sendMessage");
+        stompEndpointRegistry.addEndpoint("/onAsientoSeleccionado");
         //Este segundo es lo mismo que el primero, pero con ayudas para utilizar la librería SockJS de Javascript
-        stompEndpointRegistry.addEndpoint("/sendMessage").withSockJS();
+        stompEndpointRegistry.addEndpoint("/onAsientoSeleccionado").withSockJS();
     }
 
     @Override

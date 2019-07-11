@@ -1,8 +1,8 @@
 language: java
 jdk:
   - oraclejdk11
-  
-install: mvn install
+install:
+    - cd  src/CineApp
+    - mvn install
 notifications:
   slack: taller-web-1-unlam:3lnYtIqkvgUAEEHWCnpxgQKn
-  

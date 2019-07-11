@@ -4,5 +4,3 @@ jdk:
 install:
     - cd  src/CineApp
     - mvn install
-notifications:
-  slack: taller-web-1-unlam:3lnYtIqkvgUAEEHWCnpxgQKn

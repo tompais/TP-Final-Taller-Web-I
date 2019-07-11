@@ -28,6 +28,14 @@ public class ReservaController extends BaseController {
 	@Inject
 	private ServicioReserva servicioReserva;
 
+	public ServicioReserva getServicioReserva() {
+		return servicioReserva;
+	}
+
+	public void setServicioReserva(ServicioReserva servicioReserva) {
+		this.servicioReserva = servicioReserva;
+	}
+
 	@RequestMapping(path = "/seleccionarAsiento/{funcionId}", method = RequestMethod.GET)
 	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) throws FuncionInvalidaException {
 

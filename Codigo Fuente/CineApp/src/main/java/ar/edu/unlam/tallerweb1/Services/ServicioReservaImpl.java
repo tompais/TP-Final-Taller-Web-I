@@ -74,6 +74,14 @@ public class ServicioReservaImpl implements ServicioReserva{
 	@Inject
 	private AsientoFuncionDao asientoFuncionDao;
 	
+	public FuncionDao getFuncionDao() {
+		return funcionDao;
+	}
+
+	public void setFuncionDao(FuncionDao funcionDao) {
+		this.funcionDao = funcionDao;
+	}
+
 	@Override
 	public List<Pelicula> consultarPeliculas(Date actual) {
 		return servicioPeliculaDao.consultarPeliculas(actual);

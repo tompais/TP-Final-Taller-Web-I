@@ -1,22 +1,25 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
-import java.util.Collections;
+import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
+import org.apache.taglibs.standard.tag.common.core.Util;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.Comparators.OrdenarPorColumnaMayor;
-import ar.edu.unlam.tallerweb1.Comparators.OrdenarPorFilaMayor;
+import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
-import ar.edu.unlam.tallerweb1.Models.Sala;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
 import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 
@@ -24,38 +27,51 @@ import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 public class ReservaController extends BaseController {
 	@Inject
 	private ServicioReserva servicioReserva;
-	
-	@RequestMapping(path = "/sala", method = RequestMethod.GET)
-	public ModelAndView mostrarSala(HttpServletRequest request) {
+
+	public ServicioReserva getServicioReserva() {
+		return servicioReserva;
+	}
+
+	public void setServicioReserva(ServicioReserva servicioReserva) {
+		this.servicioReserva = servicioReserva;
+	}
+
+	@RequestMapping(path = "/seleccionarAsiento/{funcionId}", method = RequestMethod.GET)
+	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) throws FuncionInvalidaException {
+
 		ModelAndView mv = new ModelAndView();
-		
 		if(request.getSession().getAttribute("email") != null)
-    		mv.setViewName("redirect:/");
-		else {
-			Sala aux = new Sala();
-			aux.setId((long)1);
-			
-			Sala sala = servicioReserva.consultarSala(aux);
-			
-			List<Asiento> asientos = sala.getAsientos();
-			
-			Collections.sort(asientos, new OrdenarPorFilaMayor());
-			
-			int fil = asientos.get(0).getFila();
-			
-			Collections.sort(asientos, new OrdenarPorColumnaMayor());
-			
-			int col = asientos.get(0).getColumna();
-			
-			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(1, fil, col);
-			
+    	{
+			Funcion funcion = servicioReserva.consultarFuncionById(funcionId);
+
+			List<Asiento> asientos = funcion.getSala().getAsientos();
+
+			AtomicInteger fil = new AtomicInteger();
+
+			asientos.stream().map(Asiento::getFila).max(Comparator.comparingInt(o -> o)).ifPresent(fil::set);
+
+			AtomicInteger col = new AtomicInteger();
+
+			asientos.stream().map(Asiento::getColumna).max(Comparator.comparingInt(o -> o)).ifPresent(col::set);
+
+			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(funcionId, fil.get(), col.get());
+
 			ModelMap modelo = new ModelMap();
-			
+
 			modelo.put("formatoSala", formatoSala);
-			
-			return new ModelAndView("Reserva/sala", modelo);
+			modelo.put("fila", fil.get() - 1);
+			modelo.put("columna", col.get() - 1);
+			modelo.put("libre", EstadoAsiento.LIBRE);
+			modelo.put("ocupado", EstadoAsiento.OCUPADO);
+			modelo.put("reservado", EstadoAsiento.RESERVADO);
+			modelo.put("precio", funcion.getPrecio());
+
+			mv.setViewName("Reserva/seleccionarAsiento");
+			mv.addAllObjects(modelo);
+        } else {
+			mv.setViewName("redirect:/signin?returnUrl=" + Util.URLEncode("/seleccionarAsiento/" + funcionId, StandardCharsets.UTF_8.toString()));
 		}
-		
+
 		return mv;
 	}
 }

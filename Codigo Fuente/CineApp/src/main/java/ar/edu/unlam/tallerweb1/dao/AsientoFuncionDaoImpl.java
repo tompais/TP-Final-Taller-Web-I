@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -17,42 +18,50 @@ import org.springframework.stereotype.Repository;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 
 @Repository("AsientoFuncionDao")
-public class AsientoFuncionDaoImpl implements AsientoFuncionDao{
-	@Inject
-	private SessionFactory sessionFactory;
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<AsientoFuncion> consultarAsientoFuncion(int idFuncion) {
-		final Session session = sessionFactory.getCurrentSession();
-		
-		return (List<AsientoFuncion>) session.createCriteria(AsientoFuncion.class)
-				.add(Restrictions.eq("idFuncion", idFuncion))
-				.list();
-	}
+public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
+    @Inject
+    private SessionFactory sessionFactory;
 
-	@Override
-	public List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha) {
-		List list = sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")
-				.createAlias("funcion", "funcionBuscada")
-				.createAlias("funcionBuscada.pelicula", "peliculaBuscada")
-				.createAlias("funcionBuscada.cine", "cineBuscado")
-				.createAlias("funcionBuscada.tipoFuncion", "tipoFuncionBuscada")
-				.createAlias("estadoAsiento", "estadoAsientoBuscado")
-				.add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId)
-						, Restrictions.eq("cineBuscado.id", cineId)
-						, Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)
-						, Restrictions.eq("funcionBuscada.fecha", fecha)
-						, Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId())))
-				.setProjection(Projections.distinct(Projections.property("funcionBuscada.hora")))
-				.list();
+    @Override
+    public List<AsientoFuncion> consultarDistribucionAsientosEnFuncion(Long funcionId) {
+        final Session session = sessionFactory.getCurrentSession();
 
-		List<Time> times = new ArrayList<>();
-		for (Object obj :
-				list) {
-			times.add((Time) obj);
-		}
+        List list = session.createCriteria(AsientoFuncion.class)
+                .createAlias("funcion", "funcionBuscada")
+                .add(Restrictions.eq("funcionBuscada.id", funcionId))
+                .list();
 
-		return times;
-	}
+        List<AsientoFuncion> asientoFunciones = new ArrayList<>();
+        for (Object obj :
+                list) {
+            asientoFunciones.add((AsientoFuncion) obj);
+        }
+
+        return asientoFunciones;
+    }
+
+    @Override
+    public List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha) {
+        List list = sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")
+                .createAlias("funcion", "funcionBuscada")
+                .createAlias("funcionBuscada.pelicula", "peliculaBuscada")
+                .createAlias("funcionBuscada.cine", "cineBuscado")
+                .createAlias("funcionBuscada.tipoFuncion", "tipoFuncionBuscada")
+                .createAlias("estadoAsiento", "estadoAsientoBuscado")
+                .add(Restrictions.and(Restrictions.eq("peliculaBuscada.id", peliculaId)
+                        , Restrictions.eq("cineBuscado.id", cineId)
+                        , Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)
+                        , Restrictions.eq("funcionBuscada.fecha", fecha)
+                        , Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId())))
+                .setProjection(Projections.distinct(Projections.property("funcionBuscada.hora")))
+                .list();
+
+        List<Time> times = new ArrayList<>();
+        for (Object obj :
+                list) {
+            times.add((Time) obj);
+        }
+
+        return times;
+    }
 }

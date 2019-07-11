@@ -8,7 +8,7 @@ import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 
 public interface AsientoFuncionDao {
 
-	List<AsientoFuncion> consultarAsientoFuncion(int idFuncion);
+	List<AsientoFuncion> consultarDistribucionAsientosEnFuncion(Long funcionId);
 
 	List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha);
 

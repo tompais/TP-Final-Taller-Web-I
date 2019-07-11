@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
@@ -44,7 +48,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	private PeliculaCineDao servicioPeliculaCineDao;
 	
 	@Inject
-	private FuncionDao servicioFuncionDao;
+	private FuncionDao funcionDao;
 	
 	@Inject
 	private AsientoDao servicioAsientoDao;
@@ -70,6 +74,14 @@ public class ServicioReservaImpl implements ServicioReserva{
 	@Inject
 	private AsientoFuncionDao asientoFuncionDao;
 	
+	public FuncionDao getFuncionDao() {
+		return funcionDao;
+	}
+
+	public void setFuncionDao(FuncionDao funcionDao) {
+		this.funcionDao = funcionDao;
+	}
+
 	@Override
 	public List<Pelicula> consultarPeliculas(Date actual) {
 		return servicioPeliculaDao.consultarPeliculas(actual);
@@ -82,7 +94,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	@Override
 	public List<Funcion> consultarFunciones(PeliculaCine peliculaCine) {
-		return servicioFuncionDao.consultarFunciones(peliculaCine);
+		return funcionDao.consultarFunciones(peliculaCine);
 	}
 
 	@Override
@@ -154,22 +166,34 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 	
 	@Override
-	public SalaViewModel[][] formatoSala(int idFuncion, int fil, int col) {
-		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarAsientoFuncion(idFuncion);
+	public Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException {
+		Funcion funcion = funcionDao.consultarFuncionById(funcionId);
+		if(funcion == null)
+			throw new FuncionInvalidaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONINVALIDA);
+		return funcion;
+	}
+	
+	@Override
+	public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {
+		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarDistribucionAsientosEnFuncion(funcionId);
 		
 		SalaViewModel[][] sala = new SalaViewModel[fil][col];
 		
-		SalaViewModel modelo;
+		int cont = 0;
 		
 		for(AsientoFuncion asientoFuncion : asientosFuncion) {
-			modelo = new SalaViewModel();
 			
-			modelo.setEstadoAsiento(asientoFuncion.getEstadoAsiento().getId());
-			modelo.setTipoAsiento(asientoFuncion.getAsiento().getTipoAsiento().getId());
+			if(asientoFuncion.getAsiento().getColumna() - 1 == 0)
+				cont = 0;
+
+			SalaViewModel modelo = new SalaViewModel();
 			
-			sala[asientoFuncion.getAsiento().getFila()][asientoFuncion.getAsiento().getColumna()] = modelo;
+			modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
+			modelo.setTipoAsientoId(asientoFuncion.getAsiento().getTipoAsiento().getId());
 			
-			modelo = null;
+			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont++));
+			
+			sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
 		}
 		
 		return sala;

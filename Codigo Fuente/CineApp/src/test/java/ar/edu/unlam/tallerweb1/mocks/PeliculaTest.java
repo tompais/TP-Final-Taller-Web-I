@@ -1,11 +1,16 @@
 package ar.edu.unlam.tallerweb1.mocks;
 
 import ar.edu.unlam.tallerweb1.Controllers.PeliculaController;
+import ar.edu.unlam.tallerweb1.Dto.FuncionDto;
+import ar.edu.unlam.tallerweb1.Exceptions.FechaUltimaFuncionMenorAFechaActualException;
 import ar.edu.unlam.tallerweb1.Exceptions.PeliculaNoEncontradaException;
+import ar.edu.unlam.tallerweb1.Exceptions.TipoFuncionInvalidaException;
 import ar.edu.unlam.tallerweb1.Models.Cine;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
+import ar.edu.unlam.tallerweb1.Services.ServicioFuncionImpl;
 import ar.edu.unlam.tallerweb1.Services.ServicioPelicula;
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.dao.FuncionDao;
 import org.junit.Test;
 import org.springframework.security.access.method.P;
 import org.springframework.test.annotation.Rollback;
@@ -13,6 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +81,68 @@ public class PeliculaTest extends SpringTest {
         peliculaController.setServicioPelicula(servicioPelicula);
 
         peliculaController.mostrarPelicula(peliculaId);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void getFechaUltimaFuncionTraeLaFechaTest() throws TipoFuncionInvalidaException, FechaUltimaFuncionMenorAFechaActualException {
+        Long peliculaId = 1L;
+        Long cineId = 1L;
+        Long tipoFuncionId = 1L;
+
+        Date fecha = Date.valueOf(LocalDate.now().plusDays(7));
+
+        FuncionDao funcionDao = mock(FuncionDao.class);
+
+        when(funcionDao.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId)).thenReturn(fecha);
+
+        ServicioFuncionImpl servicioFuncion = new ServicioFuncionImpl();
+
+        servicioFuncion.setFuncionDao(funcionDao);
+
+        assertThat(servicioFuncion.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId)).isEqualTo(fecha);
+    }
+
+    @Test(expected = FechaUltimaFuncionMenorAFechaActualException.class)
+    @Transactional
+    @Rollback
+    public void getFechaUltimaFuncionLanzaExcepcionFechaTest() throws TipoFuncionInvalidaException, FechaUltimaFuncionMenorAFechaActualException {
+        Long peliculaId = 1L;
+        Long cineId = 1L;
+        Long tipoFuncionId = 1L;
+
+        Date fecha = Date.valueOf(LocalDate.now().minusDays(7));
+
+        FuncionDao funcionDao = mock(FuncionDao.class);
+
+        when(funcionDao.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId)).thenReturn(fecha);
+
+        ServicioFuncionImpl servicioFuncion = new ServicioFuncionImpl();
+
+        servicioFuncion.setFuncionDao(funcionDao);
+
+        servicioFuncion.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId);
+    }
+
+    @Test(expected = TipoFuncionInvalidaException.class)
+    @Transactional
+    @Rollback
+    public void getFechaUltimaFuncionLanzaExcepcionTipoFuncionInvalidaTest() throws TipoFuncionInvalidaException, FechaUltimaFuncionMenorAFechaActualException {
+        Long peliculaId = 1L;
+        Long cineId = 1L;
+        Long tipoFuncionId = 4L;
+
+        Date fecha = Date.valueOf(LocalDate.now().minusDays(7));
+
+        FuncionDao funcionDao = mock(FuncionDao.class);
+
+        when(funcionDao.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId)).thenReturn(fecha);
+
+        ServicioFuncionImpl servicioFuncion = new ServicioFuncionImpl();
+
+        servicioFuncion.setFuncionDao(funcionDao);
+
+        servicioFuncion.getFechaUltimaFuncionByPeliculaCineAndTipoFuncionId(peliculaId, cineId, tipoFuncionId);
     }
 }

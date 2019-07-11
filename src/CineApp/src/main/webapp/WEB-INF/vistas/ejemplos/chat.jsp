@@ -30,12 +30,12 @@
             }
 
             function connect() {
-                var socket = new SockJS('/CineApp_war_exploded/sendMessage');
+                var socket = new SockJS('/CineApp_war_exploded/onAsientoSeleccionado');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function(frame) {
                     setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/chat', function(messageOutput) {
+                    stompClient.subscribe('/topic/onReceiveAsientoSeleccionado', function(messageOutput) {
                         showMessageOutput(JSON.parse(messageOutput.body));
                     });
                 });
@@ -52,7 +52,7 @@
             function sendMessage() {
                 var from = document.getElementById('from').value;
                 var text = document.getElementById('text').value;
-                stompClient.send("/app/sendMessage", {},
+                stompClient.send("/app/onAsientoSeleccionado", {},
                     JSON.stringify({'from':from, 'text':text}));
             }
 

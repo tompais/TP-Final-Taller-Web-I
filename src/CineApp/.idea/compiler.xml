@@ -9,8 +9,5 @@
         <module name="CineApp" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="CineApp" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

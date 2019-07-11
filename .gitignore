@@ -1,7 +1,7 @@
-/Codigo Fuente/CineApp/target
-/Codigo Fuente/CineApp/.classpath
-/Codigo Fuente/CineApp/.project
-/Codigo Fuente/CineApp/.settings
-/Codigo Fuente/CineApp/.idea
+/src/CineApp/target
+/src/CineApp/.classpath
+/src/CineApp/.project
+/src/CineApp/.settings
+/src/CineApp/.idea
 
 *.DS_Store

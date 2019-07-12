@@ -12,7 +12,7 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Integer numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -24,6 +24,17 @@ public class Reserva {
 	
 	@ManyToOne
 	private Funcion funcion;
+	
+	@ManyToOne
+	private Asiento asiento;
+
+	public Asiento getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(Asiento asiento) {
+		this.asiento = asiento;
+	}
 
 	public Long getId() {
 		return id;

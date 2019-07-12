@@ -18,7 +18,7 @@ public class Funcion {
 	@Column(nullable = false)
 	private Time hora;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private Double precio;
 	
 	@ManyToOne

@@ -39,6 +39,18 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
 
         return asientoFunciones;
     }
+    
+    @Override
+    public int consultarTotalAsientosDisponiblesEnFuncion(Long funcionId) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	return 0;
+    	/*return (int) session.createCriteria(AsientoFuncion.class)
+    	.createAlias("funcion", "funcionBuscada")
+    	.createAlias("estadoAsiento", "estadoAsientoBuscado")
+        .add(Restrictions.eq("funcionBuscada.id", funcionId))
+        .add(Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId()))
+    	.setProjection(Projections.rowCount());*/
+    }
 
     @Override
     public List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha) {

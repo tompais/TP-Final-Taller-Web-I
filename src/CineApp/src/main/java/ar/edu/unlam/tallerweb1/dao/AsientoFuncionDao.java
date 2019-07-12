@@ -12,4 +12,6 @@ public interface AsientoFuncionDao {
 
 	List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha);
 
+	int consultarTotalAsientosDisponiblesEnFuncion(Long funcionId);
+
 }

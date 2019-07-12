@@ -28,12 +28,10 @@ import ar.edu.unlam.tallerweb1.dao.AsientoFuncionDao;
 import ar.edu.unlam.tallerweb1.dao.EstadoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.TipoFuncionDao;
-import ar.edu.unlam.tallerweb1.dao.ReservaAsientoDao;
 import ar.edu.unlam.tallerweb1.dao.ReservaDao;
 import ar.edu.unlam.tallerweb1.dao.SalaDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaDao;
 import ar.edu.unlam.tallerweb1.dao.PeliculaCineDao;
-import ar.edu.unlam.tallerweb1.Models.ReservaAsiento;
 import ar.edu.unlam.tallerweb1.Models.Sala;
 import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
@@ -61,9 +59,6 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	@Inject
 	private TipoFuncionDao servicioTipoFuncionDao;
-	
-	@Inject
-	private ReservaAsientoDao servicioReservaAsientoDao;
 	
 	@Inject
 	private ReservaDao servicioReservaDao;
@@ -148,14 +143,14 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setNumeroTicket(random.nextInt(5000) + 1);
 		
-		ReservaAsiento reservaAsiento = new ReservaAsiento();
+		//ReservaAsiento reservaAsiento = new ReservaAsiento();
 		
-		reservaAsiento.setAsiento(asiento);
-		reservaAsiento.setReserva(reserva);
+		//reservaAsiento.setAsiento(asiento);
+		//reservaAsiento.setReserva(reserva);
 		
 		servicioReservaDao.realizarReserva(reserva);
 		
-		servicioReservaAsientoDao.realizarReservaAsiento(reservaAsiento);
+		//servicioReservaAsientoDao.realizarReservaAsiento(reservaAsiento);
 		
 		return reserva.getNumeroTicket();
 	}
@@ -172,6 +167,8 @@ public class ServicioReservaImpl implements ServicioReserva{
 			throw new FuncionInvalidaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONINVALIDA);
 		return funcion;
 	}
+	
+	
 	
 	@Override
 	public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {

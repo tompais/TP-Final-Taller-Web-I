@@ -55,7 +55,16 @@ public class ReservaController extends BaseController {
 			asientos.stream().map(Asiento::getColumna).max(Comparator.comparingInt(o -> o)).ifPresent(col::set);
 
 			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(funcionId, fil.get(), col.get());
-
+			
+			int asientosDisponibles = 0;
+			
+			for(int i = 0; i < fil.get(); i++) {
+				for(int j = 0; j < col.get(); j++) {
+					if(formatoSala[i][j] != null && formatoSala[i][j].getEstadoAsientoId() == EstadoAsiento.LIBRE.getId())
+						asientosDisponibles++;
+				}
+			}
+			
 			ModelMap modelo = new ModelMap();
 
 			modelo.put("formatoSala", formatoSala);
@@ -65,6 +74,7 @@ public class ReservaController extends BaseController {
 			modelo.put("ocupado", EstadoAsiento.OCUPADO);
 			modelo.put("reservado", EstadoAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
+			modelo.put("asientosDisponibles", asientosDisponibles);
 
 			mv.setViewName("Reserva/seleccionarAsiento");
 			mv.addAllObjects(modelo);

@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -40,18 +39,6 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
         return asientoFunciones;
     }
     
-    @Override
-    public int consultarTotalAsientosDisponiblesEnFuncion(Long funcionId) {
-    	final Session session = sessionFactory.getCurrentSession();
-    	return 0;
-    	/*return (int) session.createCriteria(AsientoFuncion.class)
-    	.createAlias("funcion", "funcionBuscada")
-    	.createAlias("estadoAsiento", "estadoAsientoBuscado")
-        .add(Restrictions.eq("funcionBuscada.id", funcionId))
-        .add(Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId()))
-    	.setProjection(Projections.rowCount());*/
-    }
-
     @Override
     public List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha) {
         List list = sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")

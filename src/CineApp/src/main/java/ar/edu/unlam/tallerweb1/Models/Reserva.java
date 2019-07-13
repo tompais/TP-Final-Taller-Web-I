@@ -13,7 +13,7 @@ public class Reserva {
 	private Long id;
 
 	@Column(nullable = false)
-	private Integer numeroTicket;
+	private String numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(nullable = false)
@@ -44,11 +44,11 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Integer getNumeroTicket() {
+	public String getNumeroTicket() {
 		return numeroTicket;
 	}
 
-	public void setNumeroTicket(Integer numeroTicket) {
+	public void setNumeroTicket(String numeroTicket) {
 		this.numeroTicket = numeroTicket;
 	}
 

@@ -24,7 +24,7 @@ public interface ServicioReserva {
 	EstadoAsiento consultarEstadoAsiento (EstadoAsiento estadoAsiento);
 	TipoAsiento consultarTipoAsiento (TipoAsiento tipoAsiento);
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
-	Integer reservar (Usuario usuario, Long funcionId, Long[] asientos);
+	String reservar (Usuario usuario, Long funcionId, Long[] asientos);
 	Sala consultarSala (Sala sala);
 	Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException;
 	SalaViewModel[][] formatoSala(Long funcionId, int fil, int col);

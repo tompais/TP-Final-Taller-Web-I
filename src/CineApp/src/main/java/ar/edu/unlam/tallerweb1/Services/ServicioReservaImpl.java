@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.Services;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
+import ar.edu.unlam.tallerweb1.Helpers.GUIDHelper;
+import ar.edu.unlam.tallerweb1.Helpers.TokenHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
 import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
@@ -121,33 +122,28 @@ public class ServicioReservaImpl implements ServicioReserva{
 
 
 	@Override
-	public Integer reservar(Usuario usuario, Long funcionId, Long[] asientos) {
+	public String reservar(Usuario usuario, Long funcionId, Long[] asientos) {
 		Reserva reserva = new Reserva();
 		
 		reserva.setUsuario(usuario);
 		
 		EstadoAsiento estadoAsiento = new EstadoAsiento();
-		estadoAsiento.setId(EstadoDeAsiento.LIBRE.getId());
-		
-		for(int i = 0; i < asientos.length; i++) {
-			
-			
-			
-			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asientos[i]);
-			asientoFuncion.setEstadoAsiento(estadoAsiento);
-			
-		}
+		estadoAsiento.setId(EstadoDeAsiento.OCUPADO.getId());
 		
 		long millis = System.currentTimeMillis();
 		java.util.Date fecha = new java.util.Date(millis);
 		
 		reserva.setFechaCompra(fecha);
 		
-		Random random = new Random();
+		reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
 		
-		reserva.setNumeroTicket(random.nextInt(5000) + 1);
-		
-		servicioReservaDao.realizarReserva(reserva);
+		for(int i = 0; i < asientos.length; i++) {
+			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asientos[i]);
+			asientoFuncion.setEstadoAsiento(estadoAsiento);
+			asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
+			reserva.setAsiento(asientoFuncion.getAsiento());
+			servicioReservaDao.realizarReserva(reserva);
+		}
 		
 		return reserva.getNumeroTicket();
 	}

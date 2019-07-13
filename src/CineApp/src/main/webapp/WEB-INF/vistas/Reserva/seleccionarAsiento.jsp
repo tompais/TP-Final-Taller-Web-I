@@ -71,12 +71,12 @@
                                             </div>
                                         </c:when>
                                     </c:choose>
-                                    <c:set var="col" value='${col+1}'></c:set>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="ml-4"></div>
                                 </c:otherwise>
                             </c:choose>
+                            <c:set var="col" value='${col+1}'></c:set>
                         </c:forEach>
                     </div>
                 </c:forEach>

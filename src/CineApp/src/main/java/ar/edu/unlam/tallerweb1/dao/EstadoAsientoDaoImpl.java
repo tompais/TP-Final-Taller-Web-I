@@ -24,6 +24,13 @@ public class EstadoAsientoDaoImpl implements EstadoAsientoDao{
 	}
 
 	@Override
+	public EstadoAsiento getEstadoAsientoById(Long estadoAsientoId) {
+		return (EstadoAsiento) sessionFactory.getCurrentSession().createCriteria(EstadoAsiento.class, "estadoAsiento")
+				.add(Restrictions.eq("id", estadoAsientoId))
+				.uniqueResult();
+	}
+
+	@Override
 	public void cambiarEstadoAsiento(EstadoAsiento estadoAsiento) {
 		final Session session = sessionFactory.getCurrentSession();
 		

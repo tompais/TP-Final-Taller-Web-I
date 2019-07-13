@@ -2,6 +2,7 @@ var totalAsientosSeleccionados = 0;
 var pFinal = $("#precioFinal");
 var spanContadorAsientosDisponibles = $('#spanContadorAsientosDisponibles');
 var stompClient = null;
+var arrayCodigosAsientosReservados = [];
 
 function inicializarContadorAsientosDisponibles() {
     spanContadorAsientosDisponibles.text(window.asientosDisponibles >= 6 ? '6' : window.asientosDisponibles);
@@ -16,19 +17,19 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/onReceiveAsientoSeleccionado', function (asientoMessageDto) {
             var jsonBody = JSON.parse(asientoMessageDto.body);
-            if(jsonBody.funcionId === funcionId && jsonBody.sender !== sender) {
+            if (jsonBody.funcionId === funcionId && jsonBody.sender !== sender) {
                 var asiento = $('#' + jsonBody.codigo);
                 var num = parseInt(spanContadorAsientosDisponibles.text());
                 switch (jsonBody.estadoId) {
                     case asientoReservado:
-                        if(--window.asientosDisponibles < 6) {
+                        if (--window.asientosDisponibles < 6) {
                             spanContadorAsientosDisponibles.text(--num);
                         }
                         asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatReservado');
                         break;
                     case asientoLibre:
                         window.asientosDisponibles++;
-                        if(window.asientosDisponibles++ < 6) {
+                        if (window.asientosDisponibles++ < 6) {
                             spanContadorAsientosDisponibles.text(num++);
                         }
                         asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
@@ -50,6 +51,9 @@ function disconnect() {
 }
 
 $(window).on('beforeunload', function () {
+    $.each(arrayCodigosAsientosReservados, function (i, codigoAsientoReservado) {
+        cambiarEstadoAsientoEnServidor(codigoAsientoReservado, asientoLibre);
+    });
     disconnect();
 });
 
@@ -63,15 +67,6 @@ function cambiarEstadoAsientoEnServidor(codigoAsiento, estadoId) {
         JSON.stringify(obj));
 }
 
-function showMessageOutput(messageOutput) {
-    var response = document.getElementById('response');
-    var p = document.createElement('p');
-    p.style.wordWrap = 'break-word';
-    p.appendChild(document.createTextNode(messageOutput.from + ": "
-        + messageOutput.text + " (" + messageOutput.timeStamp + ")"));
-    response.appendChild(p);
-}
-
 $("input[type='checkbox']").change(function (e) {
     var contador = parseInt(spanContadorAsientosDisponibles.text());
     if ($(this).is(":checked")) {
@@ -80,6 +75,7 @@ $("input[type='checkbox']").change(function (e) {
             e.stopPropagation();
             e.preventDefault();
         } else {
+            arrayCodigosAsientosReservados.push($(this).attr('id'));
             cambiarEstadoAsientoEnServidor($(this).attr('id'), asientoReservado);
             window.asientosDisponibles--;
             totalAsientosSeleccionados++;
@@ -88,6 +84,7 @@ $("input[type='checkbox']").change(function (e) {
             pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
         }
     } else if ($(this).is(":not(:checked)")) {
+        arrayCodigosAsientosReservados.splice(arrayCodigosAsientosReservados.indexOf($(this).attr('id')), 1);
         cambiarEstadoAsientoEnServidor($(this).attr('id'), asientoLibre);
         window.asientosDisponibles++;
         totalAsientosSeleccionados--;

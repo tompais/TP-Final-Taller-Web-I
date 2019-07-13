@@ -22,16 +22,21 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-    	<script> var precioFinal = ${precio}; </script>
+    	<script>
+            const precioUnitario = ${precio};
+            var asientosDisponibles = ${asientosDisponibles};
+        </script>
         <script src="${context}/js/sala/sala.js"></script>
     </jsp:attribute>
 
     <jsp:body>
         <div class="d-flex flex-column text-center">
             <h1 class="text-white" style="margin-top:110px;">Seleccione los Asientos</h1>
-            <small class="text-muted">Máximo 6 asientos por reserva</small>
+            <small class="text-muted">Cantidad de asientos disponibles: <span
+                    id="spanContadorAsientosDisponibles"></span></small>
+            <p id="precioFinal" class="d-none text-white mt-2 mb-0"></p>
         </div>
-        <div class="my-4 container">
+        <div class="my-3 container">
             <div class="row">
                 <p class="w-100 text-center text-white h5">PANTALLA</p>
             </div>
@@ -51,7 +56,13 @@
                                         </c:when>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == ocupado.id}">
                                             <div class="seatOcupado">
-                                                <input type="checkbox" id="${i+1}${col}"/>
+                                                <input type="checkbox" id="${i+1}${col}" disabled/>
+                                                <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
+                                            </div>
+                                        </c:when>
+                                        <c:when test="${formatoSala[i][j].estadoAsientoId == reservado.id}">
+                                            <div class="seatReservado">
+                                                <input type="checkbox" id="${i+1}${col}" disabled/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>

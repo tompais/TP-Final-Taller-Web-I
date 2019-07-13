@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
-import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,6 @@ import ar.edu.unlam.tallerweb1.Helpers.GUIDHelper;
 import ar.edu.unlam.tallerweb1.Helpers.TokenHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
-import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
@@ -102,7 +101,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	
 	@Override
-	public EstadoAsiento consultarEstadoAsiento(EstadoAsiento estadoAsiento) {
+	public ar.edu.unlam.tallerweb1.Models.EstadoAsiento consultarEstadoAsiento(ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento) {
 		return servicioEstadoAsientoDao.consultarEstadoAsiento(estadoAsiento);
 	}
 
@@ -127,8 +126,18 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setUsuario(usuario);
 		
+<<<<<<< HEAD
 		EstadoAsiento estadoAsiento = new EstadoAsiento();
 		estadoAsiento.setId(EstadoDeAsiento.OCUPADO.getId());
+=======
+		ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
+		estadoAsiento.setId(EstadoAsiento.LIBRE.getId());
+
+		for (Long asiento : asientos) {
+			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
+			asientoFuncion.setEstadoAsiento(estadoAsiento);
+		}
+>>>>>>> 999a51bab56c62eb1753b5f53cd83a916e69a1bd
 		
 		long millis = System.currentTimeMillis();
 		java.util.Date fecha = new java.util.Date(millis);

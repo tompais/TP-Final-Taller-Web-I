@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -51,7 +51,7 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
                         , Restrictions.eq("cineBuscado.id", cineId)
                         , Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)
                         , Restrictions.eq("funcionBuscada.fecha", fecha)
-                        , Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId())))
+                        , Restrictions.eq("estadoAsientoBuscado.id", EstadoDeAsiento.LIBRE.getId())))
                 .setProjection(Projections.distinct(Projections.property("funcionBuscada.hora")))
                 .list();
 
@@ -62,5 +62,24 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
         }
 
         return times;
+    }
+    
+    @Override
+    public AsientoFuncion consultarAsientoFuncion(Long funcionId, Long asientoId) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	
+    	return (AsientoFuncion) session.createCriteria(AsientoFuncion.class)
+    			.createAlias("funcion", "funcionBuscada")
+    			.createAlias("asiento", "asientoBuscado")
+    			.add(Restrictions.eq("funcionBuscada.id", funcionId))
+    			.add(Restrictions.eq("asientoBuscado.id", asientoId))
+    			.uniqueResult();
+    }
+    
+    @Override
+    public void cambiarEstadoAsiento(AsientoFuncion asientoFuncion) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	
+    	session.update(asientoFuncion);
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
@@ -58,7 +58,7 @@ public class ReservaController extends BaseController {
 
 			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(funcionId, fil.get(), col.get());
 
-			long asientosDisponibles = Arrays.stream(formatoSala).flatMap(Arrays::stream)
+      long asientosDisponibles = Arrays.stream(formatoSala).flatMap(Arrays::stream)
 					.collect(Collectors.toList())
 					.stream()
 					.filter(salaViewModel -> salaViewModel != null
@@ -71,11 +71,11 @@ public class ReservaController extends BaseController {
 			modelo.put("formatoSala", formatoSala);
 			modelo.put("fila", fil.get() - 1);
 			modelo.put("columna", col.get() - 1);
-			modelo.put("libre", EstadoAsiento.LIBRE);
-			modelo.put("ocupado", EstadoAsiento.OCUPADO);
-			modelo.put("reservado", EstadoAsiento.RESERVADO);
+			modelo.put("libre", EstadoDeAsiento.LIBRE);
+			modelo.put("ocupado", EstadoDeAsiento.OCUPADO);
+			modelo.put("reservado", EstadoDeAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
-			modelo.put("asientosDisponibles", asientosDisponibles);
+      modelo.put("asientosDisponibles", asientosDisponibles);
 
 			mv.setViewName("Reserva/seleccionarAsiento");
 			mv.addAllObjects(modelo);

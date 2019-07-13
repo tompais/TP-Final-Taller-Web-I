@@ -15,19 +15,11 @@ public class AsientoDaoImpl implements AsientoDao{
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public Asiento consultarAsiento(Asiento asiento) {
+	public Asiento consultarAsiento(Long asientoId) {
 		final Session session = sessionFactory.getCurrentSession();
 		
 		return (Asiento) session.createCriteria(Asiento.class)
-				.add(Restrictions.eq("id", asiento.getId()))
+				.add(Restrictions.eq("id", asientoId))
 				.uniqueResult();
 	}
-
-	@Override
-	public void cambiarEstado(Asiento asiento) {
-		final Session session = sessionFactory.getCurrentSession();
-		
-		session.update(asiento);
-	}
-
 }

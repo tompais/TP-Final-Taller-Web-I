@@ -113,7 +113,7 @@ ol {
   font-weight: bold;
   line-height: 1.5rem;
   padding: 4px 0;
-  background: #555753;
+  background: gray;
   border-radius: 5px;
   animation-duration: 300ms;
   animation-fill-mode: both;

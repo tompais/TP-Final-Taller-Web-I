@@ -12,4 +12,9 @@ public interface AsientoFuncionDao {
 
 	List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha);
 
+	AsientoFuncion consultarAsientoFuncion(Long funcionId, Long asientoId);
+
+	AsientoFuncion getAsientoFuncionByFuncionIdAndPosicion(Long funcionId, Integer fila, Integer columna);
+
+	void cambiarEstadoAsiento(AsientoFuncion asientoFuncion);
 }

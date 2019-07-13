@@ -12,8 +12,8 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private Integer numeroTicket;
+	@Column(nullable = false)
+	private String numeroTicket;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(nullable = false)
@@ -24,6 +24,17 @@ public class Reserva {
 	
 	@ManyToOne
 	private Funcion funcion;
+	
+	@ManyToOne
+	private Asiento asiento;
+
+	public Asiento getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(Asiento asiento) {
+		this.asiento = asiento;
+	}
 
 	public Long getId() {
 		return id;
@@ -33,11 +44,11 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Integer getNumeroTicket() {
+	public String getNumeroTicket() {
 		return numeroTicket;
 	}
 
-	public void setNumeroTicket(Integer numeroTicket) {
+	public void setNumeroTicket(String numeroTicket) {
 		this.numeroTicket = numeroTicket;
 	}
 

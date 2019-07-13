@@ -8,9 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Models.Asiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -39,7 +39,7 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
 
         return asientoFunciones;
     }
-
+    
     @Override
     public List<Time> getHorariosLibresFuncion(Long peliculaId, Long cineId, Long tipoFuncionId, Date fecha) {
         List list = sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")
@@ -63,5 +63,35 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
         }
 
         return times;
+    }
+    
+    @Override
+    public AsientoFuncion consultarAsientoFuncion(Long funcionId, Long asientoId) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	
+    	return (AsientoFuncion) session.createCriteria(AsientoFuncion.class)
+    			.createAlias("funcion", "funcionBuscada")
+    			.createAlias("asiento", "asientoBuscado")
+    			.add(Restrictions.eq("funcionBuscada.id", funcionId))
+    			.add(Restrictions.eq("asientoBuscado.id", asientoId))
+    			.uniqueResult();
+    }
+
+    @Override
+    public AsientoFuncion getAsientoFuncionByFuncionIdAndPosicion(Long funcionId, Integer fila, Integer columna) {
+        return (AsientoFuncion) sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")
+                .createAlias("funcion", "funcionBuscada")
+                .createAlias("asiento", "asientoBuscado")
+                .add(Restrictions.and(Restrictions.eq("funcionBuscada.id", funcionId),
+                        Restrictions.eq("asientoBuscado.fila", fila),
+                        Restrictions.eq("asientoBuscado.columna", columna)))
+                .uniqueResult();
+    }
+
+    @Override
+    public void cambiarEstadoAsiento(AsientoFuncion asientoFuncion) {
+    	final Session session = sessionFactory.getCurrentSession();
+    	
+    	session.update(asientoFuncion);
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
-import ar.edu.unlam.tallerweb1.Helpers.GUIDHelper;
 import ar.edu.unlam.tallerweb1.Helpers.TokenHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
@@ -126,19 +125,9 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setUsuario(usuario);
 		
-<<<<<<< HEAD
-		EstadoAsiento estadoAsiento = new EstadoAsiento();
-		estadoAsiento.setId(EstadoDeAsiento.OCUPADO.getId());
-=======
 		ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
-		estadoAsiento.setId(EstadoAsiento.LIBRE.getId());
+		estadoAsiento.setId(EstadoAsiento.OCUPADO.getId());
 
-		for (Long asiento : asientos) {
-			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
-			asientoFuncion.setEstadoAsiento(estadoAsiento);
-		}
->>>>>>> 999a51bab56c62eb1753b5f53cd83a916e69a1bd
-		
 		long millis = System.currentTimeMillis();
 		java.util.Date fecha = new java.util.Date(millis);
 		
@@ -146,11 +135,17 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
 		
-		for(int i = 0; i < asientos.length; i++) {
-			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asientos[i]);
+		reserva.setFuncion(funcionDao.consultarFuncionById(funcionId));
+		
+		for(Long asiento : asientos) {
+			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
+			
 			asientoFuncion.setEstadoAsiento(estadoAsiento);
+			
 			asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
+			
 			reserva.setAsiento(asientoFuncion.getAsiento());
+			
 			servicioReservaDao.realizarReserva(reserva);
 		}
 		

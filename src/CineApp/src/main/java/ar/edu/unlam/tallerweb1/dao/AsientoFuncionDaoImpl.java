@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -51,7 +51,7 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
                         , Restrictions.eq("cineBuscado.id", cineId)
                         , Restrictions.eq("tipoFuncionBuscada.id", tipoFuncionId)
                         , Restrictions.eq("funcionBuscada.fecha", fecha)
-                        , Restrictions.eq("estadoAsientoBuscado.id", EstadoDeAsiento.LIBRE.getId())))
+                        , Restrictions.eq("estadoAsientoBuscado.id", EstadoAsiento.LIBRE.getId())))
                 .setProjection(Projections.distinct(Projections.property("funcionBuscada.hora")))
                 .list();
 

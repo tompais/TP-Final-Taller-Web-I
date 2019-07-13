@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.Enums;
 
-public enum EstadoDeAsiento {
+public enum EstadoAsiento {
     LIBRE (1L, "Libre"),
     OCUPADO (2L, "Ocupado"),
     RESERVADO (3L, "Reservado");
@@ -8,10 +8,10 @@ public enum EstadoDeAsiento {
     private Long id;
     private String estado;
 
-    EstadoDeAsiento() {
+    EstadoAsiento() {
     }
 
-    EstadoDeAsiento(Long id, String estado) {
+    EstadoAsiento(Long id, String estado) {
         this.id = id;
         this.estado = estado;
     }

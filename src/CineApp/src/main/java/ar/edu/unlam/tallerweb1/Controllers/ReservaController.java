@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -55,15 +57,14 @@ public class ReservaController extends BaseController {
 			asientos.stream().map(Asiento::getColumna).max(Comparator.comparingInt(o -> o)).ifPresent(col::set);
 
 			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(funcionId, fil.get(), col.get());
-			
-			int asientosDisponibles = 0;
-			
-			for(int i = 0; i < fil.get(); i++) {
-				for(int j = 0; j < col.get(); j++) {
-					if(formatoSala[i][j] != null && formatoSala[i][j].getEstadoAsientoId() == EstadoAsiento.LIBRE.getId())
-						asientosDisponibles++;
-				}
-			}
+
+			long asientosDisponibles = Arrays.stream(formatoSala).flatMap(Arrays::stream)
+					.collect(Collectors.toList())
+					.stream()
+					.filter(salaViewModel -> salaViewModel != null
+							&& salaViewModel.getEstadoAsientoId()
+							.equals(EstadoAsiento.LIBRE.getId()))
+					.count();
 			
 			ModelMap modelo = new ModelMap();
 

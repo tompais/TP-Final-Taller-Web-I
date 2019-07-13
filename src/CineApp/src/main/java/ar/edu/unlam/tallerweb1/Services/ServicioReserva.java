@@ -20,12 +20,11 @@ public interface ServicioReserva {
 	List<Pelicula> consultarPeliculas (Date actual);
 	List<PeliculaCine> consultarCinesPelicula (Pelicula pelicula);
 	List<Funcion> consultarFunciones (PeliculaCine peliculaCine);
-	Asiento consultaAsiento (Asiento asiento);
+	Asiento consultaAsiento (Long asientoId);
 	EstadoAsiento consultarEstadoAsiento (EstadoAsiento estadoAsiento);
-	void cambiarEstadoAsiento (Asiento asiento);
 	TipoAsiento consultarTipoAsiento (TipoAsiento tipoAsiento);
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
-	Integer reservar (Usuario usuario, Funcion funcion, Asiento asiento);
+	Integer reservar (Usuario usuario, Long funcionId, Long[] asientos);
 	Sala consultarSala (Sala sala);
 	Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException;
 	SalaViewModel[][] formatoSala(Long funcionId, int fil, int col);

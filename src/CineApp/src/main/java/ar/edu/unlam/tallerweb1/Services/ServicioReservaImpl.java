@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
+import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
 import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,8 +94,8 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 
 	@Override
-	public Asiento consultaAsiento(Asiento asiento) {
-		return servicioAsientoDao.consultarAsiento(asiento);
+	public Asiento consultaAsiento(Long asientoId) {
+		return servicioAsientoDao.consultarAsiento(asientoId);
 	}
 
 	
@@ -105,14 +106,6 @@ public class ServicioReservaImpl implements ServicioReserva{
 	}
 
 	
-	
-	@Override
-	public void cambiarEstadoAsiento(Asiento asiento) {
-		servicioAsientoDao.cambiarEstado(asiento);
-	}
-
-
-
 	@Override
 	public TipoAsiento consultarTipoAsiento(TipoAsiento tipoAsiento) {
 		return servicioTipoAsientoDao.consultarTipoAsiento(tipoAsiento);
@@ -128,11 +121,22 @@ public class ServicioReservaImpl implements ServicioReserva{
 
 
 	@Override
-	public Integer reservar(Usuario usuario, Funcion funcion, Asiento asiento) {
+	public Integer reservar(Usuario usuario, Long funcionId, Long[] asientos) {
 		Reserva reserva = new Reserva();
 		
 		reserva.setUsuario(usuario);
-		reserva.setFuncion(funcion);
+		
+		EstadoAsiento estadoAsiento = new EstadoAsiento();
+		estadoAsiento.setId(EstadoDeAsiento.LIBRE.getId());
+		
+		for(int i = 0; i < asientos.length; i++) {
+			
+			
+			
+			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asientos[i]);
+			asientoFuncion.setEstadoAsiento(estadoAsiento);
+			
+		}
 		
 		long millis = System.currentTimeMillis();
 		java.util.Date fecha = new java.util.Date(millis);
@@ -143,14 +147,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setNumeroTicket(random.nextInt(5000) + 1);
 		
-		//ReservaAsiento reservaAsiento = new ReservaAsiento();
-		
-		//reservaAsiento.setAsiento(asiento);
-		//reservaAsiento.setReserva(reserva);
-		
 		servicioReservaDao.realizarReserva(reserva);
-		
-		//servicioReservaAsientoDao.realizarReservaAsiento(reservaAsiento);
 		
 		return reserva.getNumeroTicket();
 	}
@@ -185,6 +182,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 
 			SalaViewModel modelo = new SalaViewModel();
 			
+			modelo.setId(asientoFuncion.getAsiento().getId());
 			modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
 			modelo.setTipoAsientoId(asientoFuncion.getAsiento().getTipoAsiento().getId());
 			

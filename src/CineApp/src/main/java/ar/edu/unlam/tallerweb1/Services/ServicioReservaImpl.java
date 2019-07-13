@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
-import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.unlam.tallerweb1.Helpers.ConstanteHelper;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.AsientoFuncion;
-import ar.edu.unlam.tallerweb1.Models.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
@@ -101,7 +100,7 @@ public class ServicioReservaImpl implements ServicioReserva{
 	
 	
 	@Override
-	public EstadoAsiento consultarEstadoAsiento(EstadoAsiento estadoAsiento) {
+	public ar.edu.unlam.tallerweb1.Models.EstadoAsiento consultarEstadoAsiento(ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento) {
 		return servicioEstadoAsientoDao.consultarEstadoAsiento(estadoAsiento);
 	}
 
@@ -126,16 +125,12 @@ public class ServicioReservaImpl implements ServicioReserva{
 		
 		reserva.setUsuario(usuario);
 		
-		EstadoAsiento estadoAsiento = new EstadoAsiento();
-		estadoAsiento.setId(EstadoDeAsiento.LIBRE.getId());
-		
-		for(int i = 0; i < asientos.length; i++) {
-			
-			
-			
-			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asientos[i]);
+		ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
+		estadoAsiento.setId(EstadoAsiento.LIBRE.getId());
+
+		for (Long asiento : asientos) {
+			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
 			asientoFuncion.setEstadoAsiento(estadoAsiento);
-			
 		}
 		
 		long millis = System.currentTimeMillis();

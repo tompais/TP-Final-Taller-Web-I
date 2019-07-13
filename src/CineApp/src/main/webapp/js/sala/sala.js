@@ -1,42 +1,35 @@
-var totalAsientos = 0;
+var totalAsientosSeleccionados = 0;
 var pFinal = $("#precioFinal");
+var spanContadorAsientosDisponibles = $('#spanContadorAsientosDisponibles');
 
-$("input[type='checkbox']").prop("checked", false);
+inicializarContadorAsientosDisponibles();
 
-$("input[type='checkbox']").click(function(e){
-	
-	if(totalAsientos == 6){
-		if($(this).is(":not(:checked)")){
-			totalAsientos--;
-			if(totalAsientos){				
-				pFinal.text("Precio: $" + precioFinal * totalAsientos +".00");
-				pFinal.val(precioFinal * totalAsientos);
-			}
-			else{
-				pFinal.text("");
-			}
-		}
-		else{			
-			e.preventDefault();
-			e.stopPropagation();
-		}
-	}
-	else{		
-		if($(this).is(":checked")){
-			totalAsientos++;
-			pFinal.text("Precio: $" + precioFinal * totalAsientos +".00");
-			pFinal.val(precioFinal * totalAsientos);
-		}
-		else if($(this).is(":not(:checked)")){
-			totalAsientos--;
-			if(totalAsientos){				
-				pFinal.text("Precio: $" + precioFinal * totalAsientos +".00");
-				pFinal.val(precioFinal * totalAsientos);
-			}
-			else{
-				pFinal.text("");
-			}
-		}
-	}
-	
+function inicializarContadorAsientosDisponibles() {
+    spanContadorAsientosDisponibles.text(window.asientosDisponibles >= 6 ? '6' : window.asientosDisponibles);
+}
+
+$("input[type='checkbox']").prop("checked", false).change(function (e) {
+    var contador = parseInt(spanContadorAsientosDisponibles.text());
+    if ($(this).is(":checked")) {
+        if (window.asientosDisponibles === 0 || contador === 0) {
+            $(this).prop('checked', false);
+            e.stopPropagation();
+            e.preventDefault();
+        } else {
+            window.asientosDisponibles--;
+            totalAsientosSeleccionados++;
+            spanContadorAsientosDisponibles.text(--contador);
+            pFinal.removeClass('d-none');
+            pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
+        }
+    } else if ($(this).is(":not(:checked)")) {
+        window.asientosDisponibles++;
+        totalAsientosSeleccionados--;
+        spanContadorAsientosDisponibles.text(++contador);
+        if (totalAsientosSeleccionados) {
+            pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
+        } else {
+            pFinal.addClass('d-none');
+        }
+    }
 });

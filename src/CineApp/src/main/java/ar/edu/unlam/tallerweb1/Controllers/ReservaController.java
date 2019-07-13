@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +57,14 @@ public class ReservaController extends BaseController {
 			asientos.stream().map(Asiento::getColumna).max(Comparator.comparingInt(o -> o)).ifPresent(col::set);
 
 			SalaViewModel[][] formatoSala = servicioReserva.formatoSala(funcionId, fil.get(), col.get());
+
+      long asientosDisponibles = Arrays.stream(formatoSala).flatMap(Arrays::stream)
+					.collect(Collectors.toList())
+					.stream()
+					.filter(salaViewModel -> salaViewModel != null
+							&& salaViewModel.getEstadoAsientoId()
+							.equals(EstadoAsiento.LIBRE.getId()))
+					.count();
 			
 			ModelMap modelo = new ModelMap();
 
@@ -65,6 +75,7 @@ public class ReservaController extends BaseController {
 			modelo.put("ocupado", EstadoDeAsiento.OCUPADO);
 			modelo.put("reservado", EstadoDeAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
+      modelo.put("asientosDisponibles", asientosDisponibles);
 
 			mv.setViewName("Reserva/seleccionarAsiento");
 			mv.addAllObjects(modelo);

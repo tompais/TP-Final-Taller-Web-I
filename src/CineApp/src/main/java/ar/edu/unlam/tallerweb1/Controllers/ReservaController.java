@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -10,8 +11,12 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.Dto.AsientoMessageDto;
 import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
+import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import org.apache.taglibs.standard.tag.common.core.Util;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +44,7 @@ public class ReservaController extends BaseController {
 	}
 
 	@RequestMapping(path = "/seleccionarAsiento/{funcionId}", method = RequestMethod.GET)
-	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) throws FuncionInvalidaException {
+	public ModelAndView seleccionarAsiento(@PathVariable Long funcionId, HttpServletRequest request) throws FuncionInvalidaException, NoSuchAlgorithmException {
 
 		ModelAndView mv = new ModelAndView();
 		if(request.getSession().getAttribute("email") != null)
@@ -76,6 +81,8 @@ public class ReservaController extends BaseController {
 			modelo.put("reservado", EstadoAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
 			modelo.put("asientosDisponibles", asientosDisponibles);
+			modelo.put("funcionId", funcionId);
+			modelo.put("sender", EncryptorHelper.encryptToMd5(request.getSession().getAttribute("username").toString()));
 
 			mv.setViewName("Reserva/seleccionarAsiento");
 			mv.addAllObjects(modelo);
@@ -84,5 +91,11 @@ public class ReservaController extends BaseController {
 		}
 
 		return mv;
+	}
+
+	@MessageMapping("/onAsientoSeleccionado")
+	@SendTo("/topic/onReceiveAsientoSeleccionado")
+	public AsientoMessageDto onAsientoSeleccionado(AsientoMessageDto asientoMessageDto) {
+		return asientoMessageDto;
 	}
 }

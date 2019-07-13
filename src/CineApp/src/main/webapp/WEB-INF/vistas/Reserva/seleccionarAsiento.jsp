@@ -24,8 +24,12 @@
     <jsp:attribute name="scripts">
     	<script>
             const precioUnitario = ${precio};
+            const funcionId = ${funcionId};
             var asientosDisponibles = ${asientosDisponibles};
+            const sender = '${sender}';
         </script>
+        <script src="${context}/lib/sockjs-client/dist/sockjs.min.js"></script>
+        <script src="${context}/lib/stompjs/stomp.min.js"></script>
         <script src="${context}/js/sala/sala.js"></script>
     </jsp:attribute>
 

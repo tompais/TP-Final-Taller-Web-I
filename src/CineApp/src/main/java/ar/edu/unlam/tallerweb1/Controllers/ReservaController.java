@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Enums.EstadoDeAsiento;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
 import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
@@ -60,7 +60,7 @@ public class ReservaController extends BaseController {
 			
 			for(int i = 0; i < fil.get(); i++) {
 				for(int j = 0; j < col.get(); j++) {
-					if(formatoSala[i][j] != null && formatoSala[i][j].getEstadoAsientoId() == EstadoAsiento.LIBRE.getId())
+					if(formatoSala[i][j] != null && formatoSala[i][j].getEstadoAsientoId() == EstadoDeAsiento.LIBRE.getId())
 						asientosDisponibles++;
 				}
 			}
@@ -70,9 +70,9 @@ public class ReservaController extends BaseController {
 			modelo.put("formatoSala", formatoSala);
 			modelo.put("fila", fil.get() - 1);
 			modelo.put("columna", col.get() - 1);
-			modelo.put("libre", EstadoAsiento.LIBRE);
-			modelo.put("ocupado", EstadoAsiento.OCUPADO);
-			modelo.put("reservado", EstadoAsiento.RESERVADO);
+			modelo.put("libre", EstadoDeAsiento.LIBRE);
+			modelo.put("ocupado", EstadoDeAsiento.OCUPADO);
+			modelo.put("reservado", EstadoDeAsiento.RESERVADO);
 			modelo.put("precio", funcion.getPrecio());
 			modelo.put("asientosDisponibles", asientosDisponibles);
 

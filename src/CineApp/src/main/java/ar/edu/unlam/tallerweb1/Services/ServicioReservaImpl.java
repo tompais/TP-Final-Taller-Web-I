@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.CodigoError;
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
-import ar.edu.unlam.tallerweb1.Exceptions.FuncionInvalidaException;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,161 +37,194 @@ import ar.edu.unlam.tallerweb1.Models.PeliculaCine;
 
 @Service("servicioReserva")
 @Transactional
-public class ServicioReservaImpl implements ServicioReserva{
+public class ServicioReservaImpl implements ServicioReserva {
 
-	@Inject
-	private PeliculaDao servicioPeliculaDao;
-	
-	@Inject
-	private PeliculaCineDao servicioPeliculaCineDao;
-	
-	@Inject
-	private FuncionDao funcionDao;
-	
-	@Inject
-	private AsientoDao servicioAsientoDao;
-	
-	@Inject
-	private EstadoAsientoDao servicioEstadoAsientoDao;
-	
-	@Inject
-	private TipoAsientoDao servicioTipoAsientoDao;
-	
-	@Inject
-	private TipoFuncionDao servicioTipoFuncionDao;
-	
-	@Inject
-	private ReservaDao servicioReservaDao;
-	
-	@Inject
-	private SalaDao servicioSalaDao;
-	
-	@Inject
-	private AsientoFuncionDao asientoFuncionDao;
-	
-	public FuncionDao getFuncionDao() {
-		return funcionDao;
-	}
+    @Inject
+    private PeliculaDao servicioPeliculaDao;
 
-	public void setFuncionDao(FuncionDao funcionDao) {
-		this.funcionDao = funcionDao;
-	}
+    @Inject
+    private PeliculaCineDao servicioPeliculaCineDao;
 
-	@Override
-	public List<Pelicula> consultarPeliculas(Date actual) {
-		return servicioPeliculaDao.consultarPeliculas(actual);
-	}	
-	
-	@Override
-	public List<PeliculaCine> consultarCinesPelicula(Pelicula pelicula) {
-		return servicioPeliculaCineDao.consultarCinesPelicula(pelicula);
-	}
-	
-	@Override
-	public List<Funcion> consultarFunciones(PeliculaCine peliculaCine) {
-		return funcionDao.consultarFunciones(peliculaCine);
-	}
+    @Inject
+    private FuncionDao funcionDao;
 
-	@Override
-	public Asiento consultaAsiento(Long asientoId) {
-		return servicioAsientoDao.consultarAsiento(asientoId);
-	}
+    @Inject
+    private AsientoDao servicioAsientoDao;
 
-	
-	
-	@Override
-	public ar.edu.unlam.tallerweb1.Models.EstadoAsiento consultarEstadoAsiento(ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento) {
-		return servicioEstadoAsientoDao.consultarEstadoAsiento(estadoAsiento);
-	}
+    @Inject
+    private EstadoAsientoDao estadoAsientoDao;
 
-	
-	@Override
-	public TipoAsiento consultarTipoAsiento(TipoAsiento tipoAsiento) {
-		return servicioTipoAsientoDao.consultarTipoAsiento(tipoAsiento);
-	}
+    @Inject
+    private TipoAsientoDao servicioTipoAsientoDao;
+
+    @Inject
+    private TipoFuncionDao servicioTipoFuncionDao;
+
+    @Inject
+    private ReservaDao servicioReservaDao;
+
+    @Inject
+    private SalaDao servicioSalaDao;
+
+    @Inject
+    private AsientoFuncionDao asientoFuncionDao;
+
+    public FuncionDao getFuncionDao() {
+        return funcionDao;
+    }
+
+    public void setFuncionDao(FuncionDao funcionDao) {
+        this.funcionDao = funcionDao;
+    }
+
+    @Override
+    public List<Pelicula> consultarPeliculas(Date actual) {
+        return servicioPeliculaDao.consultarPeliculas(actual);
+    }
+
+    @Override
+    public List<PeliculaCine> consultarCinesPelicula(Pelicula pelicula) {
+        return servicioPeliculaCineDao.consultarCinesPelicula(pelicula);
+    }
+
+    @Override
+    public List<Funcion> consultarFunciones(PeliculaCine peliculaCine) {
+        return funcionDao.consultarFunciones(peliculaCine);
+    }
+
+    @Override
+    public Asiento consultaAsiento(Long asientoId) {
+        return servicioAsientoDao.consultarAsiento(asientoId);
+    }
 
 
-
-	@Override
-	public TipoFuncion consultarTipoFuncion(TipoFuncion tipoFuncion) {
-		return servicioTipoFuncionDao.consultarTipoFuncion(tipoFuncion);
-	}
-
+    @Override
+    public ar.edu.unlam.tallerweb1.Models.EstadoAsiento consultarEstadoAsiento(ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento) {
+        return estadoAsientoDao.consultarEstadoAsiento(estadoAsiento);
+    }
 
 
-	@Override
-	public String reservar(Usuario usuario, Long funcionId, Long[] asientos) {
-		Reserva reserva = new Reserva();
-		
-		reserva.setUsuario(usuario);
-		
-		ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
-		estadoAsiento.setId(EstadoAsiento.OCUPADO.getId());
+    @Override
+    public TipoAsiento consultarTipoAsiento(TipoAsiento tipoAsiento) {
+        return servicioTipoAsientoDao.consultarTipoAsiento(tipoAsiento);
+    }
 
-		long millis = System.currentTimeMillis();
-		java.util.Date fecha = new java.util.Date(millis);
-		
-		reserva.setFechaCompra(fecha);
-		
-		reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
-		
-		reserva.setFuncion(funcionDao.consultarFuncionById(funcionId));
-		
-		for(Long asiento : asientos) {
-			AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
-			
-			asientoFuncion.setEstadoAsiento(estadoAsiento);
-			
-			asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
-			
-			reserva.setAsiento(asientoFuncion.getAsiento());
-			
-			servicioReservaDao.realizarReserva(reserva);
-		}
-		
-		return reserva.getNumeroTicket();
-	}
 
-	@Override
-	public Sala consultarSala(Sala sala) {
-		return servicioSalaDao.cosultarSala(sala);
-	}
-	
-	@Override
-	public Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException {
-		Funcion funcion = funcionDao.consultarFuncionById(funcionId);
-		if(funcion == null)
-			throw new FuncionInvalidaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONINVALIDA);
-		return funcion;
-	}
-	
-	
-	
-	@Override
-	public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {
-		List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarDistribucionAsientosEnFuncion(funcionId);
-		
-		SalaViewModel[][] sala = new SalaViewModel[fil][col];
-		
-		int cont = 0;
-		
-		for(AsientoFuncion asientoFuncion : asientosFuncion) {
-			
-			if(asientoFuncion.getAsiento().getColumna() - 1 == 0)
-				cont = 0;
+    @Override
+    public TipoFuncion consultarTipoFuncion(TipoFuncion tipoFuncion) {
+        return servicioTipoFuncionDao.consultarTipoFuncion(tipoFuncion);
+    }
 
-			SalaViewModel modelo = new SalaViewModel();
-			
-			modelo.setId(asientoFuncion.getAsiento().getId());
-			modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
-			modelo.setTipoAsientoId(asientoFuncion.getAsiento().getTipoAsiento().getId());
-			
-			modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont++));
-			
-			sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
-		}
-		
-		return sala;
-	}
-	
+
+    @Override
+    public String reservar(Usuario usuario, Long funcionId, Long[] asientos) {
+        Reserva reserva = new Reserva();
+
+        reserva.setUsuario(usuario);
+
+        ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
+        estadoAsiento.setId(EstadoAsiento.OCUPADO.getId());
+
+        long millis = System.currentTimeMillis();
+        java.util.Date fecha = new java.util.Date(millis);
+
+        reserva.setFechaCompra(fecha);
+
+        reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
+
+        reserva.setFuncion(funcionDao.consultarFuncionById(funcionId));
+
+        for (Long asiento : asientos) {
+            AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
+
+            asientoFuncion.setEstadoAsiento(estadoAsiento);
+
+            asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
+
+            reserva.setAsiento(asientoFuncion.getAsiento());
+
+            servicioReservaDao.realizarReserva(reserva);
+        }
+
+        return reserva.getNumeroTicket();
+    }
+
+    @Override
+    public Sala consultarSala(Sala sala) {
+        return servicioSalaDao.cosultarSala(sala);
+    }
+
+    @Override
+    public Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException {
+        Funcion funcion = funcionDao.consultarFuncionById(funcionId);
+        if (funcion == null)
+            throw new FuncionInvalidaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONINVALIDA);
+        return funcion;
+    }
+
+
+    @Override
+    public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {
+        List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarDistribucionAsientosEnFuncion(funcionId);
+
+        SalaViewModel[][] sala = new SalaViewModel[fil][col];
+
+        int cont = 0;
+
+        for (AsientoFuncion asientoFuncion : asientosFuncion) {
+
+            if (asientoFuncion.getAsiento().getColumna() - 1 == 0)
+                cont = 0;
+
+            SalaViewModel modelo = new SalaViewModel();
+
+            modelo.setId(asientoFuncion.getAsiento().getId());
+            modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
+            modelo.setTipoAsientoId(asientoFuncion.getAsiento().getTipoAsiento().getId());
+
+            modelo.setColumna(ConstanteHelper.ABECEDARIO.charAt(cont++));
+
+            sala[asientoFuncion.getAsiento().getFila() - 1][asientoFuncion.getAsiento().getColumna() - 1] = modelo;
+        }
+
+        return sala;
+    }
+
+    @Override
+    public void actualizarEstadoAsiento(Long funcionId, Integer fila, Integer columna, Long estadoId) throws EstadoAsientoInvalidoException, PosicionAsientoInvalidoException, FuncionByIdNoEncontradaException, AsientoFuncionByFuncionIdAndPosicionNoEncontradoException, EstadoAsientoByIdNoEncontradoException, InconsistenciaCambioEstadoAsientoException {
+        validarPosicionAsiento(fila, columna);
+        validarEstadoAsiento(estadoId);
+
+        if (funcionDao.consultarFuncionById(funcionId) == null)
+            throw new FuncionByIdNoEncontradaException("No se ha encontrado una función con el id " + funcionId, CodigoError.FUNCIONBYIDNOENCONTRADA);
+
+        ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = estadoAsientoDao.getEstadoAsientoById(estadoId);
+
+        if (estadoAsiento == null)
+            throw new EstadoAsientoByIdNoEncontradoException("No se ha encontrado un asiento con el id " + estadoId, CodigoError.ESTADOASIENTOBYIDNOENCONTRADO);
+
+        AsientoFuncion asientoFuncion = asientoFuncionDao.getAsientoFuncionByFuncionIdAndPosicion(funcionId, fila, columna);
+
+        if (asientoFuncion == null)
+            throw new AsientoFuncionByFuncionIdAndPosicionNoEncontradoException("No se ha encontrado un asiento para la función con id " + funcionId + " en la posición " + fila + " - " + columna, CodigoError.ASIENTOFUNCIONBYFUNCIONIDANDPOSICIONNOENCONTRADA);
+
+        if (asientoFuncion.getEstadoAsiento().getId().equals(estadoAsiento.getId()))
+            throw new InconsistenciaCambioEstadoAsientoException("El asiento ya se encuentra " + estadoAsiento.getEstado(), CodigoError.INCONSISTENCIACAMBIOESTADOASIENTO);
+
+        asientoFuncion.setEstadoAsiento(estadoAsiento);
+        asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
+    }
+
+    @Override
+    public void validarEstadoAsiento(Long estadoId) throws EstadoAsientoInvalidoException {
+        if (!EstadoAsiento.LIBRE.getId().equals(estadoId) && !EstadoAsiento.OCUPADO.getId().equals(estadoId) && !EstadoAsiento.RESERVADO.getId().equals(estadoId))
+            throw new EstadoAsientoInvalidoException("No se ha encontrado un estado de asiento con id " + estadoId, CodigoError.ESTADOASIENTOINVALIDO);
+    }
+
+    @Override
+    public void validarPosicionAsiento(Integer fila, Integer columna) throws PosicionAsientoInvalidoException {
+        if (fila <= 0 || columna <= 0)
+            throw new PosicionAsientoInvalidoException("La posición del asiento es inválido", CodigoError.POSICIONASIENTOINVALIDO);
+    }
+
 }

@@ -18,7 +18,7 @@ function connect() {
         stompClient.subscribe('/topic/onReceiveAsientoSeleccionado', function (asientoMessageDto) {
             var jsonBody = JSON.parse(asientoMessageDto.body);
             if (jsonBody.funcionId === funcionId && jsonBody.sender !== sender) {
-                var asiento = $('#' + jsonBody.codigo);
+                var asiento = $('#' + jsonBody.fila + "" + jsonBody.columna);
                 var num = parseInt(spanContadorAsientosDisponibles.text());
                 switch (jsonBody.estadoId) {
                     case asientoReservado:
@@ -52,14 +52,15 @@ function disconnect() {
 
 $(window).on('beforeunload', function () {
     $.each(arrayCodigosAsientosReservados, function (i, codigoAsientoReservado) {
-        cambiarEstadoAsientoEnServidor(codigoAsientoReservado, asientoLibre);
+        cambiarEstadoAsientoEnServidor(codigoAsientoReservado.fila, codigoAsientoReservado.columna, asientoLibre);
     });
     disconnect();
 });
 
-function cambiarEstadoAsientoEnServidor(codigoAsiento, estadoId) {
+function cambiarEstadoAsientoEnServidor(fila, columna, estadoId) {
     var obj = {};
-    obj.codigo = codigoAsiento;
+    obj.fila = parseInt(fila);
+    obj.columna = parseInt(columna);
     obj.funcionId = funcionId;
     obj.estadoId = estadoId;
     obj.sender = sender;
@@ -69,14 +70,17 @@ function cambiarEstadoAsientoEnServidor(codigoAsiento, estadoId) {
 
 $("input[type='checkbox']").change(function (e) {
     var contador = parseInt(spanContadorAsientosDisponibles.text());
+    var objPos = {};
+    objPos.fila = $(this).attr('fila');
+    objPos.columna = $(this).attr('columna');
     if ($(this).is(":checked")) {
         if (window.asientosDisponibles === 0 || contador === 0) {
             $(this).prop('checked', false);
             e.stopPropagation();
             e.preventDefault();
         } else {
-            arrayCodigosAsientosReservados.push($(this).attr('id'));
-            cambiarEstadoAsientoEnServidor($(this).attr('id'), asientoReservado);
+            arrayCodigosAsientosReservados.push(objPos);
+            cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado);
             window.asientosDisponibles--;
             totalAsientosSeleccionados++;
             spanContadorAsientosDisponibles.text(--contador);
@@ -84,8 +88,8 @@ $("input[type='checkbox']").change(function (e) {
             pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
         }
     } else if ($(this).is(":not(:checked)")) {
-        arrayCodigosAsientosReservados.splice(arrayCodigosAsientosReservados.indexOf($(this).attr('id')), 1);
-        cambiarEstadoAsientoEnServidor($(this).attr('id'), asientoLibre);
+        arrayCodigosAsientosReservados.splice(arrayCodigosAsientosReservados.indexOf(objPos), 1);
+        cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre);
         window.asientosDisponibles++;
         totalAsientosSeleccionados--;
         spanContadorAsientosDisponibles.text(++contador);

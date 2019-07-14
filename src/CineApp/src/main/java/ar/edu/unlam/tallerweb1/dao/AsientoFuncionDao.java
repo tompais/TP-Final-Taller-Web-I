@@ -14,6 +14,7 @@ public interface AsientoFuncionDao {
 
 	AsientoFuncion consultarAsientoFuncion(Long funcionId, Long asientoId);
 
-	void cambiarEstadoAsiento(AsientoFuncion asientoFuncion);
+	AsientoFuncion getAsientoFuncionByFuncionIdAndPosicion(Long funcionId, Integer fila, Integer columna);
 
+	void cambiarEstadoAsiento(AsientoFuncion asientoFuncion);
 }

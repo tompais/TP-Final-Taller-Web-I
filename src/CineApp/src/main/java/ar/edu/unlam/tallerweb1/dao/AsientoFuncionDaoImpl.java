@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
+import ar.edu.unlam.tallerweb1.Models.Asiento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -75,7 +76,18 @@ public class AsientoFuncionDaoImpl implements AsientoFuncionDao {
     			.add(Restrictions.eq("asientoBuscado.id", asientoId))
     			.uniqueResult();
     }
-    
+
+    @Override
+    public AsientoFuncion getAsientoFuncionByFuncionIdAndPosicion(Long funcionId, Integer fila, Integer columna) {
+        return (AsientoFuncion) sessionFactory.getCurrentSession().createCriteria(AsientoFuncion.class, "asientoFuncion")
+                .createAlias("funcion", "funcionBuscada")
+                .createAlias("asiento", "asientoBuscado")
+                .add(Restrictions.and(Restrictions.eq("funcionBuscada.id", funcionId),
+                        Restrictions.eq("asientoBuscado.fila", fila),
+                        Restrictions.eq("asientoBuscado.columna", columna)))
+                .uniqueResult();
+    }
+
     @Override
     public void cambiarEstadoAsiento(AsientoFuncion asientoFuncion) {
     	final Session session = sessionFactory.getCurrentSession();

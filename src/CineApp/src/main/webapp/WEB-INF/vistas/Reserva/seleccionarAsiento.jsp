@@ -22,16 +22,25 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-    	<script> var precioFinal = ${precio}; </script>
+    	<script>
+            const precioUnitario = ${precio};
+            const funcionId = ${funcionId};
+            var asientosDisponibles = ${asientosDisponibles};
+            const sender = '${sender}';
+        </script>
+        <script src="${context}/lib/sockjs-client/dist/sockjs.min.js"></script>
+        <script src="${context}/lib/stompjs/stomp.min.js"></script>
         <script src="${context}/js/sala/sala.js"></script>
     </jsp:attribute>
 
     <jsp:body>
         <div class="d-flex flex-column text-center">
             <h1 class="text-white" style="margin-top:110px;">Seleccione los Asientos</h1>
-            <small class="text-muted">Máximo 6 asientos por reserva</small>
+            <small class="text-muted">Cantidad de asientos disponibles: <span
+                    id="spanContadorAsientosDisponibles"></span></small>
+            <p id="precioFinal" class="d-none text-white mt-2 mb-0"></p>
         </div>
-        <div class="my-4 container">
+        <div class="my-3 container">
             <div class="row">
                 <p class="w-100 text-center text-white h5">PANTALLA</p>
             </div>
@@ -45,23 +54,29 @@
                                     <c:choose>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == libre.id}">
                                             <div class="seat">
-                                                <input type="checkbox" id="${i+1}${col}"/>
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}"/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == ocupado.id}">
                                             <div class="seatOcupado">
-                                                <input type="checkbox" id="${i+1}${col}"/>
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}" disabled/>
+                                                <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
+                                            </div>
+                                        </c:when>
+                                        <c:when test="${formatoSala[i][j].estadoAsientoId == reservado.id}">
+                                            <div class="seatReservado">
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}" disabled/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>
                                     </c:choose>
-                                    <c:set var="col" value='${col+1}'></c:set>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="ml-4"></div>
                                 </c:otherwise>
                             </c:choose>
+                            <c:set var="col" value='${col+1}'></c:set>
                         </c:forEach>
                     </div>
                 </c:forEach>

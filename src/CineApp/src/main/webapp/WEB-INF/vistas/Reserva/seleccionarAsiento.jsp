@@ -54,19 +54,19 @@
                                     <c:choose>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == libre.id}">
                                             <div class="seat">
-                                                <input type="checkbox" id="${i+1}${col}"/>
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}"/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == ocupado.id}">
                                             <div class="seatOcupado">
-                                                <input type="checkbox" id="${i+1}${col}" disabled/>
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}" disabled/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>
                                         <c:when test="${formatoSala[i][j].estadoAsientoId == reservado.id}">
                                             <div class="seatReservado">
-                                                <input type="checkbox" id="${i+1}${col}" disabled/>
+                                                <input type="checkbox" fila="${i+1}" columna="${col}" id="${i+1}${col}" disabled/>
                                                 <label for="${i+1}${col}">${i+1}${formatoSala[i][j].columna}</label>
                                             </div>
                                         </c:when>

@@ -95,7 +95,7 @@ public class ReservaController extends BaseController {
     @MessageMapping("/onAsientoSeleccionado")
     @SendTo("/topic/onReceiveAsientoSeleccionado")
     public AsientoMessageDto onAsientoSeleccionado(AsientoMessageDto asientoMessageDto) throws EstadoAsientoInvalidoException, AsientoFuncionByFuncionIdAndPosicionNoEncontradoException, PosicionAsientoInvalidoException, FuncionByIdNoEncontradaException, EstadoAsientoByIdNoEncontradoException, InconsistenciaCambioEstadoAsientoException {
-        servicioReserva.actualizarEstadoAsiento(asientoMessageDto.getFuncionId(), Character.getNumericValue(asientoMessageDto.getCodigo().charAt(0)), Character.getNumericValue(asientoMessageDto.getCodigo().charAt(1)), asientoMessageDto.getEstadoId());
+        servicioReserva.actualizarEstadoAsiento(asientoMessageDto.getFuncionId(), asientoMessageDto.getFila(), asientoMessageDto.getColumna(), asientoMessageDto.getEstadoId());
         return asientoMessageDto;
     }
 }

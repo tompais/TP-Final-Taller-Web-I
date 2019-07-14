@@ -1,17 +1,26 @@
 package ar.edu.unlam.tallerweb1.Dto;
 
 public class AsientoMessageDto {
-    private String codigo;
+    private Integer fila;
+    private Integer columna;
     private Long funcionId;
     private Long estadoId;
     private String sender;
 
-    public String getCodigo() {
-        return codigo;
+    public Integer getFila() {
+        return fila;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setFila(Integer fila) {
+        this.fila = fila;
+    }
+
+    public Integer getColumna() {
+        return columna;
+    }
+
+    public void setColumna(Integer columna) {
+        this.columna = columna;
     }
 
     public Long getFuncionId() {

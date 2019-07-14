@@ -2,7 +2,7 @@ var totalAsientosSeleccionados = 0;
 var pFinal = $("#precioFinal");
 var spanContadorAsientosDisponibles = $('#spanContadorAsientosDisponibles');
 var stompClient = null;
-var arrayCodigosAsientosReservados = [];
+var arrayObjPosAsientosReservados = [];
 
 function inicializarContadorAsientosDisponibles() {
     spanContadorAsientosDisponibles.text(window.asientosDisponibles >= 6 ? '6' : window.asientosDisponibles);
@@ -51,7 +51,7 @@ function disconnect() {
 }
 
 $(window).on('beforeunload', function () {
-    $.each(arrayCodigosAsientosReservados, function (i, codigoAsientoReservado) {
+    $.each(arrayObjPosAsientosReservados, function (i, codigoAsientoReservado) {
         cambiarEstadoAsientoEnServidor(codigoAsientoReservado.fila, codigoAsientoReservado.columna, asientoLibre);
     });
     disconnect();
@@ -79,7 +79,7 @@ $("input[type='checkbox']").change(function (e) {
             e.stopPropagation();
             e.preventDefault();
         } else {
-            arrayCodigosAsientosReservados.push(objPos);
+            arrayObjPosAsientosReservados.push(objPos);
             cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado);
             window.asientosDisponibles--;
             totalAsientosSeleccionados++;
@@ -88,7 +88,7 @@ $("input[type='checkbox']").change(function (e) {
             pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
         }
     } else if ($(this).is(":not(:checked)")) {
-        arrayCodigosAsientosReservados.splice(arrayCodigosAsientosReservados.indexOf(objPos), 1);
+        arrayObjPosAsientosReservados.splice(arrayObjPosAsientosReservados.indexOf(objPos), 1);
         cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre);
         window.asientosDisponibles++;
         totalAsientosSeleccionados--;

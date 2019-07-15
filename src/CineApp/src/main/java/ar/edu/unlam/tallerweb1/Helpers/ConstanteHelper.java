@@ -10,4 +10,8 @@ public final class ConstanteHelper {
     public static final String REGEXSOLONUMEROS = "^[0-9]+$";
     public static final String REGEXLETRASNUMEROSYESPACIOS = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$";
     public static final String ABECEDARIO = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    public static final Integer PORT = 8080;
+    public static final String HOST = "localhost";
+    public static final String CINEAPPEMAIL = "cineapptw1@gmail.com";
+    public static final String CINEAPPPEMAILPASS = "tw1eslaonda";
 }

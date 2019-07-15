@@ -67,6 +67,19 @@ function cambiarEstadoAsientoEnServidor(fila, columna, estadoId, async) {
 }
 
 function cambiarEstadoAsientoEnServidorFallido(err, asientoMessageDto) {
+    var contador = parseInt(spanContadorAsientosDisponibles.text());
+    var objPos = {};
+    objPos.fila = asientoMessageDto.fila;
+    objPos.columna = asientoMessageDto.columna;
+    arrayObjPosAsientosReservados.splice(arrayObjPosAsientosReservados.indexOf(objPos), 1);
+    window.asientosDisponibles++;
+    totalAsientosSeleccionados--;
+    spanContadorAsientosDisponibles.text(++contador);
+    if (totalAsientosSeleccionados) {
+        pFinal.text("Precio: $" + precioUnitario * totalAsientosSeleccionados + ".00");
+    } else {
+        pFinal.addClass('d-none');
+    }
     var asiento = $('#' + asientoMessageDto.fila + "" + asientoMessageDto.columna);
     if (err.search(/reservado/i) !== -1) {
         asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatReservado');

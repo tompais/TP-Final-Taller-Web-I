@@ -28,7 +28,6 @@ function connect() {
                         asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatReservado');
                         break;
                     case asientoLibre:
-                        window.asientosDisponibles++;
                         if (window.asientosDisponibles++ < 6) {
                             spanContadorAsientosDisponibles.text(num++);
                         }
@@ -52,18 +51,34 @@ function disconnect() {
 
 $(window).on('beforeunload', function () {
     $.each(arrayObjPosAsientosReservados, function (i, codigoAsientoReservado) {
-        cambiarEstadoAsientoEnServidor(codigoAsientoReservado.fila, codigoAsientoReservado.columna, asientoLibre);
+        cambiarEstadoAsientoEnServidor(codigoAsientoReservado.fila, codigoAsientoReservado.columna, asientoLibre, false);
     });
     disconnect();
 });
 
-function cambiarEstadoAsientoEnServidor(fila, columna, estadoId) {
+function cambiarEstadoAsientoEnServidor(fila, columna, estadoId, async) {
     var obj = {};
     obj.fila = parseInt(fila);
     obj.columna = parseInt(columna);
     obj.funcionId = funcionId;
     obj.estadoId = estadoId;
     obj.sender = sender;
+    llamadaAjax(pathActualizarEstadoAsiento, JSON.stringify(obj), async, 'onAsientoSeleccionado', 'cambiarEstadoAsientoEnServidorFallido', obj);
+}
+
+function cambiarEstadoAsientoEnServidorFallido(err, asientoMessageDto) {
+    var asiento = $('#' + asientoMessageDto.fila + "" + asientoMessageDto.columna);
+    if (err.search(/reservado/i) !== -1) {
+        asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatReservado');
+    } else if (err.search(/ocupado/i) !== -1) {
+        asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatOcupado');
+    } else {
+        asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
+    }
+    alertify.alert('Error', err);
+}
+
+function onAsientoSeleccionado(obj, dummy) {
     stompClient.send("/app/onAsientoSeleccionado", {},
         JSON.stringify(obj));
 }
@@ -80,7 +95,7 @@ $("input[type='checkbox']").change(function (e) {
             e.preventDefault();
         } else {
             arrayObjPosAsientosReservados.push(objPos);
-            cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado);
+            cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado, true);
             window.asientosDisponibles--;
             totalAsientosSeleccionados++;
             spanContadorAsientosDisponibles.text(--contador);
@@ -89,7 +104,7 @@ $("input[type='checkbox']").change(function (e) {
         }
     } else if ($(this).is(":not(:checked)")) {
         arrayObjPosAsientosReservados.splice(arrayObjPosAsientosReservados.indexOf(objPos), 1);
-        cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre);
+        cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre, true);
         window.asientosDisponibles++;
         totalAsientosSeleccionados--;
         spanContadorAsientosDisponibles.text(++contador);

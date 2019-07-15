@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import ar.edu.unlam.tallerweb1.Dto.AsientoMessageDto;
 import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
+import com.google.gson.Gson;
 import org.apache.taglibs.standard.tag.common.core.Util;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
@@ -92,10 +92,16 @@ public class ReservaController extends BaseController {
         return mv;
     }
 
+    @ResponseBody
+    @RequestMapping(path = "/actualizarEstadoAsiento", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String actualizarEstadoAsiento(@RequestBody AsientoMessageDto asientoMessageDto) throws AsientoFuncionByFuncionIdAndPosicionNoEncontradoException, PosicionAsientoInvalidoException, EstadoAsientoByIdNoEncontradoException, InconsistenciaCambioEstadoAsientoException, EstadoAsientoInvalidoException, FuncionByIdNoEncontradaException {
+        servicioReserva.actualizarEstadoAsiento(asientoMessageDto.getFuncionId(), asientoMessageDto.getFila(), asientoMessageDto.getColumna(), asientoMessageDto.getEstadoId());
+        return new Gson().toJson(asientoMessageDto);
+    }
+
     @MessageMapping("/onAsientoSeleccionado")
     @SendTo("/topic/onReceiveAsientoSeleccionado")
-    public AsientoMessageDto onAsientoSeleccionado(AsientoMessageDto asientoMessageDto) throws EstadoAsientoInvalidoException, AsientoFuncionByFuncionIdAndPosicionNoEncontradoException, PosicionAsientoInvalidoException, FuncionByIdNoEncontradaException, EstadoAsientoByIdNoEncontradoException, InconsistenciaCambioEstadoAsientoException {
-        servicioReserva.actualizarEstadoAsiento(asientoMessageDto.getFuncionId(), asientoMessageDto.getFila(), asientoMessageDto.getColumna(), asientoMessageDto.getEstadoId());
+    public AsientoMessageDto onAsientoSeleccionado(AsientoMessageDto asientoMessageDto) {
         return asientoMessageDto;
     }
 }

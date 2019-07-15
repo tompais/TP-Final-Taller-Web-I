@@ -27,8 +27,12 @@
             const funcionId = ${funcionId};
             var asientosDisponibles = ${asientosDisponibles};
             const sender = '${sender}';
+<<<<<<< HEAD
             const pathReserva = "realizarReserva";
             const pathHome = "${context}";
+=======
+            const pathActualizarEstadoAsiento = '${context}' + '/actualizarEstadoAsiento';
+>>>>>>> 976b2efa3350e3415ccba1b153e2f24694616bf8
         </script>
         <script src="${context}/lib/sockjs-client/dist/sockjs.min.js"></script>
         <script src="${context}/lib/stompjs/stomp.min.js"></script>

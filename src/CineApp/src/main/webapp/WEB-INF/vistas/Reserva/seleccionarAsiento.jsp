@@ -27,6 +27,7 @@
             const funcionId = ${funcionId};
             var asientosDisponibles = ${asientosDisponibles};
             const sender = '${sender}';
+            const pathActualizarEstadoAsiento = '${context}' + '/actualizarEstadoAsiento';
         </script>
         <script src="${context}/lib/sockjs-client/dist/sockjs.min.js"></script>
         <script src="${context}/lib/stompjs/stomp.min.js"></script>

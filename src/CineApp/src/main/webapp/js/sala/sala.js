@@ -100,3 +100,31 @@ $("input[type='checkbox']").change(function (e) {
         }
     }
 });
+
+function reservar() {
+	if(arrayObjPosAsientosReservados.length > 0) {
+		var filas = new Array();
+		var columnas = new Array();
+		
+		$.each(arrayObjPosAsientosReservados, function(index, asiento){
+			filas.push(parseInt(asiento.fila));
+			columnas.push(parseInt(asiento.columna));
+		});
+
+		var obj = {};
+		obj.filas = filas;
+		obj.columnas = columnas;
+		obj.funcionId = funcionId;
+
+		$.post(pathReserva, obj)
+		.done(function (response) {
+			alertify.alert("Su número de reserva es: " + response);
+			window.location.href = pathHome;
+		})
+		.fail(function (xhr, status, error) {
+			alertify.alert("Error al registrar la reserva", xhr.responseText);
+		});
+	}
+	else
+		alertify.alert("Debe seleccionar al menos un asiento para realizar una reserva");
+}

@@ -27,6 +27,8 @@
             const funcionId = ${funcionId};
             var asientosDisponibles = ${asientosDisponibles};
             const sender = '${sender}';
+            const pathReserva = "realizarReserva";
+            const pathHome = "${context}";
         </script>
         <script src="${context}/lib/sockjs-client/dist/sockjs.min.js"></script>
         <script src="${context}/lib/stompjs/stomp.min.js"></script>
@@ -82,8 +84,8 @@
                 </c:forEach>
             </div>
             <div class="d-flex align-items-center justify-content-md-end justify-content-center mt-3">
-                <a href="#" class="text-white p-3 rounded shadow" style="background-color: #ff5860;">
-                    Siguiente
+                <a href="#aReserva" id="aReserva" onclick="reservar()" class="text-white p-3 rounded shadow" style="background-color: #ff5860;">
+                    Reservar
                 </a>
             </div>
         </div>

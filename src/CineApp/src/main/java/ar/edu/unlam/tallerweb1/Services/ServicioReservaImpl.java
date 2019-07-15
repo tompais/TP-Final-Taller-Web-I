@@ -20,6 +20,7 @@ import ar.edu.unlam.tallerweb1.Models.Pelicula;
 import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
+import ar.edu.unlam.tallerweb1.ViewModels.ReservaViewModel;
 import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 import ar.edu.unlam.tallerweb1.Models.Reserva;
 import ar.edu.unlam.tallerweb1.dao.FuncionDao;
@@ -117,7 +118,7 @@ public class ServicioReservaImpl implements ServicioReserva {
 
 
     @Override
-    public String reservar(Usuario usuario, Long funcionId, Long[] asientos) {
+    public String reservar(Usuario usuario, ReservaViewModel reservaViewModel) {
         Reserva reserva = new Reserva();
 
         reserva.setUsuario(usuario);
@@ -132,10 +133,10 @@ public class ServicioReservaImpl implements ServicioReserva {
 
         reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
 
-        reserva.setFuncion(funcionDao.consultarFuncionById(funcionId));
+        reserva.setFuncion(funcionDao.consultarFuncionById(reservaViewModel.getFuncionId()));
 
-        for (Long asiento : asientos) {
-            AsientoFuncion asientoFuncion = asientoFuncionDao.consultarAsientoFuncion(funcionId, asiento);
+        for (int i = 0; i < reservaViewModel.getFilas().length; i++) {
+            AsientoFuncion asientoFuncion = asientoFuncionDao.getAsientoFuncionByFuncionIdAndPosicion(reservaViewModel.getFuncionId(), reservaViewModel.getFilas()[i], reservaViewModel.getColumnas()[i]);
 
             asientoFuncion.setEstadoAsiento(estadoAsiento);
 

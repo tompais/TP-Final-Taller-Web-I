@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.Models.*;
 import java.sql.Date;
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.ViewModels.ReservaViewModel;
 import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
 
 public interface ServicioReserva {
@@ -16,7 +17,7 @@ public interface ServicioReserva {
 	EstadoAsiento consultarEstadoAsiento (EstadoAsiento estadoAsiento);
 	TipoAsiento consultarTipoAsiento (TipoAsiento tipoAsiento);
 	TipoFuncion consultarTipoFuncion (TipoFuncion tipoFuncion);
-	String reservar (Usuario usuario, Long funcionId, Long[] asientos);
+	String reservar (Usuario usuario, ReservaViewModel reservaViewModel);
 	Sala consultarSala (Sala sala);
 	Funcion consultarFuncionById(Long funcionId) throws FuncionInvalidaException;
 	SalaViewModel[][] formatoSala(Long funcionId, int fil, int col);

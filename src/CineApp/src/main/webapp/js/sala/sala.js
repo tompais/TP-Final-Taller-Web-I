@@ -33,6 +33,9 @@ function connect() {
                         }
                         asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
                         break;
+                    case asientoOcupado:
+                    	asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatOcupado');
+                    	break;
                     default:
                         break;
                 }
@@ -151,8 +154,13 @@ function reservar() {
 }
 
 function reservaExitosa(obj) {
+	
+	$.each(arrayObjPosAsientosReservados, function(index, asiento){
+		cambiarEstadoAsientoEnServidor(asiento.fila, asiento.columna, asientoOcupado, true);		
+	});
+	
+	arrayObjPosAsientosReservados = [];
 	alertify.alert("Su número de reserva es: " + obj);
-	window.location.href = pathHome;
 }
 
 function errorReserva(err) {

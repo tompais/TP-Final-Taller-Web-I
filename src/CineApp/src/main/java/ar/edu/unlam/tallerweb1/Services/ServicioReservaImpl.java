@@ -119,36 +119,31 @@ public class ServicioReservaImpl implements ServicioReserva {
 
     @Override
     public String reservar(Usuario usuario, ReservaViewModel reservaViewModel) {
-        Reserva reserva = new Reserva();
-
-        reserva.setUsuario(usuario);
-
-        ar.edu.unlam.tallerweb1.Models.EstadoAsiento estadoAsiento = new ar.edu.unlam.tallerweb1.Models.EstadoAsiento();
-        estadoAsiento.setId(EstadoAsiento.OCUPADO.getId());
-
-        long millis = System.currentTimeMillis();
+        
+    	long millis = System.currentTimeMillis();
         java.util.Date fecha = new java.util.Date(millis);
 
-        reserva.setFechaCompra(fecha);
-
-        reserva.setNumeroTicket(TokenHelper.getSecureRandomString(10));
-
-        reserva.setFuncion(funcionDao.consultarFuncionById(reservaViewModel.getFuncionId()));
+        String ticket = TokenHelper.getSecureRandomString(10);
 
         for (int i = 0; i < reservaViewModel.getFilas().length; i++) {
-        	System.out.println("fila: " + reservaViewModel.getFilas()[i] + ", columna: " + reservaViewModel.getColumnas()[i]);
-            AsientoFuncion asientoFuncion = asientoFuncionDao.getAsientoFuncionByFuncionIdAndPosicion(reservaViewModel.getFuncionId(), reservaViewModel.getFilas()[i], reservaViewModel.getColumnas()[i]);
-            System.out.println("asiento: " + asientoFuncion.getAsiento().getId());
-            asientoFuncion.setEstadoAsiento(estadoAsiento);
+        	Reserva reserva = new Reserva();
 
-            asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);
+            reserva.setUsuario(usuario);
+            
+            reserva.setFechaCompra(fecha);
+            
+            reserva.setNumeroTicket(ticket);
+            
+            reserva.setFuncion(funcionDao.consultarFuncionById(reservaViewModel.getFuncionId()));
+        	
+        	AsientoFuncion asientoFuncion = asientoFuncionDao.getAsientoFuncionByFuncionIdAndPosicion(reservaViewModel.getFuncionId(), reservaViewModel.getFilas()[i], reservaViewModel.getColumnas()[i]);
 
             reserva.setAsiento(asientoFuncion.getAsiento());
 
             servicioReservaDao.realizarReserva(reserva);
         }
 
-        return reserva.getNumeroTicket();
+        return ticket;
     }
 
     @Override

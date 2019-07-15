@@ -21,18 +21,12 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-=======
 import org.springframework.web.bind.annotation.*;
->>>>>>> 976b2efa3350e3415ccba1b153e2f24694616bf8
 import org.springframework.web.servlet.ModelAndView;
-
-import com.google.gson.Gson;
 
 import ar.edu.unlam.tallerweb1.Enums.EstadoAsiento;
 import ar.edu.unlam.tallerweb1.Models.Asiento;
@@ -122,8 +116,8 @@ public class ReservaController extends BaseController {
     }
     
     @ResponseBody
-    @RequestMapping(path = "/realizarReserva", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String realizarReserva(@ModelAttribute ReservaViewModel reservaViewModel, HttpServletRequest request) {
+    @RequestMapping(path = "/realizarReserva", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String realizarReserva(@RequestBody ReservaViewModel reservaViewModel, HttpServletRequest request) {
     	String email = (String) request.getSession().getAttribute("email");
     	Usuario usuario = new Usuario();
     	usuario.setEmail(email);

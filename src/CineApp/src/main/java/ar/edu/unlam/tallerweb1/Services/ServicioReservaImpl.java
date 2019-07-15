@@ -136,8 +136,9 @@ public class ServicioReservaImpl implements ServicioReserva {
         reserva.setFuncion(funcionDao.consultarFuncionById(reservaViewModel.getFuncionId()));
 
         for (int i = 0; i < reservaViewModel.getFilas().length; i++) {
+        	System.out.println("fila: " + reservaViewModel.getFilas()[i] + ", columna: " + reservaViewModel.getColumnas()[i]);
             AsientoFuncion asientoFuncion = asientoFuncionDao.getAsientoFuncionByFuncionIdAndPosicion(reservaViewModel.getFuncionId(), reservaViewModel.getFilas()[i], reservaViewModel.getColumnas()[i]);
-
+            System.out.println("asiento: " + asientoFuncion.getAsiento().getId());
             asientoFuncion.setEstadoAsiento(estadoAsiento);
 
             asientoFuncionDao.cambiarEstadoAsiento(asientoFuncion);

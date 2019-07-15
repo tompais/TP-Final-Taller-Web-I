@@ -108,7 +108,7 @@ $("input[type='checkbox']").change(function (e) {
             e.preventDefault();
         } else {
             arrayObjPosAsientosReservados.push(objPos);
-            cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado, true);
+            cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoReservado, false);
             window.asientosDisponibles--;
             totalAsientosSeleccionados++;
             spanContadorAsientosDisponibles.text(--contador);
@@ -117,7 +117,7 @@ $("input[type='checkbox']").change(function (e) {
         }
     } else if ($(this).is(":not(:checked)")) {
         arrayObjPosAsientosReservados.splice(arrayObjPosAsientosReservados.indexOf(objPos), 1);
-        cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre, true);
+        cambiarEstadoAsientoEnServidor(objPos.fila, objPos.columna, asientoLibre, false);
         window.asientosDisponibles++;
         totalAsientosSeleccionados--;
         spanContadorAsientosDisponibles.text(++contador);

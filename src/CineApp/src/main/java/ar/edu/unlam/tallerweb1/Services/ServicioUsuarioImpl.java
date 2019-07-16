@@ -34,8 +34,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public Usuario consultarUsuario(Usuario usuario) {
-        return usuarioDao.consultarUsuario(usuario);
+    public Usuario consultarUsuario(Usuario usuario) throws UsuarioNoEncontradoException {
+        Usuario u = usuarioDao.consultarUsuario(usuario);
+
+        if (u == null)
+            throw new UsuarioNoEncontradoException("No se ha podido encontrar su usuario en nuestro sistema para realizar la reserva", CodigoError.USUARIONOENCONTRADO);
+
+        return u;
     }
 
     @Override

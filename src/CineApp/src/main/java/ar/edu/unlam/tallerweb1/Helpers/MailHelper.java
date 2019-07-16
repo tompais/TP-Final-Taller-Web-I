@@ -17,12 +17,12 @@ public class MailHelper {
         Transport.send(message);
     }
 
-    private static void prepareEmailMessage(MimeMessage message, String to, String title, String html)
+    private static void prepareEmailMessage(MimeMessage message, String to, String subject, String html)
             throws MessagingException {
         message.setContent(html, "text/html; charset=utf-8");
         message.setFrom(new InternetAddress(ConstanteHelper.CINEAPPEMAIL));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-        message.setSubject(title);
+        message.setSubject(subject);
     }
 
     private static Session createSession() {
@@ -40,7 +40,7 @@ public class MailHelper {
         });
     }
 
-    public static void EnviarMail(String asunto, String html, String mail) throws MessagingException {
+    public static void enviarMail(String mail, String asunto, String html) throws MessagingException {
         MailHelper.sendAsHtml(mail,
                 asunto,
                 html);

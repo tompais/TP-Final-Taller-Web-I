@@ -134,8 +134,8 @@ $("input[type='checkbox']").change(function (e) {
 
 function reservar() {
 	if(arrayObjPosAsientosReservados.length > 0) {
-		var filas = new Array();
-		var columnas = new Array();
+		var filas = [];
+		var columnas = [];
 		
 		$.each(arrayObjPosAsientosReservados, function(index, asiento){
 			filas.push(parseInt(asiento.fila));
@@ -156,7 +156,7 @@ function reservar() {
 function reservaExitosa(obj) {
 	
 	$.each(arrayObjPosAsientosReservados, function(index, asiento){
-		cambiarEstadoAsientoEnServidor(asiento.fila, asiento.columna, asientoOcupado, true);		
+		cambiarEstadoAsientoEnServidor(asiento.fila, asiento.columna, asientoOcupado, false);
 	});
 	
 	arrayObjPosAsientosReservados = [];

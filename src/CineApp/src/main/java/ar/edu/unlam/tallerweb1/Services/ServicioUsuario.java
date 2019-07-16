@@ -11,7 +11,7 @@ import java.sql.Date;
 public interface ServicioUsuario {
     Boolean existeUsuarioByEmailAndUsername(String email, String username);
 
-    Usuario consultarUsuario(Usuario usuario);
+    Usuario consultarUsuario(Usuario usuario) throws UsuarioNoEncontradoException;
 
     Usuario loguearUsuario(String emailOrNick, String password) throws NoSuchAlgorithmException, UsuarioInvalidoException, UsuarioNoEncontradoException;
 

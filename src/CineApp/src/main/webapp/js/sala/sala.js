@@ -29,7 +29,7 @@ function connect() {
                         break;
                     case asientoLibre:
                         if (window.asientosDisponibles++ < 6) {
-                            spanContadorAsientosDisponibles.text(num++);
+                            spanContadorAsientosDisponibles.text(++num);
                         }
                         asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
                         break;

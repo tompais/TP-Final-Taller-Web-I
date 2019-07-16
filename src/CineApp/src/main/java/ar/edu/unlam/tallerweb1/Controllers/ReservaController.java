@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.unlam.tallerweb1.Dto.AsientoMessageDto;
+import ar.edu.unlam.tallerweb1.Enums.CodigoError;
 import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.Helpers.EncryptorHelper;
 import com.google.gson.Gson;
@@ -117,12 +118,12 @@ public class ReservaController extends BaseController {
     
     @ResponseBody
     @RequestMapping(path = "/realizarReserva", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String realizarReserva(@RequestBody ReservaViewModel reservaViewModel, HttpServletRequest request) {
+    public String realizarReserva(@RequestBody ReservaViewModel reservaViewModel, HttpServletRequest request) throws UsuarioNoEncontradoException {
     	String email = (String) request.getSession().getAttribute("email");
     	Usuario usuario = new Usuario();
     	usuario.setEmail(email);
     	Usuario usuarioBuscado = servicioUsuario.consultarUsuario(usuario);
-    	
+
     	String numeroTicket = servicioReserva.reservar(usuarioBuscado, reservaViewModel);
     	
     	return new Gson().toJson(numeroTicket);

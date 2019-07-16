@@ -33,6 +33,9 @@ function connect() {
                         }
                         asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
                         break;
+                    case asientoOcupado:
+                    	asiento.attr('checked', true).prop('disabled', true).parent().removeClass().addClass('seatOcupado');
+                    	break;
                     default:
                         break;
                 }
@@ -128,3 +131,38 @@ $("input[type='checkbox']").change(function (e) {
         }
     }
 });
+
+function reservar() {
+	if(arrayObjPosAsientosReservados.length > 0) {
+		var filas = new Array();
+		var columnas = new Array();
+		
+		$.each(arrayObjPosAsientosReservados, function(index, asiento){
+			filas.push(parseInt(asiento.fila));
+			columnas.push(parseInt(asiento.columna));
+		});
+
+		var obj = {};
+		obj.filas = filas;
+		obj.columnas = columnas;
+		obj.funcionId = funcionId;
+
+		llamadaAjax(pathReserva, JSON.stringify(obj), true, 'reservaExitosa', 'errorReserva');
+	}
+	else
+		alertify.alert("Debe seleccionar al menos un asiento para realizar una reserva");
+}
+
+function reservaExitosa(obj) {
+	
+	$.each(arrayObjPosAsientosReservados, function(index, asiento){
+		cambiarEstadoAsientoEnServidor(asiento.fila, asiento.columna, asientoOcupado, true);		
+	});
+	
+	arrayObjPosAsientosReservados = [];
+	alertify.alert("Su número de reserva es: " + obj);
+}
+
+function errorReserva(err) {
+	alertify.alert("Error al registrar la reserva", err);
+}

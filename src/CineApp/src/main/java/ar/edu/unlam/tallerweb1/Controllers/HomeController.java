@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,7 +27,7 @@ public class HomeController extends BaseController {
     private ServicioPelicula servicioPelicula;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView irAInicio() {
+    public ModelAndView irAInicio(HttpServletRequest request) {
         List<PublicacionViewModel> publicaciones = new ArrayList<>();
 
 
@@ -57,6 +59,20 @@ public class HomeController extends BaseController {
         mm.addAttribute("estrenos", estrenos);
 
         mm.addAttribute("proximosEstrenos", proximosEstrenos);
+        
+        Cookie[] cookies = request.getCookies();
+        
+        if(cookies != null && request.getSession().getAttribute("email") == null) {        	
+        	for(Cookie cookie : cookies){
+        		if(cookie.getName().equals("sesion")) {
+        			String[] datos = cookie.getValue().split("|");
+        			request.getSession().setAttribute("email", datos[0]);
+        			request.getSession().setAttribute("rol", datos[1]);
+        			request.getSession().setAttribute("username", datos[2]);
+        			break;
+        		}
+        	}
+        }
 
         return new ModelAndView("Home/inicio", mm);
     }

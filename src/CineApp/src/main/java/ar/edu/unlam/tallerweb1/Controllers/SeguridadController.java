@@ -61,7 +61,7 @@ public class SeguridadController {
 		if(loginViewModel.getRememberMe()) {
 			String datosSesion = usuarioBuscado.getEmail() + "|" + usuarioBuscado.getRol().getId().toString() + "|" + usuarioBuscado.getUsername();
 			Cookie pepitos = new Cookie("sesion", datosSesion);
-			pepitos.setMaxAge(60*5); //segundos que dura la cookie
+			pepitos.setMaxAge(60*2); //segundos que dura la cookie
 			response.addCookie(pepitos);
 		}
 

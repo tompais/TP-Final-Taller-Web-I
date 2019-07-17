@@ -1,7 +1,13 @@
 package ar.edu.unlam.tallerweb1.Controllers;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoEncontradoException;
+import ar.edu.unlam.tallerweb1.Models.GeneroPelicula;
 import ar.edu.unlam.tallerweb1.Models.Pelicula;
+import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.Services.ServicioPelicula;
+import ar.edu.unlam.tallerweb1.Services.ServicioPeliculaGeneroPelicula;
+import ar.edu.unlam.tallerweb1.Services.ServicioReserva;
+import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.ViewModels.PublicacionViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +31,18 @@ public class HomeController extends BaseController {
 
     @Inject
     private ServicioPelicula servicioPelicula;
+    
+    @Inject
+    private ServicioReserva servicioReserva;
+    
+    @Inject
+    private ServicioPeliculaGeneroPelicula servicioPeliculaGeneroPelicula;
+    
+    @Inject
+    private ServicioUsuario servicioUsuario;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView irAInicio(HttpServletRequest request) {
+    public ModelAndView irAInicio(HttpServletRequest request) throws UsuarioNoEncontradoException {
         List<PublicacionViewModel> publicaciones = new ArrayList<>();
 
 
@@ -51,7 +66,7 @@ public class HomeController extends BaseController {
         publicaciones = publicaciones.subList(0, publicaciones.size() < 6 ? publicaciones.size() : 6);
 
         publicaciones.sort(compareByPromedioCalificacion);
-
+        
         ModelMap mm = new ModelMap();
 
         mm.addAttribute("publicaciones", publicaciones);
@@ -59,6 +74,21 @@ public class HomeController extends BaseController {
         mm.addAttribute("estrenos", estrenos);
 
         mm.addAttribute("proximosEstrenos", proximosEstrenos);
+        
+        if(request.getSession().getAttribute("email") != null)
+        {
+        	Usuario usuario = new Usuario();
+        	usuario.setEmail(request.getSession().getAttribute("email").toString());
+        	Usuario usuarioBuscado = servicioUsuario.consultarUsuario(usuario);
+
+        	List<Pelicula> pelis = servicioReserva.consultarPelisReservadasUsuario(usuarioBuscado.getId());
+        	
+        	if(pelis != null) {
+        		List<GeneroPelicula> generoPelis = servicioPeliculaGeneroPelicula.consultarGeneroPelis(pelis);
+        		List<Pelicula> pelisRecomendadas = servicioPeliculaGeneroPelicula.consultarPelisRecomendadas(pelis, generoPelis);
+        		mm.addAttribute("recomendaciones", pelisRecomendadas);
+        	}
+        }
         
         Cookie[] cookies = request.getCookies();
         

@@ -24,4 +24,5 @@ public interface ServicioReserva {
 	void actualizarEstadoAsiento(Long funcionId, Integer fila, Integer columna, Long estadoId) throws EstadoAsientoInvalidoException, PosicionAsientoInvalidoException, FuncionByIdNoEncontradaException, AsientoFuncionByFuncionIdAndPosicionNoEncontradoException, EstadoAsientoByIdNoEncontradoException, InconsistenciaCambioEstadoAsientoException;
 	void validarEstadoAsiento(Long estadoId) throws EstadoAsientoInvalidoException;
 	void validarPosicionAsiento(Integer fila, Integer columna) throws PosicionAsientoInvalidoException;
+	List<Pelicula> consultarPelisReservadasUsuario(Long usuarioId);
 }

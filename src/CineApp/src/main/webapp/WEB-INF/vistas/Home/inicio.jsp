@@ -185,6 +185,48 @@
                     </c:choose>
                 </div>
             </div>
+            
+            <c:choose>
+                <c:when test="${sessionScope.username != null && recomendaciones != null && recomendaciones.size() > 0}">
+		            <div class="container">
+		                <div class="row">
+		                    <!-- section title -->
+		                    <div class="col-12">
+		                        <h2 class="section__title">Recomendaciones para ti</h2>
+		                    </div>
+		                    <!-- end section title -->
+		
+		                    		<c:forEach items="${recomendaciones}" var="recomendacion">
+		                                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+		                                    <div class="card">
+		                                        <div class="card__cover">
+		                                            <a href="${context}/pelicula/${recomendacion.id}">
+		                                                <img src="${context}/img/covers/${recomendacion.poster.nombre}"
+		                                                     alt="${recomendacion.nombre}">
+		                                            </a>
+		                                        </div>
+		                                        <div class="card__content">
+		                                            <h3 class="card__title">
+		                                                <a href="${context}/pelicula/${recomendacion.id}">
+		                                                        ${recomendacion.nombre}
+		                                                </a>
+		                                            </h3>
+		                                            <span class="card__category">
+		                                        <c:forEach items="${recomendacion.peliculaGeneroPeliculas}"
+		                                                   var="peliculaGeneroPelicula">
+		                                            <a href="#">
+		                                                    ${peliculaGeneroPelicula.generoPelicula.nombre}
+		                                            </a>
+		                                        </c:forEach>
+		                                    </span>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </c:forEach>
+		                </div>
+		            </div>
+            	</c:when>
+            </c:choose>
         </section>
         <!-- end expected premiere -->
     </jsp:body>

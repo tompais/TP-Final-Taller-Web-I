@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.Services;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -222,6 +223,24 @@ public class ServicioReservaImpl implements ServicioReserva {
     public void validarPosicionAsiento(Integer fila, Integer columna) throws PosicionAsientoInvalidoException {
         if (fila <= 0 || columna <= 0)
             throw new PosicionAsientoInvalidoException("La posición del asiento es inválido", CodigoError.POSICIONASIENTOINVALIDO);
+    }
+    
+    @Override
+    public List<Pelicula> consultarPelisReservadasUsuario(Long usuarioId) {
+    	List<Funcion> funciones = servicioReservaDao.consultarReservasUsuario(usuarioId);
+    	
+    	if(funciones != null && funciones.size() > 0) {
+    		List<Pelicula> pelis = new ArrayList<>();
+    		
+    		for(Funcion funcion : funciones) {
+    			if(!pelis.contains(funcion.getPelicula()))
+    				pelis.add(funcion.getPelicula());
+    		}
+    		
+    		return pelis;
+    	}
+    	
+    	return null;
     }
 
 }

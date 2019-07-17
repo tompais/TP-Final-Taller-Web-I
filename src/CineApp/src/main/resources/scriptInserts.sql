@@ -6052,19 +6052,20 @@ INSERT INTO Pais (id, nombre) VALUES (1, 'Estados Unidos');
 
 INSERT INTO Clasificacion (nombre) VALUES ('ATP'), ('+13'), ('+16'), ('+18');
 
-INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg');
+INSERT INTO Poster (nombre) VALUES ('cover7.jpg'), ('cover8.jpg'), ('cover9.jpg'), ('cover10.jpg'), ('cover11.jpg'), ('cover12.jpg');
 
-INSERT INTO Trailer (embed) VALUES ('znk2OICHbjY'), ('0JnRdfiUMa8'), ('J7nJksXDBWc');
+INSERT INTO Trailer (embed) VALUES ('znk2OICHbjY'), ('0JnRdfiUMa8'), ('J7nJksXDBWc'), ('ue80QwXMRHg'), ('9CHmEHBKuyE'), ('4xD0junWlFc');
 
-INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Los Vengadores restantes deben encontrar una manera de recuperar a sus aliados para un enfrentamiento épico con Thanos, el malvado que diezmó el planeta y el universo.', 180, 1, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Un exmercenario quien, tras haber sido sometido a un cruel experimento, adquiere el superpoder de sanar rápidamente y pretende vengarse del hombre que destrozó su vida.', 180, 1, 1, 2, 2), ('2019-07-13', 'Sherlock', 'El ingenioso detective y su compañero, que se dedican a resolver crímenes, se enfrentan a un nuevo enemigo e intentan desenredar un plan mortal que podría destruir Inglaterra.', 180, 1, 1, 3, 3);
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer_id) VALUES ('2019-04-07', 'Avengers: Endgame', 'Los Vengadores restantes deben encontrar una manera de recuperar a sus aliados para un enfrentamiento épico con Thanos, el malvado que diezmó el planeta y el universo.', 180, 1, 1, 1, 1), ('2016-02-11', 'Deadpool', 'Un exmercenario quien, tras haber sido sometido a un cruel experimento, adquiere el superpoder de sanar rápidamente y pretende vengarse del hombre que destrozó su vida.', 180, 1, 1, 2, 2), ('2019-08-13', 'Sherlock', 'El ingenioso detective y su compañero, que se dedican a resolver crímenes, se enfrentan a un nuevo enemigo e intentan desenredar un plan mortal que podría destruir Inglaterra.', 180, 1, 1, 3, 3);
+INSERT INTO Pelicula (fechaEstreno, nombre, sinopsis, duracion, pais_id, clasificacion_id, poster_id, trailer_id) VALUES ('2017-10-10', 'Thor: Ragnarok', 'Thor está preso en el otro extremo del universo. Necesita regresar a tiempo para evitar que la todopoderosa Hela destruya su mundo.', 130, 1, 2, 4, 4), ('2019-07-14', 'John Wick 3: Parabellum', 'John Wick regresa de nuevo pero con una recompensa sobre su cabeza que persigue unos mercenarios.', 130, 1, 3, 5, 5), ('2014-08-21', 'Los indestructibles 3', 'Barney, Christmas y el resto del equipo deben enfrentarse a Conrad Stonebanks, cofundador del grupo que se convirtió en un despiadado traficante de armas. Barney estaba convencido de haber acabado con él, pero ha vuelto y ahora busca venganza.', 126, 1, 2, 6, 6);
 
-INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds');
+INSERT INTO Actor (nombre, apellido) VALUES ('Robert', 'Downey JR.'), ('Ryan', 'Reynolds'), ('Chris', 'Hemsworth'), ('Keanu', 'Reeves'), ('Sylvester', 'Stallone');
 
 INSERT INTO GeneroPelicula (nombre) VALUES ('Superheroes'), ('Acción');
 
-INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1), (2, 2), (3, 1);
+INSERT INTO PeliculaActor (pelicula_id, actor_id) VALUES (1, 1), (2, 2), (3, 1), (4, 3), (5, 4), (6, 5);
 
-INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1), (2, 1), (3, 2);
+INSERT INTO PeliculaGeneroPelicula (pelicula_id, generoPelicula_id) VALUES (1, 1), (2, 1), (3, 2), (4, 1), (5, 2), (6, 2);
 
 INSERT INTO Tarjeta (numero, codigoSeguridad, DNITitular, fechaVencimiento) VALUES (12345678, 123, 39670211, '2020-04-17');
 
@@ -6076,7 +6077,7 @@ INSERT INTO EstadoAsiento (estado) VALUES ('Libre'), ('Ocupado'), ('Reservado');
 
 INSERT INTO Cine (nombre, direccion_id) VALUES ('Abasto', 1), ('Showcase Haedo', 1);
 
-INSERT INTO PeliculaCine (pelicula_id, cine_id) VALUES (1, 1), (1, 2), (2, 1), (2, 2);
+INSERT INTO PeliculaCine (pelicula_id, cine_id) VALUES (1, 1), (1, 2), (2, 1), (2, 2), (4, 2), (5, 1), (6, 1), (6, 2), (3, 2);
 
 INSERT INTO Sala (numero, cine_id) VALUES (1, 1), (1, 2);
 
@@ -6096,10 +6097,16 @@ INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (3, 1, 1, 2)
 INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (4, 1, 1, 2), (4, 2, 1, 2), (4, 4, 1, 2), (4, 5, 1, 2), (4, 7, 1, 2), (4, 8, 1, 2);
 INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (5, 1, 1, 2), (5, 2, 1, 2), (5, 4, 1, 2), (5, 5, 1, 2), (5, 7, 1, 2), (5, 8, 1, 2);
 
-INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 200.00, 1, 1, 1, 1);
-INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-13', '14:00:00', 200.00, 2, 1, 2, 1);
-INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-24', '22:15:00', 200.00, 1, 2, 1, 2);
-INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-25', '15:30:00', 200.00, 2, 2, 2, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 250.00, 1, 1, 1, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-31', '14:00:00', 250.00, 2, 1, 2, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-24', '22:15:00', 300.00, 1, 2, 1, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-25', '15:30:00', 300.00, 2, 2, 2, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-20', '19:30:00', 300.00, 2, 2, 4, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-21', '20:00:00', 300.00, 3, 2, 4, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-29', '12:15:00', 250.00, 1, 1, 5, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-22', '12:15:00', 250.00, 3, 1, 6, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-19', '18:15:00', 300.00, 1, 2, 6, 2);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-09-03', '11:45:00', 300.00, 1, 2, 3, 2);
 
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 1, 1), (2, 1, 2), (3, 1, 2), (4, 1, 1), (5, 1, 1), (6, 1, 2), (7, 1, 1), (8, 1, 2), (9, 1, 1);
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (10, 1, 2), (11, 1, 1), (12, 1, 1), (13, 1, 1), (14, 1, 1), (15, 1, 2), (16, 1, 2), (17, 1, 2), (18, 1, 1);
@@ -6117,6 +6124,22 @@ INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (37
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (46, 2, 2), (47, 2, 1), (48, 2, 1), (49, 2, 1), (50, 2, 1), (51, 2, 1), (52, 2, 2), (53, 2, 2), (54, 2, 1);
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (55, 2, 1), (56, 2, 1), (57, 2, 1), (58, 2, 1), (59, 2, 2), (60, 2, 2), (61, 2, 1), (62, 2, 2), (63, 2, 1);
 
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 7, 1), (2, 7, 1), (3, 7, 2), (4, 7, 1), (5, 7, 1), (6, 7, 2), (7, 7, 1), (8, 7, 2), (9, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (10, 7, 2), (11, 7, 1), (12, 7, 1), (13, 7, 1), (14, 7, 1), (15, 7, 1), (16, 7, 1), (17, 7, 1), (18, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (19, 7, 1), (20, 7, 1), (21, 7, 2), (22, 7, 2), (23, 7, 1), (24, 7, 1), (25, 7, 1), (26, 7, 1), (27, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (28, 7, 2), (29, 7, 2), (30, 7, 1), (31, 7, 1), (32, 7, 2), (33, 7, 1), (34, 7, 1), (35, 7, 1), (36, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (37, 7, 1), (38, 7, 1), (39, 7, 1), (40, 7, 1), (41, 7, 1), (42, 7, 2), (43, 7, 1), (44, 7, 2), (45, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (46, 7, 2), (47, 7, 1), (48, 7, 1), (49, 7, 1), (50, 7, 1), (51, 7, 1), (52, 7, 2), (53, 7, 2), (54, 7, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (55, 7, 1), (56, 7, 1), (57, 7, 1), (58, 7, 1), (59, 7, 2), (60, 7, 2), (61, 7, 1), (62, 7, 2), (63, 7, 1);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (1, 8, 1), (2, 8, 1), (3, 8, 2), (4, 8, 1), (5, 8, 1), (6, 8, 2), (7, 8, 1), (8, 8, 2), (9, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (10, 8, 2), (11, 8, 1), (12, 8, 1), (13, 8, 1), (14, 8, 1), (15, 8, 1), (16, 8, 1), (17, 8, 1), (18, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (19, 8, 1), (20, 8, 1), (21, 8, 2), (22, 8, 2), (23, 8, 1), (24, 8, 1), (25, 8, 1), (26, 8, 1), (27, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (28, 8, 2), (29, 8, 2), (30, 8, 1), (31, 8, 1), (32, 8, 2), (33, 8, 1), (34, 8, 1), (35, 8, 1), (36, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (37, 8, 1), (38, 8, 1), (39, 8, 1), (40, 8, 1), (41, 8, 1), (42, 8, 2), (43, 8, 1), (44, 8, 2), (45, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (46, 8, 2), (47, 8, 1), (48, 8, 1), (49, 8, 1), (50, 8, 1), (51, 8, 1), (52, 8, 2), (53, 8, 2), (54, 8, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (55, 8, 1), (56, 8, 1), (57, 8, 1), (58, 8, 1), (59, 8, 2), (60, 8, 2), (61, 8, 1), (62, 8, 2), (63, 8, 1);
+
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (64, 3, 2), (65, 3, 2), (66, 3, 1), (67, 3, 2), (68, 3, 2), (69, 3, 2);
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (70, 3, 2), (71, 3, 2), (72, 3, 2), (73, 3, 1), (74, 3, 2), (75, 3, 2);
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76, 3, 2), (77, 3, 2), (78, 3, 2), (79, 3, 2), (80, 3, 2), (81, 3, 2);
@@ -6129,5 +6152,32 @@ INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (82, 4, 2), (83, 4, 2), (84, 4, 2), (85, 4, 1), (86, 4, 2), (87, 4, 2);
 INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (88, 4, 1), (89, 4, 2), (90, 4, 2), (91, 4, 2), (92, 4, 2), (93, 4, 2);
 
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (64, 5, 2), (65, 5, 2), (66, 5, 1), (67, 5, 2), (68, 5, 1), (69, 5, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (70, 5, 1), (71, 5, 1), (72, 5, 1), (73, 5, 1), (74, 5, 1), (75, 5, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76, 5, 2), (77, 5, 1), (78, 5, 1), (79, 5, 2), (80, 5, 2), (81, 5, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (82, 5, 2), (83, 5, 1), (84, 5, 1), (85, 5, 1), (86, 5, 1), (87, 5, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (88, 5, 1), (89, 5, 1), (90, 5, 1), (91, 5, 2), (92, 5, 1), (93, 5, 2);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (64, 6, 2), (65, 6, 2), (66, 6, 1), (67, 6, 2), (68, 6, 1), (69, 6, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (70, 6, 1), (71, 6, 1), (72, 6, 1), (73, 6, 1), (74, 6, 1), (75, 6, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76, 6, 2), (77, 6, 1), (78, 6, 1), (79, 6, 2), (80, 6, 2), (81, 6, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (82, 6, 2), (83, 6, 1), (84, 6, 1), (85, 6, 1), (86, 6, 1), (87, 6, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (88, 6, 1), (89, 6, 1), (90, 6, 1), (91, 6, 2), (92, 6, 1), (93, 6, 2);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (64, 9, 2), (65, 9, 2), (66, 9, 1), (67, 9, 2), (68, 9, 1), (69, 9, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (70, 9, 1), (71, 9, 1), (72, 9, 1), (73, 9, 1), (74, 9, 1), (75, 9, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76, 9, 2), (77, 9, 1), (78, 9, 1), (79, 9, 2), (80, 9, 2), (81, 9, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (82, 9, 2), (83, 9, 1), (84, 9, 1), (85, 9, 1), (86, 9, 1), (87, 9, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (88, 9, 1), (89, 9, 1), (90, 9, 1), (91, 9, 2), (92, 9, 1), (93, 9, 2);
+
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (64, 10, 1), (65, 10, 2), (66, 10, 2), (67, 10, 1), (68, 10, 1), (69, 10, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (70, 10, 1), (71, 10, 1), (72, 10, 1), (73, 10, 1), (74, 10, 2), (75, 10, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (76, 10, 2), (77, 10, 1), (78, 10, 1), (79, 10, 2), (80, 10, 2), (81, 10, 2);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (82, 10, 1), (83, 10, 1), (84, 10, 1), (85, 10, 1), (86, 10, 2), (87, 10, 1);
+INSERT INTO AsientoFuncion (asiento_id, funcion_id, estadoAsiento_id) VALUES (88, 10, 1), (89, 10, 1), (90, 10, 1), (91, 10, 1), (92, 10, 1), (93, 10, 1);
+
 INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (1, 1, 4.5);
-INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (2, 1, 3.7);
+INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (2, 2, 4.1);
+INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (4, 2, 4.3);
+INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (5, 1, 4.9);
+INSERT INTO PeliculaUsuario(pelicula_id, usuario_id, calificacion) VALUES (6, 2, 3.8);

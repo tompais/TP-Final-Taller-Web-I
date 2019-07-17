@@ -29,7 +29,7 @@ function connect() {
                         break;
                     case asientoLibre:
                         if (window.asientosDisponibles++ < 6) {
-                            spanContadorAsientosDisponibles.text(num++);
+                            spanContadorAsientosDisponibles.text(++num);
                         }
                         asiento.prop('disabled', false).attr('checked', false).parent().removeClass().addClass('seat');
                         break;
@@ -153,14 +153,14 @@ function reservar() {
 		alertify.alert("Debe seleccionar al menos un asiento para realizar una reserva");
 }
 
-function reservaExitosa(obj) {
+function reservaExitosa(numeroTicket) {
 	
 	$.each(arrayObjPosAsientosReservados, function(index, asiento){
 		cambiarEstadoAsientoEnServidor(asiento.fila, asiento.columna, asientoOcupado, false);
 	});
 	
 	arrayObjPosAsientosReservados = [];
-	alertify.alert("Su número de reserva es: " + obj);
+	window.location.href = pathReservaExitosa + '?nt=' + btoa(encodeURI(numeroTicket));
 }
 
 function errorReserva(err) {

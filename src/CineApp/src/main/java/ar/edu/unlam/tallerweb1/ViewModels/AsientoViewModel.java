@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.ViewModels;
 
-public class SalaViewModel {
+public class AsientoViewModel {
 	private Long id;
 	private Long tipoAsientoId;
 	private Long estadoAsientoId;

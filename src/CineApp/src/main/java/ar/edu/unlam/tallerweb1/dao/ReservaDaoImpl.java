@@ -6,10 +6,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-<<<<<<< HEAD
 import org.hibernate.criterion.Projections;
-=======
->>>>>>> be824af473b7ed9a09cde82b906a91fce6fd858a
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +14,6 @@ import ar.edu.unlam.tallerweb1.Models.Funcion;
 import ar.edu.unlam.tallerweb1.Models.Reserva;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository("reservaDao")
 public class ReservaDaoImpl implements ReservaDao{

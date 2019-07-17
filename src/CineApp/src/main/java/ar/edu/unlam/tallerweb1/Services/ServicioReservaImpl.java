@@ -227,7 +227,7 @@ public class ServicioReservaImpl implements ServicioReserva {
     
     @Override
     public List<Pelicula> consultarPelisReservadasUsuario(Long usuarioId) {
-    	List<Funcion> funciones = servicioReservaDao.consultarReservasUsuario(usuarioId);
+    	List<Funcion> funciones = reservaDao.consultarReservasUsuario(usuarioId);
     	
     	if(funciones != null && funciones.size() > 0) {
     		List<Pelicula> pelis = new ArrayList<>();

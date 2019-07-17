@@ -71,10 +71,11 @@ function inicializarSelectHorarioCompra() {
 
 function showHideHorarioCompra() {
     reinicializarSelect(selectHorarioCompra, 'Seleccione un horario...');
-    if(inputFechaCompra.val() !== null && inputFechaCompra.val() !==  "") {
+    if(inputFechaCompra.val() !== null && inputFechaCompra.val() !==  '') {
         inicializarSelectHorarioCompra();
     } else {
         divFormGroupHorarioCompra.addClass('d-none');
+        textSinHorariosCompra.addClass('d-none');
     }
 }
 
@@ -144,6 +145,7 @@ function showHideFechaCompra(tipoFuncionId) {
     } else {
         divFormGroupFechaCompra.addClass('d-none');
         destruirDatePicker();
+        showHideHorarioCompra();
     }
 }
 

@@ -108,4 +108,9 @@ public class SeguridadController {
     	
     	return new ModelAndView("redirect:/");
     }
+
+	@RequestMapping(path = "/linkExpirado", method = RequestMethod.GET)
+	public ModelAndView irALinkExpirado() {
+		return new ModelAndView("Seguridad/linkExpirado");
+	}
 }

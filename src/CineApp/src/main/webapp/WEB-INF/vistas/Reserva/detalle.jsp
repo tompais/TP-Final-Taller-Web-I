@@ -28,6 +28,7 @@
             <div class="d-flex flex-column text-center">
                 <h5 class="text-white-50">Cine: <span class="text-white">${funcion.cine.nombre}</span></h5>
                 <h5 class="text-white-50">Pelicula: <span class="text-white">${funcion.pelicula.nombre}</span></h5>
+                <h5 class="text-white-50">Tipo de Función: <span class="text-white">${funcion.tipoFuncion.tipo}</span></h5>
                 <h5 class="text-white-50">Asientos: <c:forEach items="${asientos}" var="asiento"><span class="text-white">${asiento.fila}${asiento.columna} </span></c:forEach></h5>
                 <h5 class="text-white-50">Fecha: <span class="text-white">${funcion.fecha}</span></h5>
                 <h5 class="text-white-50">Horario: <span class="text-white">${funcion.hora}</span></h5>

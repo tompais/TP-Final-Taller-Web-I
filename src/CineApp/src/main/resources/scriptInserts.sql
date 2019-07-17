@@ -6098,7 +6098,7 @@ INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (4, 1, 1, 2)
 INSERT INTO Asiento (fila, columna, tipoAsiento_id, sala_id) VALUES (5, 1, 1, 2), (5, 2, 1, 2), (5, 4, 1, 2), (5, 5, 1, 2), (5, 7, 1, 2), (5, 8, 1, 2);
 
 INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-28', '16:30:00', 250.00, 1, 1, 1, 1);
-INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-13', '14:00:00', 250.00, 2, 1, 2, 1);
+INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-31', '14:00:00', 250.00, 2, 1, 2, 1);
 INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-24', '22:15:00', 300.00, 1, 2, 1, 2);
 INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-25', '15:30:00', 300.00, 2, 2, 2, 2);
 INSERT INTO Funcion (fecha, hora, precio, tipoFuncion_id, sala_id, pelicula_id, cine_id) VALUES ('2019-07-20', '19:30:00', 300.00, 2, 2, 4, 2);

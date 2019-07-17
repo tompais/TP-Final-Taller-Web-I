@@ -22,7 +22,7 @@ import ar.edu.unlam.tallerweb1.Models.TipoAsiento;
 import ar.edu.unlam.tallerweb1.Models.TipoFuncion;
 import ar.edu.unlam.tallerweb1.Models.Usuario;
 import ar.edu.unlam.tallerweb1.ViewModels.ReservaViewModel;
-import ar.edu.unlam.tallerweb1.ViewModels.SalaViewModel;
+import ar.edu.unlam.tallerweb1.ViewModels.AsientoViewModel;
 import ar.edu.unlam.tallerweb1.Models.Reserva;
 import ar.edu.unlam.tallerweb1.dao.FuncionDao;
 import ar.edu.unlam.tallerweb1.dao.AsientoDao;
@@ -63,7 +63,7 @@ public class ServicioReservaImpl implements ServicioReserva {
     private TipoFuncionDao servicioTipoFuncionDao;
 
     @Inject
-    private ReservaDao servicioReservaDao;
+    private ReservaDao reservaDao;
 
     @Inject
     private SalaDao servicioSalaDao;
@@ -124,7 +124,7 @@ public class ServicioReservaImpl implements ServicioReserva {
     	long millis = System.currentTimeMillis();
         java.util.Date fecha = new java.util.Date(millis);
 
-        String ticket = TokenHelper.getSecureRandomString(10);
+        String ticket = TokenHelper.getSecureRandomString(10).toUpperCase();
 
         for (int i = 0; i < reservaViewModel.getFilas().length; i++) {
         	Reserva reserva = new Reserva();
@@ -141,7 +141,7 @@ public class ServicioReservaImpl implements ServicioReserva {
 
             reserva.setAsiento(asientoFuncion.getAsiento());
 
-            servicioReservaDao.realizarReserva(reserva);
+            reservaDao.realizarReserva(reserva);
         }
 
         return ticket;
@@ -162,10 +162,10 @@ public class ServicioReservaImpl implements ServicioReserva {
 
 
     @Override
-    public SalaViewModel[][] formatoSala(Long funcionId, int fil, int col) {
+    public AsientoViewModel[][] formatoSala(Long funcionId, int fil, int col) {
         List<AsientoFuncion> asientosFuncion = asientoFuncionDao.consultarDistribucionAsientosEnFuncion(funcionId);
 
-        SalaViewModel[][] sala = new SalaViewModel[fil][col];
+        AsientoViewModel[][] sala = new AsientoViewModel[fil][col];
 
         int cont = 0;
 
@@ -174,7 +174,7 @@ public class ServicioReservaImpl implements ServicioReserva {
             if (asientoFuncion.getAsiento().getColumna() - 1 == 0)
                 cont = 0;
 
-            SalaViewModel modelo = new SalaViewModel();
+            AsientoViewModel modelo = new AsientoViewModel();
 
             modelo.setId(asientoFuncion.getAsiento().getId());
             modelo.setEstadoAsientoId(asientoFuncion.getEstadoAsiento().getId());
@@ -241,6 +241,16 @@ public class ServicioReservaImpl implements ServicioReserva {
     	}
     	
     	return null;
+    }
+
+    @Override
+    public List<Reserva> getReservasByNumeroTicket(String numeroTicket) throws NumeroTicketInvalidoException {
+        List<Reserva> reservas = reservaDao.getReservasByNumeroTicket(numeroTicket);
+
+        if(reservas == null || reservas.size() == 0)
+            throw new NumeroTicketInvalidoException("No se han encontrado reservas para el número de ticket " + numeroTicket, CodigoError.NUMEROTICKETINVALIDO);
+
+        return reservas;
     }
 
 }

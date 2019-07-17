@@ -41,8 +41,14 @@ public class MailHelper {
     }
 
     public static void enviarMail(String mail, String asunto, String html) throws MessagingException {
-        MailHelper.sendAsHtml(mail,
-                asunto,
-                html);
+        new Thread(() -> {
+            try {
+                MailHelper.sendAsHtml(mail,
+                        asunto,
+                        html);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

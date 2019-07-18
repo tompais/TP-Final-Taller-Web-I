@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoEncontradoException;
 import ar.edu.unlam.tallerweb1.Services.ServicioUsuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +25,7 @@ public class PruebaController extends BaseController{
 	private ServicioReserva servicioReserva;
 	
 	@RequestMapping(path = "/prueba", method = RequestMethod.GET)
-	public ModelAndView prueba() {
+	public ModelAndView prueba() throws UsuarioNoEncontradoException {
 		ModelMap modelo = new ModelMap();
 		
 		Usuario usuarioBuscado = new Usuario();

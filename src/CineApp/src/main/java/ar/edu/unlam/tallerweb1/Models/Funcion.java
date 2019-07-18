@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.Models;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.persistence.*;
 

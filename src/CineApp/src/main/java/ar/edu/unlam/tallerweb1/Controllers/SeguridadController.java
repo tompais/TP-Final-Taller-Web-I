@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.security.NoSuchAlgorithmException;
 
 @Controller
@@ -49,11 +52,18 @@ public class SeguridadController {
 
     @ResponseBody
     @RequestMapping(path = "/loguearUsuario", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String loguearUsuario(@ModelAttribute @Validated LoginViewModel loginViewModel, HttpServletRequest request) throws NoSuchAlgorithmException, RecursoNoEncontradoException, UsuarioInvalidoException, UsuarioNoEncontradoException {
+	public String loguearUsuario(@ModelAttribute @Validated LoginViewModel loginViewModel, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, RecursoNoEncontradoException, UsuarioInvalidoException, UsuarioNoEncontradoException {
 
 		Usuario usuarioBuscado = servicioUsuario.loguearUsuario(loginViewModel.getEmailOrNick(), loginViewModel.getPassword());
 
 		setSessionUsuario(request, usuarioBuscado);
+		
+		if(loginViewModel.getRememberMe()) {
+			String datosSesion = usuarioBuscado.getEmail() + "|" + usuarioBuscado.getRol().getId().toString() + "|" + usuarioBuscado.getUsername();
+			Cookie pepitos = new Cookie("sesion", datosSesion);
+			pepitos.setMaxAge(60*2); //segundos que dura la cookie
+			response.addCookie(pepitos);
+		}
 
 		return new Gson().toJson(usuarioBuscado);
 	}
@@ -101,11 +111,21 @@ public class SeguridadController {
     }
 
     @RequestMapping(path = "/signout", method = RequestMethod.GET)
-    public ModelAndView cerrarSesion(HttpServletRequest request) {
+    public ModelAndView cerrarSesion(HttpServletRequest request, HttpServletResponse response) {
     	
     	if(request.getSession().getAttribute("email") != null)
     		request.getSession().invalidate();
     	
+    	Cookie pepitos = new Cookie("sesion", "");
+		pepitos.setMaxAge(0);
+		
+		response.addCookie(pepitos);
+    	
     	return new ModelAndView("redirect:/");
     }
+
+	@RequestMapping(path = "/linkExpirado", method = RequestMethod.GET)
+	public ModelAndView irALinkExpirado() {
+		return new ModelAndView("Seguridad/linkExpirado");
+	}
 }

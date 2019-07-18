@@ -74,6 +74,20 @@ public class HomeController extends BaseController {
         mm.addAttribute("estrenos", estrenos);
 
         mm.addAttribute("proximosEstrenos", proximosEstrenos);
+
+        Cookie[] cookies = request.getCookies();
+
+        if(cookies != null && request.getSession().getAttribute("email") == null) {
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("sesion")) {
+                    String[] datos = cookie.getValue().split("|");
+                    request.getSession().setAttribute("email", datos[0]);
+                    request.getSession().setAttribute("rol", datos[1]);
+                    request.getSession().setAttribute("username", datos[2]);
+                    break;
+                }
+            }
+        }
         
         if(request.getSession().getAttribute("email") != null)
         {
@@ -83,24 +97,10 @@ public class HomeController extends BaseController {
 
         	List<Pelicula> pelis = servicioReserva.consultarPelisReservadasUsuario(usuarioBuscado.getId());
         	
-        	if(pelis != null) {
+        	if(pelis != null && pelis.size() > 0) {
         		List<GeneroPelicula> generoPelis = servicioPeliculaGeneroPelicula.consultarGeneroPelis(pelis);
         		List<Pelicula> pelisRecomendadas = servicioPeliculaGeneroPelicula.consultarPelisRecomendadas(pelis, generoPelis);
         		mm.addAttribute("recomendaciones", pelisRecomendadas);
-        	}
-        }
-        
-        Cookie[] cookies = request.getCookies();
-        
-        if(cookies != null && request.getSession().getAttribute("email") == null) {        	
-        	for(Cookie cookie : cookies){
-        		if(cookie.getName().equals("sesion")) {
-        			String[] datos = cookie.getValue().split("|");
-        			request.getSession().setAttribute("email", datos[0]);
-        			request.getSession().setAttribute("rol", datos[1]);
-        			request.getSession().setAttribute("username", datos[2]);
-        			break;
-        		}
         	}
         }
 
